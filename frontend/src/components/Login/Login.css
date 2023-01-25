@@ -1,0 +1,23 @@
+#login-box{
+    background-color: white;
+    width: 30em;
+    height: 32em;
+    border-radius: 5px;
+}
+
+#inner-box{
+    width: 70%;
+}
+
+#profile-icon{ 
+    width: 3em;
+    height: 4em;
+    background-color: #d7d6d6 !important;
+    padding: 0.5em 2em;
+    border-radius: 50%;
+}
+
+.bi-person
+{
+    margin: 15px -7px;
+}
