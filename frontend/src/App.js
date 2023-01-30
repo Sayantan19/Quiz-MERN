@@ -1,12 +1,13 @@
 import './App.css';
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Login, Rules, Quiz, Summary, Register, Landing } from './pages/index.js';
-import { Private } from "./components/index.js";
 import { Provider } from "react-redux";
-import store from "./store";
+import store from "./store.js";
 import jwt_decode from "jwt-decode";
-import setAuthToken from "./utils/setAuthToken";
-import { setCurrentUser, logoutUser } from "./actions/authActions";
+import setAuthToken from "./utils/setAuthToken.js";
+import { setCurrentUser, logoutUser } from "./actions/authActions.js";
+import PrivateRoute from './components/private-route/PrivateRoute';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -32,15 +33,12 @@ function App() {
     <Provider store={store}>
       <Routes>
         <Route path='/' element={<Landing />} />
-        <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
-        <Switch>
-          <Private path='/rule' element={<Rules />} />
-          <Private path='/quiz' element={<Quiz />} />
-          <Private path='/summary' element={<Summary />} />
-        </Switch>
+        <Route path='/login' element={<Login />} />
+        <Route path='/rule'    element={<PrivateRoute path="/rule" component={Rules} />} /> 
+        <Route path='/quiz'    element={<PrivateRoute path="/quiz" component={Quiz} />} />
+        <Route path='/summary' element={<PrivateRoute path=".summary" component={Summary} />} />
       </Routes>
-
     </Provider>
   );
 }
