@@ -1,7 +1,10 @@
 import { React } from 'react';
 import './Quiz.css';
+// import './logic'
+import logic from './logic';
 
 export default function Quiz() {
+    window.onload = function(){ logic() }
     return (
         <>
             <div className="container" id="time">

@@ -1,4 +1,4 @@
-import data from '../../components/Quiz/question.json';
+import data from './question.json'
 
 export default function logic() {
 
