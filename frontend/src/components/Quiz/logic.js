@@ -1,6 +1,31 @@
+import axios from 'axios';
+import { accessCurrentUser } from '../../actions/authActions';
 import data from './question.json'
 
 export default function logic() {
+
+    function SubmitResult() {
+        const token = accessCurrentUser();
+        // console.log(token);
+        const data = {
+            'id': token.id,
+            'name':token.name,
+            'score': correctscore,
+            'time': (timerValue - totalSeconds),
+        }
+
+        // console.log(data);
+        axios.post('/api/users/result', data)
+            .then(function (response) {
+                if (response.status !== 200) {
+                    console.log('Error', response.status);
+                }
+                else {
+                    console.log('Success');
+                    // window.location.href = './summary';
+                }
+            })
+    }
 
     //To set the number of questions
     const NoOfQuestions = Number(data.Question_settings.quizquestions)
@@ -34,38 +59,13 @@ export default function logic() {
             calculateMarks();
             // closeNav();
 
-            const data = {
-                'studentScore': correctscore.toString(),
-                'completionTime': (timerValue - totalSeconds).toString(),
-                'qScore': correctIncorrect
-            }
-
-            console.log(data);
-            fetch(`${window.origin}/student/quiz_result`, {
-                method: 'POST',
-                credentials: "include",
-                body: JSON.stringify(data),
-                cache: 'no-cache',
-                headers: new Headers({
-                    'content-type': 'application/json'
-                })
-            }).then(function (response) {
-                if (response.status !== 200) {
-                    console.log('Error', response.status);
-                    return;
-                }
-
-                response.json().then(function (data) {
-                    console.log(data);
-                })
-            })
-
-        //     quiz.innerHTML = `
-        // <div class="container my-2" id="end">
-        // <p id="exitMessage"><h2>You scored <span name="Score">${correctscore}</span>/${4 * NoOfQuestions}</h2></p>
-        //     <button type="button" id="exit" class="btn btn-outline-dark" onclick="window.location.assign('/summary')">Submit</button>
-        // </div>
-        // `
+            SubmitResult()
+            //     quiz.innerHTML = `
+            // <div class="container my-2" id="end">
+            // <p id="exitMessage"><h2>You scored <span name="Score">${correctscore}</span>/${4 * NoOfQuestions}</h2></p>
+            //     <button type="button" id="exit" class="btn btn-outline-dark" onclick="window.location.assign('/summary')">Submit</button>
+            // </div>
+            // `
         }
     }
 
@@ -116,13 +116,11 @@ export default function logic() {
     //Used to display the questions on the screen
     loadQuiz()
     function loadQuiz() {
-        if (count === 0)
-        {
+        if (count === 0) {
             document.getElementById('prev').setAttribute("disabled", "");
             document.getElementById('prev').removeAttribute("enabled", "");
         }
-        else if(count > 0)
-        {
+        else if (count > 0) {
             document.getElementById('prev').setAttribute("enabled", "");
             document.getElementById('prev').removeAttribute("disabled", "");
         }
@@ -179,39 +177,13 @@ export default function logic() {
             clearInterval(timerID);
             localStorage.removeItem('saved_timer');
             // closeNav();
-
-            const data = {
-                'studentScore': correctscore.toString(),
-                'completionTime': (timerValue - totalSeconds).toString(),
-                'qScore': correctIncorrect
-            }
-
-            console.log(data);
-            fetch(`${window.origin}/student/quiz_result`, {
-                method: 'POST',
-                credentials: "include",
-                body: JSON.stringify(data),
-                cache: 'no-cache',
-                headers: new Headers({
-                    'content-type': 'application/json'
-                })
-            }).then(function (response) {
-                if (response.status !== 200) {
-                    console.log('Error', response.status);
-                    return;
-                }
-
-                response.json().then(function (data) {
-                    console.log(data);
-                })
-            })
-
-        //     quiz.innerHTML = `
-        // <div class="container my-2" id="end">
-        //     <p id="exitMessage"><h2>You scored <span name="Score">${correctscore}</span>/${4 * NoOfQuestions}</h2></p>
-        //     <button type="button" id="exit" class="btn btn-outline-dark" onclick="window.location.assign('/summary')">Submit</button>
-        // </div>
-        // `
+            SubmitResult()
+            //     quiz.innerHTML = `
+            // <div class="container my-2" id="end">
+            //     <p id="exitMessage"><h2>You scored <span name="Score">${correctscore}</span>/${4 * NoOfQuestions}</h2></p>
+            //     <button type="button" id="exit" class="btn btn-outline-dark" onclick="window.location.assign('/summary')">Submit</button>
+            // </div>
+            // `
         }
     }
 

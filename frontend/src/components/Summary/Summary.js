@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './Summary.css';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { logoutUser } from "../../actions/authActions.js";
+import { accessCurrentUser, logoutUser } from "../../actions/authActions.js";
 
 class Summary extends Component {
     onLogoutClick = e => {

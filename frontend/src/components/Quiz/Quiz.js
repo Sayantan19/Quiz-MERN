@@ -2,9 +2,13 @@ import { React } from 'react';
 import './Quiz.css';
 // import './logic'
 import logic from './logic';
+import { accessCurrentUser } from '../../actions/authActions';
 
+
+accessCurrentUser();
 export default function Quiz() {
-    window.onload = function(){ logic() }
+
+    window.onload = function () { logic() }
     return (
         <>
             <div className="container" id="time">

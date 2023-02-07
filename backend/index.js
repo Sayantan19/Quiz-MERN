@@ -12,6 +12,7 @@ app.use(
 );
 app.use(bodyParser.json());
 // DB Config
+mongoose.set('strictQuery',false);
 const db = require("./config/keys").mongoURI;
 // Connect to MongoDB
 mongoose.connect(db, { useNewUrlParser: true })

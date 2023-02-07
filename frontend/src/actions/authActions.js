@@ -44,6 +44,19 @@ export const loginUser = (userData) => dispatch => {
             })
         });
 };
+
+export function accessCurrentUser()
+{
+  if(localStorage.jwtToken)
+  {
+    const decoded = jwt_decode(localStorage.jwtToken);
+    return decoded;
+  }
+  else
+    return null;
+}
+
+
 // Set logged in user
 export const setCurrentUser = decoded => {
     return {
@@ -51,6 +64,7 @@ export const setCurrentUser = decoded => {
         payload: decoded
     };
 };
+
 // User loading
 export const setUserLoading = () => {
     return {
