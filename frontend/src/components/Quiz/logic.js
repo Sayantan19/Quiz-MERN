@@ -20,11 +20,16 @@ export default function logic() {
                 if (response.status !== 200) {
                     console.log('Error', response.status);
                 }
-                else {
-                    console.log('Success');
-                    // window.location.href = './summary';
+                else if(response.data === 'Fraud Case'){
+                    alert('Congratulations on wasting your time giving the exam again!');
+                    window.location.href = '/summary';
                 }
-            })
+                else {
+                    console.log(response);
+                    console.log('Success');
+                    window.location.href = './summary';
+                }
+            }).catch(console.log("Fraud case"));
     }
 
     //To set the number of questions

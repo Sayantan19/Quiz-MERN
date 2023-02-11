@@ -97,48 +97,37 @@ router.post("/login", (req, res) => {
 
 router.post("/result", (req, res) => {
 
-    if(res){
+    if (res) {
         console.log(req.body)
-        res.sendStatus(200);
+        // res.sendStatus(200);
+        const id = req.id;
+        // Find user by email
+        User.findOne({ id }).then(user => {
+            console.log(user);
+            const name = user.name;
+            const email = user.email;
+            Result.findOne({ email }).then(result => {
+                if (result){
+                    console.log('Fraud Case')
+                    res.send('Fraud Case');
+                }
+                else {
+                    console.log("I'm here");
+                    const newResult = new Result({
+                        name: name,
+                        email: email,
+                        score: req.body.score,
+                        time: req.body.time
+                    })
+                    newResult.save()
+                        .then(result => res.json(result))
+                        .catch(err => console.log(err));
+                }
+            })
+        })
     }
     else
         console.log(req.status)
-// Find user by email
-//     User.findOne({ email }).then(user => {
-//         // Check if user exists
-//         if (!user) {
-//             return res.status(404).json({ emailnotfound: "Email not found" });
-//         }
-//         // Check password
-//         bcrypt.compare(password, user.password).then(isMatch => {
-//             if (isMatch) {
-//                 // User matched
-//                 // Create JWT Payload
-//                 const payload = {
-//                     id: user.id,
-//                     name: user.name
-//                 };
-//                 // Sign token
-//                 jwt.sign(
-//                     payload,
-//                     keys.secretOrKey,
-//                     {
-//                         expiresIn: 3600 // 1 hr in seconds
-//                     },
-//                     (err, token) => {
-//                         res.json({
-//                             success: true,
-//                             token: "Bearer " + token
-//                         });
-//                     }
-//                 );
-//             } else {
-//                 return res
-//                     .status(400)
-//                     .json({ passwordincorrect: "Password incorrect" });
-//             }
-//         });
-//     });
 });
 
 module.exports = router;
