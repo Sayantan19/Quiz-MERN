@@ -1,14 +1,17 @@
-import { React } from 'react';
+import { React, useEffect } from 'react';
 import './Quiz.css';
-// import './logic'
-import logic from './logic';
 import { accessCurrentUser } from '../../actions/authActions';
+import logic from './logic';
 
 
 accessCurrentUser();
 export default function Quiz() {
-
-    window.onload = function () { logic() }
+    useEffect(() => {
+      return () => {
+        logic()
+      };
+    }, []);
+    
     return (
         <>
             <div className="container" id="time">

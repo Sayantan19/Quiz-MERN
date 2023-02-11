@@ -27,7 +27,7 @@ export default function logic() {
                 else {
                     console.log(response);
                     console.log('Success');
-                    window.location.href = './summary';
+                    window.location.href = '/summary';
                 }
             }).catch(console.log("Fraud case"));
     }
@@ -76,7 +76,6 @@ export default function logic() {
 
     // //The question set is stored in 'quizData'
     const quizData = data.quizData;
-    console.log(quizData)
     // const quiz = document.getElementById('quiz')
     //Various elements of the question to be displayed in the page.
     const answerEls = document.querySelectorAll('.answer')

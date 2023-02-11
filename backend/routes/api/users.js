@@ -9,7 +9,8 @@ const validateLoginInput = require("../../validation/login");
 // Load User model
 const User = require("../../models/User");
 // Load Result model
-const Result = require('../../models/Result')
+const Result = require('../../models/Result');
+const { json } = require("express");
 
 // @route POST api/users/register
 // @desc Register user
@@ -107,7 +108,7 @@ router.post("/result", (req, res) => {
             const name = user.name;
             const email = user.email;
             Result.findOne({ email }).then(result => {
-                if (result){
+                if (result) {
                     console.log('Fraud Case')
                     res.send('Fraud Case');
                 }
@@ -129,5 +130,21 @@ router.post("/result", (req, res) => {
     else
         console.log(req.status)
 });
+
+router.post("/display", (req, res) => {
+    if (res) {
+        console.log(req.body)
+        const id = req.id;
+        Result.findOne({ id })
+            .then(result => {
+                console.log(typeof(result))
+                const data = JSON.stringify(result)
+                res.send(data)
+            })
+    }
+    else
+        res.send('Not Found')
+})
+
 
 module.exports = router;
