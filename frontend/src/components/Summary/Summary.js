@@ -19,7 +19,7 @@ class Summary extends Component {
         const dat = {
             'id': token.id
         }
-        axios.post("/api/users/display", dat)
+        axios.post("/api/results/display", dat)
             .then(response => {
                 console.log('Result: ' + response.status)
                 // console.log("Response: " + JSON.stringify(response.data))

@@ -4,23 +4,35 @@ import data from './question.json'
 
 export default function logic() {
 
+    // axios.post('/api/users/proctor')
+    //     .then(function (response) {
+    //         if (response.status !== 200) {
+    //             console.log('Error', response.status);
+    //         }
+    //         else {
+    //             console.log(response);
+    //             console.log('Success');
+    //         }
+    //     })
+    //     .catch(console.log('Gondogol'));
+
     function SubmitResult() {
         const token = accessCurrentUser();
         // console.log(token);
         const data = {
             'id': token.id,
-            'name':token.name,
+            'name': token.name,
             'score': correctscore,
             'time': (timerValue - totalSeconds),
         }
 
         // console.log(data);
-        axios.post('/api/users/result', data)
+        axios.post('/api/results/result', data)
             .then(function (response) {
                 if (response.status !== 200) {
                     console.log('Error', response.status);
                 }
-                else if(response.data === 'Fraud Case'){
+                else if (response.data === 'Fraud Case') {
                     alert('Congratulations on wasting your time giving the exam again!');
                     window.location.href = '/summary';
                 }

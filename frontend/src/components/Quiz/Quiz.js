@@ -2,12 +2,14 @@ import { React, useEffect } from 'react';
 import './Quiz.css';
 import { accessCurrentUser } from '../../actions/authActions';
 import logic from './logic';
+// import proctor from './proctor'
 
 
 accessCurrentUser();
 export default function Quiz() {
     useEffect(() => {
       return () => {
+        // proctor()
         logic()
       };
     }, []);

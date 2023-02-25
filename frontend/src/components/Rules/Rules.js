@@ -9,7 +9,6 @@ export default function Rules() {
         if (checked === true) {
             button.innerHTML = `<a class="btn btn-outline-dark mb-3" id="start" href='/quiz' style="display: block" role="button">Start Quiz!!!</a>`
             checkBox.style.backgroundColor = "black";
-            // checkBox.style.zIndex = "-1";
         }
         else {
             document.getElementById('start').style.display = "none";
