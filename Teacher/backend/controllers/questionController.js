@@ -29,13 +29,19 @@ const UploadQuestion = (req, res) => {
         fs.readFile('../../Data/question.json', 'utf8', (err, data) => {
             if (err) throw err;
             const fileData = JSON.parse(data);
-            // if()
-            var x = Object.values(fileData.quizData);
-            for(var i in Object.values(request['quizData'])){
-                x.push(request['quizData'][i])
+            console.log(Object.keys(fileData))
+            if (fileData.quizData === undefined) {
+                console.log("Yes");
+                Object.assign(fileData, request);
             }
-            fileData.quizData = x;
-            console.log(fileData);
+            else {
+                var x = Object.values(fileData.quizData);
+                for (var i in Object.values(request['quizData'])) {
+                    x.push(request['quizData'][i])
+                }
+                fileData.quizData = x;
+                console.log(fileData);
+            }
             fs.writeFile('../../Data/question.json', JSON.stringify(fileData, null, 4), (err) => {
                 if (err) throw err;
             });

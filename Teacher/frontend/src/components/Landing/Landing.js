@@ -6,6 +6,7 @@ import { logoutUser } from "../../actions/authActions";
 
 import './Landing.css';
 class Landing extends Component {
+    //This function will cause the user to log out of the app
     onLogoutClick = e => {
         e.preventDefault();
         this.props.logoutUser();
