@@ -1,7 +1,6 @@
 {
     "Question_settings": {
-        "questiontime": "30",
-        "quizquestions": "3"
-    },
-    "quizData": {}
+        "questiontime": "199",
+        "quizquestions": "30"
+    }
 }
