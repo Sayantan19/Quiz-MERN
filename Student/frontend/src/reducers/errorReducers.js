@@ -1,3 +1,4 @@
+//This sets the type of errors encountered due to user activity during authentication
 import { GET_ERRORS } from "../actions/types.js";
 const initialState = {};
 export default function(state = initialState, action) {

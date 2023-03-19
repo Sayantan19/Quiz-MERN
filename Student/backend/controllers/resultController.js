@@ -1,7 +1,9 @@
+//This is the result controller. What this part does is to display the results of the people who attempted the exam/quiz
 const User = require("../models/User");
 const Result = require('../models/Result');
 const mongoose = require('mongoose');
 
+//Sends the results of the exam that the student gave
 const ResultSend = (req, res) => {
 
     if (res) {

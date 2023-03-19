@@ -1,7 +1,8 @@
+//This file handles several responses based on the different authentication actions done by the user
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken.js";
 import jwt_decode from "jwt-decode";
-// import { redirect } from "react-router-dom";
+
 import {
     GET_ERRORS,
     SET_CURRENT_USER,
@@ -46,12 +47,12 @@ export const loginUser = (userData) => dispatch => {
         });
 };
 
+//This function decodes the current user's JWT and displays the email and MongoDB id
 export function accessCurrentUser()
 {
   if(localStorage.jwtToken)
   {
     const decoded = jwt_decode(localStorage.jwtToken);
-    console.log(decoded)
     return decoded;
   }
   else

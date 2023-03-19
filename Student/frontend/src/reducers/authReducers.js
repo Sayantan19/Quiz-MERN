@@ -1,8 +1,9 @@
+//This is used to set the values for the action types taking place while authentication
 import {
   SET_CURRENT_USER,
   USER_LOADING
 } from "../actions/types.js";
-// const isEmpty = require("is-empty");
+
 import isEmpty from "is-empty";
 const initialState = {
   isAuthenticated: false,

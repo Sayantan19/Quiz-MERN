@@ -1,24 +1,14 @@
+// This is the brain of the entire student side
+// This is where the question is randomized and displayed.
+
 import axios from 'axios';
 import { accessCurrentUser } from '../../actions/authActions';
 import data from './question.json'
 
 export default function logic() {
-
-    // axios.post('/api/users/proctor')
-    //     .then(function (response) {
-    //         if (response.status !== 200) {
-    //             console.log('Error', response.status);
-    //         }
-    //         else {
-    //             console.log(response);
-    //             console.log('Success');
-    //         }
-    //     })
-    //     .catch(console.log('Gondogol'));
-
+    //This is where the result gets formatted and submitted
     function SubmitResult() {
         const token = accessCurrentUser();
-        // console.log(token);
         const data = {
             'id': token.id,
             'name': token.name,
@@ -26,7 +16,6 @@ export default function logic() {
             'time': (timerValue - totalSeconds),
         }
 
-        // console.log(data);
         axios.post('/api/results/result', data)
             .then(function (response) {
                 console.log(response.data)
@@ -83,7 +72,6 @@ export default function logic() {
 
     // //The question set is stored in 'quizData'
     const quizData = data.quizData;
-    // const quiz = document.getElementById('quiz')
     //Various elements of the question to be displayed in the page.
     const answerEls = document.querySelectorAll('.answer')
     const questionEl = document.getElementById('question')
@@ -97,8 +85,6 @@ export default function logic() {
     const resetBtn = document.getElementById('reset')
     const nextBtn = document.getElementById('next')
     const prevBtn = document.getElementById('prev')
-    // const [prevState, setPrevState] =  = 
-
 
     //Variables for manipulation and navigation of the questions
     let visited = new Array(quizData.length).fill(0)
@@ -236,5 +222,4 @@ export default function logic() {
             }
         }
     }
-    console.log("Backend goes here");
 }

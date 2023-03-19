@@ -1,11 +1,9 @@
+//This is the frontend side of the Quiz console
 import { React, useEffect } from 'react';
 import './Quiz.css';
-import { accessCurrentUser } from '../../actions/authActions';
 import logic from './logic';
 import proctor from './proctor'
 
-
-accessCurrentUser();
 export default function Quiz() {
     useEffect(() => {
         return () => {
@@ -25,10 +23,10 @@ export default function Quiz() {
             </div>
             <div className="container" id="time">
                 <div id="timer" name="timer">
-                    <span>Time Left: 30:00</span>
+                    <span>Time Left:</span>
                 </div>
                 <div id="cheat" style={{ margin: '1em' }}>
-                    <span>Times cheated: 0</span>
+                    <span>Times cheated:</span>
                 </div>
             </div>
             <div className="container">

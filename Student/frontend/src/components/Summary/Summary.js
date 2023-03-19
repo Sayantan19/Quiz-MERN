@@ -1,3 +1,4 @@
+//This displays the summary of the exam the person has taken
 import React, { Component } from 'react'
 import './Summary.css';
 import PropTypes from "prop-types";
@@ -22,7 +23,6 @@ class Summary extends Component {
         axios.post("/api/results/display", dat)
             .then(response => {
                 console.log('Result: ' + response.data)
-                // console.log("Response: " + JSON.stringify(response.data))
                 this.setState({ score: response.data.score })
                 this.setState({ time: response.data.time })
 

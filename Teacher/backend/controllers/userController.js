@@ -10,7 +10,6 @@ const validateLoginInput = require("../validation/login");
 const bcrypt = require("bcryptjs");
 const validateRegisterInput = require("../validation/register");
 
-
 //This function is for Signing in the user
 const SignIn = (req, res) => {
     // Form validation

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import './Landing.css';
+// This is the Landing Component.
+// It asks the user whether they want to login or register for the quiz
 class Landing extends Component {
     render() {
         return (

@@ -1,3 +1,9 @@
+//This is the proctor mechanism that I have used in the software
+//I have used face-api.js, a tensorflow based library which is extremely lightweight
+//I have been able to add the face detection system so far. It checks whether the person is giving the exam or not.
+//If the person is not visible to the webcam for 5 seconds consecutively, then a warning message is displayed.
+//The person gets 5+1 chances, after which his examination will get terminated.
+
 import * as faceapi from 'face-api.js'
 import axios from 'axios';
 import { accessCurrentUser } from '../../actions/authActions';
@@ -38,7 +44,6 @@ export default async function proctor() {
                     alert("You have been disqualified");
                     localStorage.removeItem('saved_timer');
                     const token = accessCurrentUser();
-                    // console.log(token);
                     const data = {
                         'id': token.id,
                         'name': token.name,
@@ -51,10 +56,6 @@ export default async function proctor() {
                         .then(function (response) {
                             if (response.status !== 200) {
                                 console.log('Error', response.status);
-                            }
-                            else if (response.data === 'Fraud case') {
-                                alert('Congratulations on wasting your time giving the exam again!');
-                                window.location.href = '/summary';
                             }
                             else {
                                 console.log(response);
