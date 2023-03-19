@@ -21,15 +21,6 @@ export default function Questions() {
         console.log(state);
     }
 
-
-    // function changePage() {
-    //     const info_set = document.getElementById('info');
-    //     info_set.innerHTML = `
-    //     <form onSubmit={handleSubmit}>
-    //     <button type="submit">Upload</button>
-    //     </form>
-    //     `;
-    // }
     const [uploadStatus, setUploadStatus] = useState(0);
     const onSubmit = e => {
         e.preventDefault();
@@ -47,9 +38,7 @@ export default function Questions() {
 
         axios.post('/api/questions/upload', formData)
             .then(response => {
-                console.log(response);
-                if (response.data === 'File uploaded successfully.')
-                {
+                if (response.data === 'File uploaded successfully.') {
                     console.log('hello')
                     setUploadStatus(1);
                 }
@@ -59,17 +48,17 @@ export default function Questions() {
             });
 
         console.log(uploadStatus)
-        
-        if (uploadStatus === 1) {
-            axios.post('/api/questions/process', 'process')
-                .then(response => {
-                    console.log(response.data)
-                    window.location.href('/landing')
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-        }
+
+        axios.post('/api/questions/process', 'process')
+            .then(response => {
+                console.log(response.data)
+                alert('Questions have been uploaded successfully. Redirecting you to the dashboard!')
+                window.location.href = '/landing';
+            })
+            .catch(error => {
+                console.log(error);
+            })
+
     }
 
     return (

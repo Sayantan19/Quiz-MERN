@@ -12,11 +12,25 @@ const SetQuestion = (req, res) => {
     if (res) {
         const request = req.body;
         const response = 'Received';
+        const filename = '../../Data/question.json';
+        
+        // Check if file exists
+        if (fs.existsSync(filename)) {
+          // Check file size
+          const stats = fs.statSync(filename);
+          if (stats.size === 0) {
+            // Write an empty JSON object to the file
+            fs.writeFileSync(filename, '{}');
+          }
+        } else {
+          // Create the file and write an empty JSON object to it
+          fs.writeFileSync(filename, '{}');
+        }
+        
         fs.readFile('../../Data/question.json', 'utf8', (err, data) => {
             if (err) throw err;
             const fileData = JSON.parse(data);
             if (fileData.Question_settings === undefined) {
-                console.log("Yes");
                 const data = { "Question_settings": request }
                 Object.assign(fileData, data);
             }
@@ -72,16 +86,22 @@ const UploadFile = (req, res) => {
 }
 
 //This is the crucial part. This puts everything together and places the final question.json file
-const UploadQuestion = (req, res) => {
+const UploadQuestion = (req, res)=>{
     if (res) {
-        fs.readFileSync('../../Data/questiondata.json', 'utf8', (err, data) => {
+        const filename = '../../Data/questiondata.json';
+        
+        // Check if file exists
+        if (!fs.existsSync(filename)) {
+          // Create the file and write an empty JSON object to it
+          fs.writeFileSync(filename, '');
+        }
+        
+        fs.readFile('../../Data/questiondata.json', 'utf8', (err, data) => {
             if (err) throw err;
             const request = JSON.parse(data);
             const response = "JSON received";
-            console.log('here')
             fs.readFile('../../Data/question.json', 'utf8', (err, data) => {
                 if (err) throw err;
-                console.log('here now')
                 const fileData = JSON.parse(data);
                 if (fileData.quizData === undefined) {
                     console.log("Yes");
