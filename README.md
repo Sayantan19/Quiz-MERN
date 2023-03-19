@@ -4,11 +4,19 @@ This is the development branch of the Comprehensive Assessment System
 <p>There have been a lot of changes that I had made in this application since I attended Diversion 2k23, a hackathon organized by Institute of Engineering and Management, Kolkata in partnership with Major League Hacking(MLH). I have put them in this branch, and will soon push them to the <a href="https://github.com/Sayantan19/Quiz-MERN">master</a> branch.</p>
 <h3>Changes in the pipeline</h3>
 <ul>
-<li>Added the Teacher side along with the student side.</li>
-<li>Added the proctoring system, which is functional now.</li>
-<li>Changed the UI of the Student side a little bit.</li>
+<li>Adding a Teacher side along with the student side.</li>
+<li>Adding a proctoring system. So far I have been able to add only a single feature to this, i.e., face detection. Will add more features as time progresses.</li>
+<li>Changing the UI of the application. The current UI isnt the best of UIs out there. I need a UI designer for this.</li>
 <li>There were quite a few bugs in both the sides of the software (Teacher and Student) when we were presenting them at the Hackathon. Removing them, one feature ar a time!</li>
 <li>Documenting all the parts of the code! I don't want anyone to be confused about what the heck have I written in the code lol XD</li>
+</ul>
+
+<h3>Bugs to be fixed</h3>
+<ul>
+<li><s>Student could log in, but post the exam, only the first student's result was being shown, and was not putting the result in its proper place</s></li>
+<li><s>Student cannot see the summary properly</s></li>
+<li><s>Proctoring takes a long time to load and was slowing down the entire app due to its heavyweight code</s></li>
+<li>JSON file for setting the question not being uploaded properly</li>
 </ul>
 
 <h3>Technologies Used:</h3>
