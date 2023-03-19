@@ -1,3 +1,4 @@
+//This is the Landing Page. This page asks the user whether they want to check scores, set questions or log out.
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";

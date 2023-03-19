@@ -1,3 +1,4 @@
+//This is the registration component
 import React, { Component } from "react";
 import { Link, useLocation, useParams, useNavigate } from "react-router-dom";
 import './Register.css'
@@ -5,8 +6,6 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions.js";
 import classnames from "classnames";
-// import { useNavigate } from '@reach/router';
-
 
 function withRouter(Component) {
     function ComponentWithRouterProp(props) {
@@ -57,6 +56,7 @@ class Register extends Component {
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     };
+
     onSubmit = e => {
         e.preventDefault();
         const newUser = {
@@ -65,11 +65,7 @@ class Register extends Component {
             password: this.state.password,
             password2: this.state.password2
         };
-        console.log(this.props)
-        console.log("History recorded: ", this.props.router.navigate)
         this.props.registerUser(newUser,this.props.router.navigate);
-        console.log(newUser);
-        console.log(typeof(newUser));
     };
     render() {
         const { errors } = this.state;

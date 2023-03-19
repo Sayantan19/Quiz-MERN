@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+//This is the component which sets the questions for the quiz.
+import React, { useEffect, useState } from 'react'
 import './Questionnaire.css'
-import Questionnaire from './Questionnaire.js'
 import axios from 'axios';
 
 
@@ -10,26 +10,66 @@ export default function Questions() {
         quizquestions: 0
     });
 
+    const [file, setFile] = useState(null);
+
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0]);
+    };
+
     const handleChange = e => {
         setState({ ...state, [e.target.id]: e.target.value })
         console.log(state);
     }
 
-    function submitData(data) {
-        axios.post('/api/questions/question', data)
-            .then(function (response) {
-                console.log(response.data)
-            })
-            .catch(res => { console.log("Error: ", res) })
-    }
 
+    // function changePage() {
+    //     const info_set = document.getElementById('info');
+    //     info_set.innerHTML = `
+    //     <form onSubmit={handleSubmit}>
+    //     <button type="submit">Upload</button>
+    //     </form>
+    //     `;
+    // }
+    const [uploadStatus, setUploadStatus] = useState(0);
     const onSubmit = e => {
         e.preventDefault();
         const data = {
             questiontime: state.questiontime,
             quizquestions: state.quizquestions
         }
-        submitData(data);
+        axios.post('/api/questions/question', data)
+            .then(function (response) {
+                console.log(response.data)
+            })
+            .catch(res => { console.log("Error: ", res) })
+        const formData = new FormData();
+        formData.append('file', file);
+
+        axios.post('/api/questions/upload', formData)
+            .then(response => {
+                console.log(response);
+                if (response.data === 'File uploaded successfully.')
+                {
+                    console.log('hello')
+                    setUploadStatus(1);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+
+        console.log(uploadStatus)
+        
+        if (uploadStatus === 1) {
+            axios.post('/api/questions/process', 'process')
+                .then(response => {
+                    console.log(response.data)
+                    window.location.href('/landing')
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+        }
     }
 
     return (
@@ -49,6 +89,12 @@ export default function Questions() {
                     </label>
                     <input type="text" className="form-control" id="quizquestions" name="quizquestions" onChange={handleChange}
                         placeholder="" required={true} />
+                </div>
+                <div className="forms">
+                    <label htmlFor="uploadFile" className="form-label">
+                        <h3><b>Specify the number of questions in the quiz</b> <span style={{ color: 'red', fontSize: '15px' }}>*Required</span></h3>
+                    </label>
+                    <input type="file" className='form-control' name='uploadFile' id='uploadFile' onChange={handleFileChange} />
                 </div>
                 <hr />
                 <button className="btn btn-outline-dark forms" id="nextbut" onClick={onSubmit}>Next</button>

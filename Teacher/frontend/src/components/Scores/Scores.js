@@ -1,8 +1,8 @@
+//This component displays the scores in a tabular form
 import axios from 'axios';
 import exportFromJSON from 'export-from-json';
 import React, { useState, useEffect } from 'react';
 import './Scores.css'
-
 
 export default function Scores() {
     const [content, setContent] = useState(null);
@@ -27,6 +27,7 @@ export default function Scores() {
         window.location.href = '/landing'
     }
 
+    // this function downloads the scores from a database to an excel file
     async function downloadF(){
         const data = content
         const fileName = 'Results'

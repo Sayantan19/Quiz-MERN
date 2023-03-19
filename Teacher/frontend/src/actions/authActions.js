@@ -1,12 +1,14 @@
+//This file deals in relevant actions to be taken for various user autentication actions
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken.js";
 import jwt_decode from "jwt-decode";
-// import { redirect } from "react-router-dom";
+
 import {
     GET_ERRORS,
     SET_CURRENT_USER,
     USER_LOADING
 } from "./types.js";
+
 // Register User
 export const registerUser = (userData, navigate) => dispatch => {
     axios.post("/api/users/register", userData)
@@ -45,6 +47,8 @@ export const loginUser = (userData) => dispatch => {
         });
 };
 
+//This function returns the decoded JWT for various functions which we will come across later.
+//This acts like the bookmark for accessing various features of the user
 export function accessCurrentUser() {
     if (localStorage.jwtToken) {
         const decoded = jwt_decode(localStorage.jwtToken);

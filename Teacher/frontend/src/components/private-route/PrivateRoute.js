@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 //This is for the logged in Users. This component makes sure that the user is kept logged in even if they accidentally close the browser
+//Thereby keeping them in the session
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
   const navigate = useNavigate();

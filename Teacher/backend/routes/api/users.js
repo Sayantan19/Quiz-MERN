@@ -1,8 +1,7 @@
-const {SignIn, Register} = require('../../controllers/userController')
 const express = require("express");
 const router = express.Router();
-// Load input validation
-const { json } = require("express");
+
+const {SignIn, Register} = require('../../controllers/userController')
 
 // @route POST api/users/register
 // @desc Register user

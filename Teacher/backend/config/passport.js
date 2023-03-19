@@ -1,3 +1,5 @@
+//This will help us to create a JWT token for login and authentication
+
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
 const mongoose = require("mongoose");
@@ -5,8 +7,10 @@ const User = mongoose.model("teacher-credentials");
 const Result = mongoose.model("student-scores");
 const keys = require("../config/keys");
 const opts = {};
+
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.secretOrKey = keys.secretOrKey;
+
 module.exports = passport => {
   passport.use(
     new JwtStrategy(opts, (jwt_payload, done) => {

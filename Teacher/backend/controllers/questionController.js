@@ -1,6 +1,12 @@
-
+//This contains all the relevant functions for uploading questions, and relevant settings based on it
 const fs = require('fs');
-const path = require("path");
+const multer = require("multer");
+
+
+//This function handles the settings of the questions in the quiz.
+//For now I have included 2 things: 
+//1. The number of questions
+//2. The time for each question
 
 const SetQuestion = (req, res) => {
     if (res) {
@@ -9,8 +15,13 @@ const SetQuestion = (req, res) => {
         fs.readFile('../../Data/question.json', 'utf8', (err, data) => {
             if (err) throw err;
             const fileData = JSON.parse(data);
-            console.log(typeof (fileData));
-            fileData['Question_settings'] = request;
+            if (fileData.Question_settings === undefined) {
+                console.log("Yes");
+                const data = { "Question_settings": request }
+                Object.assign(fileData, data);
+            }
+            else
+                fileData['Question_settings'] = request;
             fs.writeFile('../../Data/question.json', JSON.stringify(fileData, null, 4), (err) => {
                 if (err) throw err;
             });
@@ -21,38 +32,79 @@ const SetQuestion = (req, res) => {
         console.log(req.status);
 }
 
+
+//This is used to store the uploaded question.json file from the frontend in the localstorage
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, '../../Data');
+    },
+    filename: function (req, file, cb) {
+        cb(null, 'questiondata.json');
+    }
+});
+
+
+//This helps in checking the file type, and then saving it for accessing it to edit the main question.json file
+const upload = multer({
+    storage: storage,
+    fileFilter: function (req, file, cb) {
+        // Check file type
+        if (file.mimetype === 'application/json') {
+            cb(null, true);
+        } else {
+            cb(new Error('Invalid file type.'));
+        }
+    }
+}).single('file');
+
+
+//Confirms the file upload to the user and displays errors if any
+const UploadFile = (req, res) => {
+    upload(req, res, (err) => {
+        if (err) {
+            console.log(err);
+            res.status(400).send('Error uploading file.');
+        } else {
+            console.log(req.file);
+            res.send('File uploaded successfully.');
+        }
+    });
+}
+
+//This is the crucial part. This puts everything together and places the final question.json file
 const UploadQuestion = (req, res) => {
     if (res) {
-        const request = req.body;
-        // console.log(req.body)
-        const response = "JSON received";
-        fs.readFile('../../Data/question.json', 'utf8', (err, data) => {
+        fs.readFileSync('../../Data/questiondata.json', 'utf8', (err, data) => {
             if (err) throw err;
-            const fileData = JSON.parse(data);
-            console.log(Object.keys(fileData))
-            if (fileData.quizData === undefined) {
-                console.log("Yes");
-                Object.assign(fileData, request);
-            }
-            else {
-                var x = Object.values(fileData.quizData);
-                for (var i in Object.values(request['quizData'])) {
-                    x.push(request['quizData'][i])
-                }
-                fileData.quizData = x;
-                console.log(fileData);
-            }
-            fs.writeFile('../../Data/question.json', JSON.stringify(fileData, null, 4), (err) => {
+            const request = JSON.parse(data);
+            const response = "JSON received";
+            console.log('here')
+            fs.readFile('../../Data/question.json', 'utf8', (err, data) => {
                 if (err) throw err;
+                console.log('here now')
+                const fileData = JSON.parse(data);
+                if (fileData.quizData === undefined) {
+                    console.log("Yes");
+                    Object.assign(fileData, request);
+                }
+                else {
+                    var x = Object.values(fileData.quizData);
+                    for (var i in Object.values(request['quizData'])) {
+                        x.push(request['quizData'][i])
+                    }
+                    fileData.quizData = x;
+                }
+                fs.writeFile('../../Data/question.json', JSON.stringify(fileData, null, 4), (err) => {
+                    if (err) throw err;
+                });
             });
-        });
-        res.send(response);
+            res.send(response);
 
+        })
     }
     else
         console.log(req.status);
-
 }
 
 
-module.exports = { SetQuestion, UploadQuestion }
+module.exports = { SetQuestion, UploadFile, UploadQuestion }
