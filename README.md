@@ -16,7 +16,7 @@ This is the development branch of the Comprehensive Assessment System
 <li><s>Student could log in, but post the exam, only the first student's result was being shown, and was not putting the result in its proper place</s></li>
 <li><s>Student cannot see the summary properly</s></li>
 <li><s>Proctoring takes a long time to load and was slowing down the entire app due to its heavyweight code</s></li>
-<li>JSON file for setting the question not being uploaded properly</li>
+<li><s>JSON file for setting the question not being uploaded properly</s></li>
 </ul>
 
 <h3>Technologies Used:</h3>
