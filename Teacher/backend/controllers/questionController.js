@@ -13,7 +13,16 @@ const SetQuestion = (req, res) => {
         const request = req.body;
         const response = 'Received';
         const filename = '../../Data/question.json';
+        const folderName = '../../Data'
         
+        //Creates a folder if it doesn't exist previously.
+        try {
+            if (!fs.existsSync(folderName)) {
+                fs.mkdirSync(folderName);
+            }
+        } catch (err) {
+            console.error(err);
+        }
         // Check if file exists
         if (fs.existsSync(filename)) {
           // Check file size
