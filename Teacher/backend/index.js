@@ -6,6 +6,9 @@ const users = require("./routes/api/users");
 const results = require("./routes/api/results");
 const questions = require('./routes/api/question')
 const app = express();
+const cors = require('cors')
+
+app.use(cors())
 
 // Bodyparser middleware
 app.use(

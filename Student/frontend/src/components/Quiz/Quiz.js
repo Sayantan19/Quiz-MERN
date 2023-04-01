@@ -26,7 +26,7 @@ export default function Quiz() {
                     <span>Time Left:</span>
                 </div>
                 <div id="cheat" style={{ margin: '1em' }}>
-                    <span>Times cheated:</span>
+                    <span>Times cheated: 0</span>
                 </div>
             </div>
             <div className="container">

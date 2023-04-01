@@ -71,6 +71,8 @@ export default async function proctor() {
                     cheatInstance++;
                 cheatCapture = 0;
                 console.log("Face visible. Times cheated so far: ", cheatInstance);
+                if(cheatInstance <= 0)
+                    document.getElementById("cheat").innerText = 'Times Cheated: ' + cheatInstance;
             }
             const resizedDetections = faceapi.resizeResults(detections, displaySize)
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
