@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+  </head >
+  <body>
+    
+    <table>
+      <thead>
+        <tr><th><b>_id</b></th><th><b>name</b></th><th><b>email</b></th><th><b>score</b></th><th><b>time</b></th><th><b>__v</b></th></tr>
+      </thead>
+      <tbody>
+        <tr><td>63e74013a2be224723ee4a17</td><td>Sayantan Bose</td><td>sayantan485@gmail.com</td><td>7</td><td>6</td><td>0</td></tr>
+        <tr><td>63f9f3902ed0cdf2a2863612</td><td>Sharanya Pal</td><td>sharanyapal@gmail.com</td><td>10</td><td>10</td><td></td></tr>
+        <tr><td>64041eea82eb00011c52aeca</td><td>Bose</td><td>abcd@abcd.com</td><td>12</td><td>15</td><td>0</td></tr>
+        <tr><td>64065fd112ccc321d194cbd9</td><td>SB</td><td>test@test.com</td><td>0</td><td>35</td><td>0</td></tr>
+        <tr><td>64089c887fa3887110f6ecda</td><td>Sayantan Bose</td><td>sayantan48@gmail.com</td><td>0</td><td>63</td><td>0</td></tr>
+      </tbody>
+    </table>
+  
+  </body>
+</html >

@@ -1,7 +1,5 @@
 # Comprehensive Assessment System
 
-<h3>NOTE: I have added a lot of things since I made this project. I have added the same in a different branch <a target='blank' href='https://github.com/Sayantan19/Quiz-MERN/tree/development-branch'>development-branch</a></h3>
-
 <h3>Project Description</h3>
 This is a Comprehensive Assessment System that I am currently working on.
 It was initially developed on Flask, for the Prelims Round of the TechQuiz, the Quiz Event of Technovation 2022 (Technovation is the name of our department tech fest). Upon the advice of my professor and mentor, I decided to take this project further and implement a full fledged assessment system.

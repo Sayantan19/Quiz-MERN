@@ -1,0 +1,12 @@
+#Rules{
+    background-color: white;
+    height: 100vh;
+}
+
+#accept{
+    border-radius: 2px !important;
+    display: block;
+    z-index: 1;
+    /* margin: 200px; */
+    /* width: 100%; */
+}
