@@ -1,22 +1,24 @@
-# Quiz-MERN
-This is the development branch of the Comprehensive Assessment System
-<h3>Significance of this branch</h3>
-<p>There have been a lot of changes that I had made in this application since I attended Diversion 2k23, a hackathon organized by Institute of Engineering and Management, Kolkata in partnership with Major League Hacking(MLH). I have put them in this branch, and will soon push them to the <a href="https://github.com/Sayantan19/Quiz-MERN">master</a> branch.</p>
-<h3>Changes in the pipeline</h3>
-<ul>
-<li>Adding a Teacher side along with the student side.</li>
-<li>Adding a proctoring system. So far I have been able to add only a single feature to this, i.e., face detection. Will add more features as time progresses.</li>
-<li>Changing the UI of the application. The current UI isnt the best of UIs out there. I need a UI designer for this.</li>
-<li>There were quite a few bugs in both the sides of the software (Teacher and Student) when we were presenting them at the Hackathon. Removing them, one feature ar a time!</li>
-<li>Documenting all the parts of the code! I don't want anyone to be confused about what the heck have I written in the code lol XD</li>
-</ul>
+# Comprehensive Assessment System
 
-<h3>Bugs to be fixed</h3>
+<h3>Project Description</h3>
+This is a Comprehensive Assessment System that I am currently working on.
+It was initially developed on Flask, for the Prelims Round of the TechQuiz, the Quiz Event of Technovation 2022 (Technovation is the name of our department tech fest). Upon the advice of my professor and mentor, I decided to take this project further and implement a full fledged assessment system.
+
+<h3>Aim:</h3>
+To develop a complete software solution which can be used by any teacher to conduct pop quizzes and other various assessments.
+
+<h3>Target Audience:</h3>
+<ol>
+  <li>Schools and colleges for conducting regular assessments</li>
+  <li>Private Tutors and Coaching Centers who need to conduct examinations, specially for Competitive Exams</li>
+</ol>
+
+<h3>Features:</h3>
 <ul>
-<li><s>Student could log in, but post the exam, only the first student's result was being shown, and was not putting the result in its proper place</s></li>
-<li><s>Student cannot see the summary properly</s></li>
-<li><s>Proctoring takes a long time to load and was slowing down the entire app due to its heavyweight code</s></li>
-<li><s>JSON file for setting the question not being uploaded properly</s></li>
+  <li><em>Proctoring Functionality</em>: This feature is under development, so far I have been able to incorporate face detection in proctoring side</li> 
+  <li><em>Lightwight</em>: The teacher and the student side together take up around half a GB of space.(subject to scaling and further developments)</li>
+  <li><em>Easy to use</em>: Very minimalistic design with easy to use features</li>
+  <li><em>Customizable</em>: I am planning to incorporate different question forms for assessment like handwriting detection for subjective answer recognition, so that the teachers can correct subjective answers in a seamless and easy manner</li>
 </ul>
 
 <h3>Technologies Used:</h3>
