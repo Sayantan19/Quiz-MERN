@@ -8,6 +8,9 @@ const results = require("./routes/api/results");
 const app = express();
 const cors = require('cors')
 
+
+app.use(cors())
+
 // Bodyparser middleware
 app.use(
     bodyParser.urlencoded({
@@ -31,5 +34,5 @@ require("./config/passport")(passport);
 app.use("/api/users", users);
 app.use('/api/results', results);
 
-const port = process.env.PORT || 3001; // process.env.port is Heroku's port if you choose to deploy the app there
+const port = process.env.PORT || 3001; // process.env.port is Render's port if you choose to deploy the app there
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));

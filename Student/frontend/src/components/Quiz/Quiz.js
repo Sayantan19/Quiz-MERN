@@ -1,8 +1,8 @@
 //This is the frontend side of the Quiz console
 import { React, useEffect } from 'react';
 import './Quiz.css';
-import logic from './logic';
-import proctor from './proctor'
+import logic from './logic.js';
+import proctor from './proctor.js'
 
 export default function Quiz() {
     useEffect(() => {

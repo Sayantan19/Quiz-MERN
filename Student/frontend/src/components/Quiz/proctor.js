@@ -1,5 +1,5 @@
 //This is the proctor mechanism that I have used in the software
-//I have used face-api.js, a tensorflow based library which is extremely lightweight
+//I have used face-api.js, a tensorflow based library which is extremely lightweight and easy to use
 //I have been able to add the face detection system so far. It checks whether the person is giving the exam or not.
 //If the person is not visible to the webcam for 5 seconds consecutively, then a warning message is displayed.
 //The person gets 5+1 chances, after which his examination will get terminated.
@@ -72,6 +72,8 @@ export default async function proctor() {
                 cheatCapture = 0;
                 console.log("Face visible. Times cheated so far: ", cheatInstance);
                 if(cheatInstance <= 0)
+                    document.getElementById("cheat").innerText = 'Times Cheated: ' + 0;
+                else if(cheatInstance > 0)
                     document.getElementById("cheat").innerText = 'Times Cheated: ' + cheatInstance;
             }
             const resizedDetections = faceapi.resizeResults(detections, displaySize)
