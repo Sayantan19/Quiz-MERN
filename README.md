@@ -21,6 +21,19 @@ To develop a complete software solution which can be used by any teacher to cond
   <li><em>Customizable</em>: I am planning to incorporate different question forms for assessment like handwriting detection for subjective answer recognition, so that the teachers can correct subjective answers in a seamless and easy manner</li>
 </ul>
 
+## Snapshots of the application (Click on the image for a better view)
+<h3>Teacher Side:</h3>
+
+|<img src="https://user-images.githubusercontent.com/75779600/231831652-699a8988-8c48-4cf0-b543-055af02c54f3.png"/>|<img src="https://user-images.githubusercontent.com/75779600/231831646-93c65cef-02c6-41b6-aff6-f3cd6b10543c.png"/>|
+|----|----|
+|<img src="https://user-images.githubusercontent.com/75779600/231831629-de833e4d-4826-4c92-9360-47f5e62494de.png"/>|<img src="https://user-images.githubusercontent.com/75779600/231831635-78834957-4643-4ed9-8db4-a0448592ec96.png"/>|
+
+<h3>Student Side:</h3>
+
+|<img src="https://user-images.githubusercontent.com/75779600/231831638-affd02ed-ddaa-4e60-b479-e16212476720.png"/>|<img src="https://user-images.githubusercontent.com/75779600/231831608-7937a774-b462-43ea-8145-c86a048071c7.png"/>|
+|----|----|
+<img src="https://user-images.githubusercontent.com/75779600/231831632-8fe5320c-7a1a-4b9c-81a0-607d0e3fe43a.png"/>|<img src="https://user-images.githubusercontent.com/75779600/231831640-8afceefc-2460-49d2-9b1d-c764ecbf51d6.png"/>|
+
 <h2>Technologies Used:</h2>
 
 <ul>
@@ -78,3 +91,59 @@ To develop a complete software solution which can be used by any teacher to cond
 
 </li>
 </ul>
+<h2>Getting Started</h2>
+<h3>Step 1: Clone this repository</h3>
+<h3>Step 2: Adding the keys.js file</h3>
+<ul>
+<li>Go to the Student/backend/config folder.</li>
+<li>Create a file named 'keys.js'</li>
+<li>Add the following code:
+
+    module.exports = {
+        mongoURI: "<generate from mongodb atlas website>/student",
+        secretOrKey: "secret"
+    }
+</li>
+<li>Repeat the same steps for the Teacher folder</li>
+</ul>
+
+
+<h3>Step 3: Installing dependencies in the Student Side</h3>
+<ul>
+<li>Copy the following code in the terminal (one line at a time):
+
+    cd Student/backend
+    npm i
+    cd ..
+    cd frontend
+    npm i
+</li>
+</ul>
+
+<h3>Step 4: Installing dependencies in the Teacher Side</h3>
+<ul>
+<li>Copy the following code in the terminal (one line at a time):
+
+    cd Teacher/backend
+    npm i
+    cd ..
+    cd frontend
+    npm i
+</li>
+</ul>
+<h3>Step 5: Running the applications</h3>
+<ul>
+<li>Copy the following code in the terminal for the backend:
+
+    cd Teacher/backend
+    npm start
+</li>
+<li>Copy the following code in a new terminal for the frontend:
+
+    cd Teacher/frontend
+    npm start
+</li>
+<li>Repeat the same steps for running the Student part</li>
+</ul>
+
+
