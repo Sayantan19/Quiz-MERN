@@ -1,9 +1,10 @@
 import React from 'react'
-import { Rules } from '../../components/index.js'
+import { Header, Rules } from '../../components/index.js'
 
 export default function RulePage() {
     return (
         <>
+            <Header name="Read the instructions carefully!" />
             <Rules />
         </>
     )

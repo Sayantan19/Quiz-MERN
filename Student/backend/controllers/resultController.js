@@ -7,14 +7,11 @@ const mongoose = require('mongoose');
 const ResultSend = (req, res) => {
 
     if (res) {
-        console.log('\n');
-        // res.sendStatus(200);
         const id = req.body.id;
         const query = { _id: id };
         // Find user by email
         User.findOne(query)
             .then(user => {
-                console.log(user);
                 const name = user.name;
                 const email = user.email;
                 Result.findOne({ email })
@@ -24,7 +21,6 @@ const ResultSend = (req, res) => {
                             res.send('Fraud case');
                         }
                         else {
-                            console.log("I'm here");
                             const newResult = new Result({
                                 name: name,
                                 email: email,
@@ -44,6 +40,8 @@ const ResultSend = (req, res) => {
         console.log(req.status)
 }
 
+
+//This Displays the final result of the student (If he has already given his exam before then it will show htheir previous result)
 const Display = (req, res) => {
     if (res) {
         const id = req.body.id;

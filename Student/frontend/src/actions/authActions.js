@@ -8,8 +8,9 @@ import {
     SET_CURRENT_USER,
     USER_LOADING
 } from "./types.js";
+
 // Register User
-export const registerUser = (userData,navigate) => dispatch => {
+export const registerUser = (userData, navigate) => dispatch => {
     axios.post("/api/users/register", userData)
         .then(function (res) {
             console.log(res.status);
@@ -23,10 +24,11 @@ export const registerUser = (userData,navigate) => dispatch => {
             })
         });
 };
+
 // Login - get user token
 export const loginUser = (userData) => dispatch => {
     axios.post("/api/users/login", userData)
-        .then(function(res){
+        .then(function (res) {
             // Save to localStorage
             // Set token to localStorage
             const { token } = res.data;
@@ -39,7 +41,7 @@ export const loginUser = (userData) => dispatch => {
             // Set current user
             dispatch(setCurrentUser(decoded));
         })
-        .catch(function(err){
+        .catch(function (err) {
             dispatch({
                 type: GET_ERRORS,
                 payload: err.response.data
@@ -48,17 +50,14 @@ export const loginUser = (userData) => dispatch => {
 };
 
 //This function decodes the current user's JWT and displays the email and MongoDB id
-export function accessCurrentUser()
-{
-  if(localStorage.jwtToken)
-  {
-    const decoded = jwt_decode(localStorage.jwtToken);
-    return decoded;
-  }
-  else
-    return null;
+export function accessCurrentUser() {
+    if (localStorage.jwtToken) {
+        const decoded = jwt_decode(localStorage.jwtToken);
+        return decoded;
+    }
+    else
+        return null;
 }
-
 
 // Set logged in user
 export const setCurrentUser = decoded => {

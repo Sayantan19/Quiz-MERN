@@ -38,6 +38,7 @@ export default function logic() {
     const NoOfQuestions = Number(data.Question_settings.quizquestions)
     //To set the time
     const timerValue = NoOfQuestions * Number(data.Question_settings.questiontime);
+    console.log(timerValue)
     var totalSeconds;
     //Initializing the time at the beginning of the quiz
     let time = localStorage.getItem('saved_timer');
@@ -70,7 +71,7 @@ export default function logic() {
         }
     }
 
-    // //The question set is stored in 'quizData'
+    //The question set is stored in 'quizData'
     const quizData = data.quizData;
     //Various elements of the question to be displayed in the page.
     const answerEls = document.querySelectorAll('.answer')

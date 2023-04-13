@@ -11,7 +11,7 @@ class Summary extends Component {
         super(props);
         this.state = {
             score: null,
-            time:null
+            time: null
         };
     }
 

@@ -1,6 +1,5 @@
 import './Login.css'
 import React, { Component } from 'react';
-import { Link, redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions.js";
@@ -23,6 +22,7 @@ class Login extends Component {
             window.location.href = "./rule";
         }
     }
+    
     UNSAFE_componentWillReceiveProps(nextProps) {
         console.log('nextProps: ', nextProps)
         if (nextProps.auth.isAuthenticated) {
@@ -34,9 +34,11 @@ class Login extends Component {
             });
         }
     }
+    
     onChange = e => {
         this.setState({ [e.target.id]: e.target.value });
     };
+    
     onSubmit = e => {
         e.preventDefault();
         const userData = {
@@ -46,6 +48,7 @@ class Login extends Component {
         console.log(userData);
         this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     };
+    
     render() {
         const { errors } = this.state;
 
@@ -69,7 +72,7 @@ class Login extends Component {
                                                         <div className="form-group"><input onChange={this.onChange} error={errors.email} value={this.state.email} id="email" type="email" placeholder="Email" className={classnames("cred", { invalid: errors.email || errors.emailnotfound })} />
                                                             <p className="text-danger">{errors.email}{errors.emailnotfound}</p>
                                                         </div>
-                                                        <div className="form-group mb-5"><input onChange={this.onChange} value={this.state.password} error={errors.password} id="password" type="password" placeholder="Password" className={classnames('cred',{ invalid: errors.password || errors.passwordincorrect })} />
+                                                        <div className="form-group mb-5"><input onChange={this.onChange} value={this.state.password} error={errors.password} id="password" type="password" placeholder="Password" className={classnames('cred', { invalid: errors.password || errors.passwordincorrect })} />
                                                             <p className="text-danger">{errors.password}{errors.passwordincorrect}</p>
                                                         </div>
                                                         <button className="btn btn-dark btn-outline-light border-dark" type="submit">Login</button>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Footer, Header, Quiz } from '../../components/index.js';
+import { Header, Quiz } from '../../components/index.js';
 
 
 export default function QuizPage() {
@@ -7,7 +7,6 @@ export default function QuizPage() {
         <>
             <Header name="Answer the following questions" />
             <Quiz />
-            <Footer />
         </>
     );
 }
