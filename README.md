@@ -100,7 +100,7 @@ To develop a complete software solution which can be used by any teacher to cond
 <li>Add the following code:
 
     module.exports = {
-        mongoURI: "<generate from mongodb atlas website>/student",
+        mongoURI: "<generate from mongodb atlas website>",
         secretOrKey: "secret"
     }
 </li>
