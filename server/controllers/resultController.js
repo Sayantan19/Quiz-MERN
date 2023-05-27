@@ -1,5 +1,5 @@
 //This is the result controller. What this part does is to display the results of the people who attempted the exam/quiz
-const User = require("../models/Student");
+const User = require("../models/User");
 const Result = require('../../server/models/Result');
 const mongoose = require('mongoose');
 
@@ -66,7 +66,6 @@ const DisplayAll =  (req, res) => {
     if (res) {
         Result.find()
             .then(result => {
-                console.log((result))
                 const data = JSON.stringify(result)
                 res.send(result)
             })

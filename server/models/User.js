@@ -1,8 +1,7 @@
-//This file creates the Teacher schema for validating with the DB for Teacher authentication
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 // Create Schema
-const TeacherSchema = new Schema({
+const UserSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -18,6 +17,10 @@ const TeacherSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
+  },
+  admin: {
+    type: Boolean,
+    default: false
   }
 });
-module.exports = Teacher = mongoose.model("teacher-credentials", TeacherSchema);
+module.exports = User = mongoose.model("user-credentials", UserSchema);

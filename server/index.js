@@ -2,16 +2,21 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const passport = require("passport");
+const logger = require('morgan');
+
 const app = express();
 const cors = require('cors');
 
-const student = require("./routes/student/users");
+const student = require("./routes/users");
 const results = require("./routes/results");
 const teacher = require("./routes/teacher/users");
-const questions = require('./routes/teacher/question');
+const questions = require('./routes/question');
 
 //CORS middleware
 app.use(cors())
+
+//Logger
+app.use(logger("dev"));
 
 // Bodyparser middleware
 app.use(

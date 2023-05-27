@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const { SetQuestion, UploadQuestion, UploadFile } = require('../../controllers/teacher/questionController.js')
+const { SetQuestion, UploadQuestion, UploadFile } = require('../controllers/questionController.js')
 
 // @route POST api/questions/question
 // @desc to set the question settings

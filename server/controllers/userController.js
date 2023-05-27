@@ -1,14 +1,14 @@
 //DB requirements
-const User = require("../../models/Student");
+const User = require("../models/User");
 
 //SignIn requirements
 const jwt = require("jsonwebtoken");
-const keys = require("../../config/keys");
-const validateLoginInput = require("../../validation/login");
+const keys = require("../config/keys");
+const validateLoginInput = require("../validation/login");
 
 //Register requirements
 const bcrypt = require("bcryptjs");
-const validateRegisterInput = require("../../validation/register");
+const validateRegisterInput = require("../validation/register");
 
 const SignIn = async (req, res) => {
     // Form validation
@@ -45,7 +45,8 @@ const SignIn = async (req, res) => {
                         (err, token) => {
                             res.json({
                                 success: true,
-                                token: "Bearer " + token
+                                token: "Bearer " + token,
+                                admin: user.admin
                             });
                         }
                     );
@@ -72,7 +73,8 @@ const Register = (req, res) => {
             const newUser = new User({
                 name: req.body.name,
                 email: req.body.email,
-                password: req.body.password
+                password: req.body.password,
+                admin: req.body.admin
             });
             // Hash password before saving in database
             bcrypt.genSalt(10, (err, salt) => {

@@ -1,5 +1,5 @@
 // const {SignIn, Register} = 
-const {SignIn, Register } = require('../../controllers/Student/userController')
+const {SignIn, Register } = require('../controllers/userController')
 const express = require("express");
 const router = express.Router();
 // Load input validation
