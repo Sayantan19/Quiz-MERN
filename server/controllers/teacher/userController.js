@@ -1,14 +1,14 @@
 //DB requirements
-const User = require("../models/User");
+const User = require("../../models/Teacher");
 
 //SignIn requirements
 const jwt = require("jsonwebtoken");
-const keys = require("../config/keys");
-const validateLoginInput = require("../validation/login");
+const keys = require("../../config/keys");
+const validateLoginInput = require("../../../server/validation/login");
 
 //Register requirements
 const bcrypt = require("bcryptjs");
-const validateRegisterInput = require("../validation/register");
+const validateRegisterInput = require("../../../server/validation/register");
 
 //This function is for Signing in the user
 const SignIn = (req, res) => {

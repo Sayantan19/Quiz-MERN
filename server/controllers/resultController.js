@@ -1,6 +1,6 @@
 //This is the result controller. What this part does is to display the results of the people who attempted the exam/quiz
-const User = require("../models/User");
-const Result = require('../models/Result');
+const User = require("../models/Student");
+const Result = require('../../server/models/Result');
 const mongoose = require('mongoose');
 
 //Sends the results of the exam that the student gave
@@ -62,4 +62,17 @@ const Display = (req, res) => {
         res.send('Not Found')
 }
 
-module.exports = { ResultSend, Display }
+const DisplayAll =  (req, res) => {
+    if (res) {
+        Result.find()
+            .then(result => {
+                console.log((result))
+                const data = JSON.stringify(result)
+                res.send(result)
+            })
+    }
+    else
+        res.send('Not Found')
+}
+
+module.exports = { ResultSend, Display, DisplayAll }

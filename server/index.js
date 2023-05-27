@@ -1,13 +1,16 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const passport = require("passport");
 const bodyParser = require("body-parser");
-const users = require("./routes/api/users");
-const results = require("./routes/api/results");
-const questions = require('./routes/api/question')
+const passport = require("passport");
 const app = express();
-const cors = require('cors')
+const cors = require('cors');
 
+const student = require("./routes/student/users");
+const results = require("./routes/results");
+const teacher = require("./routes/teacher/users");
+const questions = require('./routes/teacher/question');
+
+//CORS middleware
 app.use(cors())
 
 // Bodyparser middleware
@@ -17,9 +20,11 @@ app.use(
     })
 );
 app.use(bodyParser.json());
+
 // DB Config
 mongoose.set('strictQuery', false);
 const db = require("./config/keys").mongoURI;
+
 // Connect to MongoDB
 mongoose.connect(db, { useNewUrlParser: true })
     .then(() => console.log("MongoDB successfully connected"))
@@ -29,10 +34,12 @@ mongoose.connect(db, { useNewUrlParser: true })
 app.use(passport.initialize());
 // Passport config
 require("./config/passport")(passport);
-// Routes
-app.use("/api/users", users);
-app.use('/api/results', results);
-app.use('/api/questions', questions);
 
-const port = process.env.PORT || 3001; // process.env.port is Heroku's port if you choose to deploy the app there
+// Routes
+app.use("/student/users", student);
+app.use("/teacher/users", teacher);
+app.use('/results', results);
+app.use('/teacher/questions', questions);
+
+const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));

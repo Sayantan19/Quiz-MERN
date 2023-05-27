@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 // Create Schema
-const ResultSchema = new Schema({
+const StudentSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -10,13 +10,13 @@ const ResultSchema = new Schema({
     type: String,
     required: true
   },
-  score: {
-    type: Number,
+  password: {
+    type: String,
     required: true
   },
-  time: {
-    type: Number,
-    required: true
+  date: {
+    type: Date,
+    default: Date.now
   }
 });
-module.exports = Result = mongoose.model("student-scores", ResultSchema);
+module.exports = Student = mongoose.model("student-credentials", StudentSchema);
