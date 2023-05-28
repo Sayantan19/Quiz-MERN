@@ -46,7 +46,7 @@ const SignIn = async (req, res) => {
                             res.json({
                                 success: true,
                                 token: "Bearer " + token,
-                                admin: user.admin
+                                teacher: user.teacher
                             });
                         }
                     );
@@ -74,7 +74,7 @@ const Register = (req, res) => {
                 name: req.body.name,
                 email: req.body.email,
                 password: req.body.password,
-                admin: req.body.admin
+                teacher: req.body.teacher
             });
             // Hash password before saving in database
             bcrypt.genSalt(10, (err, salt) => {

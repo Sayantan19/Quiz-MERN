@@ -9,7 +9,7 @@ const cors = require('cors');
 
 const student = require("./routes/users");
 const results = require("./routes/results");
-const teacher = require("./routes/teacher/users");
+const teacher = require("./routes/users");
 const questions = require('./routes/question');
 
 //CORS middleware

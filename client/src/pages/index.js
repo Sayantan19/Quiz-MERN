@@ -1,0 +1,10 @@
+export {default as Login} from './common/login/index.js';
+export {default as Rules} from './student/rules/index.js';
+export {default as Quiz} from './student/quiz/index.js';
+export {default as Summary} from './student/summary/index.js';
+export {default as Register} from './student/student_register/index.js';
+export {default as Landing} from './common/landing/index.js';
+export {default as teacherRegister} from './teacher/teacher_register/index.js';
+export {default as teacherDash} from './teacher/teacher_dashboard/index.js';
+export {default as Scores} from './teacher/scores_display/index.js';
+export {default as Questions} from './teacher/question/index.js';

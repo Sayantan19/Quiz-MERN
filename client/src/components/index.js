@@ -1,0 +1,13 @@
+export {default as Header} from './common/header/header';
+export {default as Footer} from './common/footer/footer';
+export {default as Login} from './common/login/Login';
+export {default as Register} from './student/student_register/studentRegister';
+export {default as Landing} from './common/landing/landing';
+export {default as Rules} from './student/rules/rules';
+export {default as Quiz} from './student/quiz/quiz';
+export {default as Summary} from './student/summary/summary';
+export {default as teacherRegister} from './teacher/teacher_register/teacherRegister';
+export {default as teacherDash} from './teacher/teacher_dash/teacherDash';
+export {default as Scores} from './teacher/scores_display/scoresDisplay';
+export {default as Questions} from './teacher/questions/questions';
+export {default as Private} from './common/private_route/privateRoute'
