@@ -14,7 +14,7 @@ class Landing extends Component {
                 <br />
                 <div className="row">
                     <div className="col">
-                        <Link to="/register" style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "140px",border: "1px solid black", borderRadius: "3px", letterSpacing: "1.5px" }} className="btn btn-large btn-dark btn-outline-light waves-effect waves-dark hoverable accent-3">
+                        <Link to="/student/register" style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "140px",border: "1px solid black", borderRadius: "3px", letterSpacing: "1.5px" }} className="btn btn-large btn-dark btn-outline-light waves-effect waves-dark hoverable accent-3">
                             Register
                         </Link>
                     </div>

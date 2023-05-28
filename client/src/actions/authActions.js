@@ -11,7 +11,7 @@ import {
 
 // Register User
 export const registerUser = (userData, navigate) => dispatch => {
-    axios.post("/api/users/register", userData)
+    axios.post("/users/register", userData)
         .then(function (res) {
             console.log(res.status);
             alert('You have successfully registered. Redirecting you to Login page')
@@ -31,9 +31,12 @@ export const loginUser = (userData) => dispatch => {
         .then(function (res) {
             // Save to localStorage
             // Set token to localStorage
-            const { token } = res.data;
-            console.log(res.data)
+            const { token, teacher } = res.data;
+            console.log(token)
+            console.log(teacher)
             localStorage.setItem("jwtToken", token);
+            localStorage.setItem("isTeacher", teacher);
+            
             // Set token to Auth header
             setAuthToken(token);
             // Decode token to get user data
@@ -53,7 +56,8 @@ export const loginUser = (userData) => dispatch => {
 export function accessCurrentUser() {
     if (localStorage.jwtToken) {
         const decoded = jwt_decode(localStorage.jwtToken);
-        return decoded;
+        const teacher = localStorage.isTeacher;
+        return {"decoded": decoded, "isTeacher": teacher};
     }
     else
         return null;
@@ -77,6 +81,7 @@ export const setUserLoading = () => {
 export const logoutUser = () => dispatch => {
     // Remove token from local storage
     localStorage.removeItem("jwtToken");
+    localStorage.removeItem("isTeacher")
     // Remove auth header for future requests
     setAuthToken(false);
     // Set current user to empty object {} which will set isAuthenticated to false

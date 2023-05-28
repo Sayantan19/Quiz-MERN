@@ -8,7 +8,7 @@ import data from './question.json'
 export default function logic() {
     //This is where the result gets formatted and submitted
     function SubmitResult() {
-        const token = accessCurrentUser();
+        const token = accessCurrentUser().decoded;
         const data = {
             'id': token.id,
             'name': token.name,
@@ -16,7 +16,7 @@ export default function logic() {
             'time': (timerValue - totalSeconds),
         }
 
-        axios.post('/api/results/result', data)
+        axios.post('/results/result', data)
             .then(function (response) {
                 console.log(response.data)
                 if (response.status !== 200) {
@@ -24,12 +24,12 @@ export default function logic() {
                 }
                 else if (response.data === 'Fraud case') {
                     alert('Congratulations on wasting your time giving the exam again!');
-                    window.location.href = '/summary';
+                    window.location.href = '/student/summary';
                 }
                 else {
                     console.log(response);
                     console.log('Success');
-                    window.location.href = '/summary';
+                    window.location.href = '/student/summary';
                 }
             }).catch(console.log("Fraud case"));
     }

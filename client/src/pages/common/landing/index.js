@@ -1,5 +1,5 @@
 import React from 'react';
-import { Footer, Header,Landing } from '../../components/index.js';
+import { Footer, Header,Landing } from '../../../components/index.js';
 
 export default function LandingPage() {
   return (

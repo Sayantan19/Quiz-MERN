@@ -1,6 +1,6 @@
 //This is the component which sets the questions for the quiz.
-import React, { useEffect, useState } from 'react'
-import './Questionnaire.css'
+import React, { useState } from 'react'
+import './questionnaire.css'
 import axios from 'axios';
 
 
@@ -28,7 +28,7 @@ export default function Questions() {
             questiontime: state.questiontime,
             quizquestions: state.quizquestions
         }
-        axios.post('/api/questions/question', data)
+        axios.post('/teacher/questions/question', data)
             .then(function (response) {
                 console.log(response.data)
             })
@@ -36,7 +36,7 @@ export default function Questions() {
         const formData = new FormData();
         formData.append('file', file);
 
-        axios.post('/api/questions/upload', formData)
+        axios.post('/teacher/questions/upload', formData)
             .then(response => {
                 if (response.data === 'File uploaded successfully.') {
                     console.log('hello')
@@ -49,7 +49,7 @@ export default function Questions() {
 
         console.log(uploadStatus)
 
-        axios.post('/api/questions/process', 'process')
+        axios.post('/teacher/questions/process', 'process')
             .then(response => {
                 console.log(response.data)
                 alert('Questions have been uploaded successfully. Redirecting you to the dashboard!')

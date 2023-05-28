@@ -16,13 +16,14 @@ class Login extends Component {
     }
     componentDidMount() {
         console.log(this.props)
+        const user = accessCurrentUser();
         // If logged in and user navigates to Register page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
-            const user = accessCurrentUser();
-            if(user.teacher === false)
-                window.location.href = "./rule"; // push user to dashboard when they login
+            
+            if(user.isTeacher === "false")
+                window.location.href = "/student/rule"; // push user to dashboard when they login
             else
-                window.location.href = './landing'
+                window.location.href = '/teacher/landing'
         }
     }
     
@@ -30,10 +31,11 @@ class Login extends Component {
         console.log('nextProps: ', nextProps)
         if (nextProps.auth.isAuthenticated) {
             const user = accessCurrentUser();
-            if(user.teacher === false)
-                window.location.href = "./rule"; // push user to dashboard when they login
+            console.log(user)
+            if(user.isTeacher === "false")
+                window.location.href = "/student/rule"; // push user to dashboard when they login
             else
-                window.location.href = './landing'
+                window.location.href = '/teacher/landing'
         }
         if (nextProps.errors) {
             this.setState({
@@ -84,7 +86,7 @@ class Login extends Component {
                                                         </div>
                                                         <button className="btn btn-dark btn-outline-light border-dark" type="submit">Login</button>
                                                     </form>
-                                                    <p className="text-muted mt-3 mb-0">Don&#39;t have an account? <a className="text-dark ml-1" href="/register">Register</a></p>
+                                                    <p className="text-muted mt-3 mb-0">Don&#39;t have an account? <a className="text-dark ml-1" href="/student/register">Register</a></p>
                                                 </div>
                                             </div>
                                             <div className="col-lg-6 d-none d-lg-inline-block">

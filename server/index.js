@@ -10,6 +10,7 @@ const cors = require('cors');
 const student = require("./routes/users");
 const results = require("./routes/results");
 const teacher = require("./routes/users");
+const users = require("./routes/users");
 const questions = require('./routes/question');
 
 //CORS middleware
@@ -41,8 +42,7 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 // Routes
-app.use("/student/users", student);
-app.use("/teacher/users", teacher);
+app.use("/users", users);
 app.use('/results', results);
 app.use('/teacher/questions', questions);
 

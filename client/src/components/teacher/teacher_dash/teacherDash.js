@@ -3,18 +3,18 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { logoutUser } from "../../../actions/authActions";
+import { accessCurrentUser, logoutUser } from "../../../actions/authActions";
 
 import './teacherDash.css';
-class teacherDash extends Component {
+class TeacherDash extends Component {
     //This function will cause the user to log out of the app
     onLogoutClick = e => {
         e.preventDefault();
         this.props.logoutUser();
         window.location.href = '/';
     };
-
     render() {
+        console.log(accessCurrentUser())
         const { user } = this.props.auth;
         return (
             <div style={{ height: "60vh" }} className="card w-50 container bg-white my-3" id="teacherDash">
@@ -25,13 +25,13 @@ class teacherDash extends Component {
                 <br />
                 <div className="row">
                     <div className="col">
-                        <Link to="/questions" style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "140px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.5px" }} className="btn btn-large btn-dark btn-outline-light waves-effect waves-dark hoverable accent-3">
+                        <Link to="/teacher/questions" style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "140px", border: "1px solid black", borderRadius: "3px", letterSpacing: "1.5px" }} className="btn btn-large btn-dark btn-outline-light waves-effect waves-dark hoverable accent-3">
                             Set Questions
                         </Link>
                     </div>
                     <div className="col">
                         <Link
-                            to="/scores"
+                            to="/teacher/scores"
                             style={{
                                 display: "flex", justifyContent: "center", alignItems: "center",
                                 width: "140px",
@@ -67,7 +67,7 @@ class teacherDash extends Component {
         );
     }
 }
-teacherDash.propTypes = {
+TeacherDash.propTypes = {
     logoutUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired
 };
@@ -77,4 +77,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     { logoutUser }
-)(teacherDash);
+)(TeacherDash);

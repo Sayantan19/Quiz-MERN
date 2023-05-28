@@ -8,7 +8,7 @@ export default function Rules() {
         var button = document.getElementById("submit-button");
         setChecked(!checked);
         if (checked === true) {
-            button.innerHTML = `<a class="btn btn-outline-dark mb-1" id="start" href='/quiz' style="display: block" role="button">Start Quiz!!!</a>`
+            button.innerHTML = `<a class="btn btn-outline-dark mb-1" id="start" href='/student/quiz' style="display: block" role="button">Start Quiz!!!</a>`
             checkBox.style.backgroundColor = "black";
         }
         else {

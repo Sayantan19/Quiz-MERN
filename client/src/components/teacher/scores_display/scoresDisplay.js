@@ -7,10 +7,10 @@ import './scoresDisplay.css'
 export default function Scores() {
     const [content, setContent] = useState(null);
 
-    async function abcd() {
-        axios.get('/api/results/scores')
+    async function getScores() {
+        axios.get('/results/scores')
             .then((res) => {
-                console.log('content mil gaya')
+                console.log('content recerived')
                 setContent(res.data);
             })
             .catch(() => {
@@ -19,7 +19,7 @@ export default function Scores() {
     }
     useEffect(() => {
         return () => {
-            abcd()
+            getScores()
         };
     }, []);
 

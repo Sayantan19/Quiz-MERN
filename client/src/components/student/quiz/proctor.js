@@ -43,7 +43,7 @@ export default async function proctor() {
                 if (cheatCapture > 5 && cheatInstance >= 5) {
                     alert("You have been disqualified");
                     localStorage.removeItem('saved_timer');
-                    const token = accessCurrentUser();
+                    const token = accessCurrentUser().decoded;
                     const data = {
                         'id': token.id,
                         'name': token.name,
@@ -52,7 +52,7 @@ export default async function proctor() {
                     }
 
                     console.log(data);
-                    axios.post('/api/results/result', data)
+                    axios.post('/results/result', data)
                         .then(function (response) {
                             if (response.status !== 200) {
                                 console.log('Error', response.status);
@@ -60,7 +60,7 @@ export default async function proctor() {
                             else {
                                 console.log(response);
                                 console.log('Success');
-                                window.location.href = '/summary';
+                                window.location.href = '/student/summary';
                             }
                         }).catch(console.log("Fraud case"));
                 }

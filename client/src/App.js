@@ -3,13 +3,13 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Landing, Login } from './pages/index.js';
 import { Rules, Quiz, Summary, Register } from './pages/index.js';
-import { Questions, teacherDash, teacherRegister } from './pages/index.js';
+import { Questions, teacherDash, Scores } from './pages/index.js';
 import { Provider } from "react-redux";
 import store from "./store.js";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken.js";
 import { setCurrentUser, logoutUser } from "./actions/authActions.js";
-import PrivateRoute from './components/private-route/PrivateRoute';
+import PrivateRoute from './components/common/private_route/privateRoute';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -38,13 +38,13 @@ function App() {
         <Route path='/student/register' element={<Register />} />
         <Route path='/teacher/register' element={<teacherRegister />} />
         <Route path='/login' element={<Login />} />
-        <Route path='/student/'    element={<PrivateRoute path="/rule" component={Rules} />} /> 
-        <Route path='/student/'    element={<PrivateRoute path="/quiz" component={Quiz} />} />
-        <Route path='/student/' element={<PrivateRoute path="/summary" component={Summary} />} />
+        <Route path='/student/rule'    element={<PrivateRoute path="/student/rule" component={Rules} />} /> 
+        <Route path='/student/quiz'    element={<PrivateRoute path="/student/quiz" component={Quiz} />} />
+        <Route path='/student/summary' element={<PrivateRoute path="/student/summary" component={Summary} />} />
 
-        <Route path='/teacher/' element={<PrivateRoute path="/landing" component={teacherDash} /> } />
-        <Route path='/teacher/' element={<PrivateRoute path="/scores" component={Scores} />} /> 
-        <Route path='/teacher/' element={<PrivateRoute path="/questions" component={Questions} />} /> 
+        <Route path='/teacher/landing' element={<PrivateRoute path="/teacher/landing" component={teacherDash} /> } />
+        <Route path='/teacher/scores' element={<PrivateRoute path="/teacher/scores" component={Scores} />} /> 
+        <Route path='/teacher/questions' element={<PrivateRoute path="/teacher/questions" component={Questions} />} /> 
       </Routes>
     </Provider>
   );

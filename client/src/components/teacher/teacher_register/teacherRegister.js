@@ -24,7 +24,7 @@ function withRouter(Component) {
     return ComponentWithRouterProp;
 }
 
-class teacherRegister extends Component {
+class TeacherRegister extends Component {
     constructor() {
         super();
         this.state = {
@@ -63,7 +63,8 @@ class teacherRegister extends Component {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password,
-            password2: this.state.password2
+            password2: this.state.password2,
+            teacher: true
         };
         this.props.registerUser(newUser,this.props.router.navigate);
     };
@@ -76,7 +77,7 @@ class teacherRegister extends Component {
                         <Link to="/" style={{    display: "flex", textDecoration: "none", color: "black", fontFamily: 'Mulish', padding: "2px", margin: "2px auto"}}><i className="material-icons left">keyboard_backspace</i>  Back to home</Link>
                         <div className="col s12">
                             <h4><b>Register</b> below</h4>
-                            <p className="grey-text text-darken-1">Already have an account? <Link to="/">Log in</Link></p>
+                            <p className="grey-text text-darken-1">Already have an account? <Link to="/login">Log in</Link></p>
                         </div>
                         <form noValidate onSubmit={this.onSubmit}>
                             <div className="input-field col s12">
@@ -106,7 +107,7 @@ class teacherRegister extends Component {
     }
 }
 
-teacherRegister.propTypes = {
+TeacherRegister.propTypes = {
     registerUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired
@@ -120,4 +121,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     { registerUser }
-)(withRouter(teacherRegister));
+)(withRouter(TeacherRegister));

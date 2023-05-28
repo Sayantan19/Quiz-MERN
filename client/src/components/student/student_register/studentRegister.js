@@ -65,7 +65,7 @@ class Register extends Component {
             email: this.state.email,
             password: this.state.password,
             password2: this.state.password2,
-            isAdmin: false
+            teacher: false
         };
         console.log(this.props)
         console.log("History recorded: ", this.props.router.navigate)

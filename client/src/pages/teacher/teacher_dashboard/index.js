@@ -1,7 +1,7 @@
 import React from 'react';
 import { Footer, Header, TeacherDash } from '../../../components/index.js';
 
-export default function teacherDashPage() {
+export default function teacherRegister() {
   return (
     <>
         <Header name="Welcome to the Portal" />

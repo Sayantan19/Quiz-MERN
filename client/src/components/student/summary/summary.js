@@ -16,11 +16,11 @@ class Summary extends Component {
     }
 
     componentDidMount() {
-        const token = accessCurrentUser();
+        const token = accessCurrentUser().decoded;
         const dat = {
             'id': token.id
         }
-        axios.post("/api/results/display", dat)
+        axios.post("/results/display", dat)
             .then(response => {
                 console.log('Result: ' + response.data)
                 this.setState({ score: response.data.score })
