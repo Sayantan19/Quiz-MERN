@@ -1,15 +1,15 @@
 import './App.css';
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { Landing, Login } from './pages/index.js';
-import { Rules, Quiz, Summary, Register } from './pages/index.js';
-import { Questions, teacherDash, Scores } from './pages/index.js';
+import { Landing, Login, Registert, teacherDash } from './pages/index.js';
+import { Rules, Quiz, Summary, Registers} from './pages/index.js';
+import { Questions, Scores } from './pages/index.js';
 import { Provider } from "react-redux";
 import store from "./store.js";
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken.js";
 import { setCurrentUser, logoutUser } from "./actions/authActions.js";
-import PrivateRoute from './components/common/private_route/privateRoute';
+import PrivateRoute from './components/common/privateRoute';
 
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
@@ -35,8 +35,9 @@ function App() {
     <Provider store={store}>
       <Routes>
         <Route path='/' element={<Landing />} />
-        <Route path='/student/register' element={<Register />} />
-        <Route path='/teacher/register' element={<teacherRegister />} />
+        <Route path='/student/register' element={<Registers />} />
+        <Route path='/teacher/register' element={<Registert />} /> 
+        {/* <Route path='/teacher/register' element={<TeacherRegister/>} /> */}
         <Route path='/login' element={<Login />} />
         <Route path='/student/rule'    element={<PrivateRoute path="/student/rule" component={Rules} />} /> 
         <Route path='/student/quiz'    element={<PrivateRoute path="/student/quiz" component={Quiz} />} />
