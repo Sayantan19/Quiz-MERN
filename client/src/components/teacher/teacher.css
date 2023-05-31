@@ -1,0 +1,64 @@
+/* Question setting page */
+.forms {
+    margin: 10px;
+    /* padding: 10px; */
+}
+
+#tag {
+    border: 2px solid black;
+    font-family: 'Rajdhani';
+    border-radius: 3px;
+}
+
+input {
+    background-color: white !important;
+}
+
+#submit-but {
+    border: 2px solid black;
+    font-family: 'Rajdhani';
+    padding: 5px;
+    border-radius: 3px;
+}
+
+
+#score-table
+{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 5em auto;
+    align-items: center;
+    /* width: 100%; */
+    justify-content: center;
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    height: 25em;
+}
+
+#score{
+    width: 100%;
+    overflow-y: scroll;
+}
+
+#save{
+    margin-right:20px;
+}
+
+#teacherDash{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#register{
+    background-color: white;
+    margin: 2em auto;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    border-radius: 5px ;
+}

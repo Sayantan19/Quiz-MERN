@@ -1,0 +1,13 @@
+export {default as Header} from './common/header';
+export {default as Footer} from './common/footer';
+export {default as Login} from './common/login';
+export {default as Registers} from './student/studentRegister';
+export {default as Landing} from './common/landing';
+export {default as Rules} from './student/rules';
+export {default as Quiz} from './student/quiz';
+export {default as Summary} from './student/summary';
+export {default as Registert} from './teacher/teacher_regist.js';
+export {default as TeacherDash} from './teacher/teacher_dash.js';
+export {default as Scores} from './teacher/scoresDisplay';
+export {default as Questions} from './teacher/questions';
+export {default as Private} from './common/privateRoute'
