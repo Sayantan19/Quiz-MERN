@@ -1,3 +1,11 @@
+#landingLeft {
+    /*
+* Created with https://www.css-gradient.com
+* Gradient link: https://www.css-gradient.com/?c1=970cf4&c2=d896f7&gt=l&gd=dbb
+*/
+    background: linear-gradient(155deg, #a21dcf, #b773d7);
+}
+
 /* Footer */
 #foot {
     background-color: black;
@@ -37,37 +45,18 @@
     font-family: 'Mulish';
 }
 
-/* Clock timer */
-#timer {
-    border: 2px solid black;
-    border-radius: 4px;
-    font-family: sans-serif;
-    /* display: flex; */
-    /* padding: 10px; */
-    width: 30%;
-    border-radius: 30px;
-    background: white;
-    font-size: 36px;
-    font-weight: bold;
-    /* margin-left: 2%; */
-    justify-content: center;
-}
-
 /* Landing page */
 #Landing {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    box-shadow: 0px 0px 20px 15px #743f7e;
 }
 
 /* Login Page */
-.cred {
-    margin-bottom: 10px;
-    width: 100%;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    padding-bottom: 5px;
+#email {
+    color: #000000 !important;
+}
+
+#password {
+    color: #000000 !important;
 }
 
 .account-block {
@@ -112,3 +101,13 @@
     display: flex;
 }
 
+input:-webkit-autofill,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #ffff inset !important;
+    caret-color: black !important;
+    -webkit-text-fill-color: black !important;
+  }
+a:hover{
+    color: inherit;
+}

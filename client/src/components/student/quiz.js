@@ -3,6 +3,8 @@ import { React, useEffect } from 'react';
 import './student.css';
 import logic from './quiz/logic.js';
 import proctor from './quiz/proctor.js'
+import { Box, Button, ButtonGroup, Container, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from '@mui/material';
+import { RadioButtonUncheckedTwoTone } from '@mui/icons-material';
 
 export default function Quiz() {
     useEffect(() => {
@@ -15,59 +17,98 @@ export default function Quiz() {
             logic()
         };
     }, []);
-
     return (
         <>
-            <div id='vidcont'>
-                <video id='video' width='280' height='210' autoPlay={true} muted />
-            </div>
-            <div className="container" id="time">
-                <div id="timer" name="timer">
-                    <span>Time Left:</span>
-                </div>
-                <div id="cheat" style={{ margin: '1em' }}>
-                    <span>Times cheated: 0</span>
-                </div>
-            </div>
-            <div className="container">
-                <div className="jumbotron bg-light container" id="quiz">
-                    <div className="container-fluid" id="qelements">
-                        <div id="main">
-                            <button id="open" className="openbtn">&#9776; Open Question Palette</button>
+            <Container sx={{
+                height: '100vh',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '80vw'
+            }} >
+                <Box sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    height: '80vh',
+                    borderRadius: '10px',
+                    boxShadow: '0px 0px 20px 15px #743f7e'
 
+                }} >
+                    <Grid
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            height: '100%',
+                        }}>
+                        <Grid item xs={6}
+                            sx={{
+                                background: 'linear-gradient(155deg, #a21dcf, #b773d7)',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                height: '100%',
+                                justifyContent: 'space-evenly',
+                                padding: '3em',
+                                minWidth: '60vw',
+                                borderRadius: '10px 0 0 10px'
+                            }}>
                             <div>
                                 <h2 className="quiz-header"><span id="qno">QNo.</span>:<span id="question">Question Text</span></h2>
                             </div>
                             <ol className="list-group list-group-numbered">
-                                <li>
-                                    <input type="radio" name="answer" id="a" className="btn-check answer" />
-                                    <label htmlFor="a" id="a_text" className="btn btn-outline-dark answertext">Answer</label>
+                                <li className="d-flex mx-2 align-items-center cursor-pointer">
+                                    <input type="radio" name="answer" id="a" className="form-check-input answer" />
+                                    <label htmlFor="a" id="a_text" className="answertext"></label>
                                 </li>
-                                <li>
-                                    <input type="radio" name="answer" id="b" className="btn-check answer" />
-                                    <label htmlFor="b" id="b_text" className="btn btn-outline-dark answertext">Answer</label>
+                                <li className="d-flex mx-2 align-items-center">
+                                    <input type="radio" name="answer" id="b" className="form-check-input answer" />
+                                    <label htmlFor="b" id="b_text" className="answertext"></label>
                                 </li>
-                                <li>
-                                    <input type="radio" name="answer" id="c" className="btn-check answer" />
-                                    <label htmlFor="c" id="c_text" className="btn btn-outline-dark answertext">Answer</label>
+                                <li className="d-flex mx-2 align-items-center">
+                                    <input type="radio" name="answer" id="c" className="form-check-input answer" />
+                                    <label htmlFor="c" id="c_text" className="answertext"></label>
                                 </li>
-                                <li>
-                                    <input type="radio" name="answer" id="d" className="btn-check answer" />
-                                    <label htmlFor="d" id="d_text" className="btn btn-outline-dark answertext">Answer</label>
+                                <li className="d-flex mx-2 align-items-center">
+                                    <input type="radio" name="answer" id="d" className="form-check-input answer" />
+                                    <label htmlFor="d" id="d_text" className="answertext"></label>
                                 </li>
                             </ol>
-                            <div id="buttons">
-                                <button id="next" className="button btn btn-success">Next</button>
-                                <button id="prev" className="button btn btn-success">Prev</button>
-                                <button id="reset" className="button btn btn-success">Reset</button>
+                        </Grid>
+                        <Grid item xs={6}
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                height: '100%',
+                                justifyContent: 'space-evenly',
+                                padding: '3em',
+                                minWidth: '30vw',
+                                borderRadius: '10px 0 0 10px'
+                            }}>
+                            <div id='vidcont'>
+                                <video id='video' width='280' height='210' autoPlay={true} muted style={{borderRadius: '10px'}}/>
                             </div>
-                            <div id="buttons">
-                                <button id="submit" className="button btn btn-success">Submit</button>
+                            <Grid id="time">
+                                <Grid item xs={6} id="timer" name="timer">
+                                    <span>Time Left:</span>
+                                </Grid>
+                                <Grid item xs={6} id="cheat">
+                                    <span>Times cheated: 0</span>
+                                </Grid>
+                            </Grid>
+                            <div>
+                                <ButtonGroup id="buttons">
+                                    <Button id="next" color='secondary'  outlined='true' className="button">Next</Button>
+                                    <Button id="prev" color='secondary'  outlined='true' className="button">Prev</Button>
+                                    <Button id="reset" color='secondary' outlined='true' className="button">Reset</Button>
+                                </ButtonGroup>
+                                <ButtonGroup id="buttons">
+                                    <Button id="submit" color='secondary' className='button'>Submit</Button>
+                                </ButtonGroup>
                             </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Container >
         </>
     );
 }

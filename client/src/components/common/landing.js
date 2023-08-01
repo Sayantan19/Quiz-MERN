@@ -1,42 +1,86 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { Box, Button, ButtonGroup, Container, Grid, Typography } from '@mui/material'
 
 // This is the Landing Component.
 // It asks the user whether they want to login or register for the quiz
-class Landing extends Component {
-    render() {
-        return (
-            <div style={{ height: "60vh" }} className="card w-50 container bg-white my-3" id="Landing">
+export default function Landing() {
+    return (
+        <>
+            <Container sx={{
+                height: '100vh',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }} >
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '70%',
+                    borderRadius: '5px'
+                }} id="Landing">
+                    <Grid
+                        spacing={2}
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: '100%'
+                        }}>
+                        <Grid xs={6}
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                height: '100%',
+                                justifyContent: 'center',
+                                paddingLeft: '3em',
 
-                <h4>
-                    Do you want to Login or Register?
-                </h4>
-                <br />
-                <div className="row">
-                    <div className="col">
-                        <Link to="/student/register" style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "140px",border: "1px solid black", borderRadius: "3px", letterSpacing: "1.5px" }} className="btn btn-large btn-dark btn-outline-light waves-effect waves-dark hoverable accent-3">
-                            Register
-                        </Link>
-                    </div>
-                    <div className="col">
-                        <Link
-                            to="/login"
-                            style={{
-                                display: "flex", justifyContent: "center", alignItems: "center",
-                                width: "140px",
-                                borderRadius: "3px",
-                                letterSpacing: "1.5px"
-                            }}
-                            className="btn btn-large btn-outline-dark waves-effect waves-light hoverable light-text accent-3"
-                        >
-                            Log In
-                        </Link>
-                    </div>
-                </div>
-            </div>
-
-
-        );
-    }
+                            }} id="landingLeft">
+                            <Typography variant="h1" color={'black'}>Welcome to<br /> the quiz portal</Typography>
+                        </Grid>
+                        <Grid xs={6}
+                            sx={{
+                                backgroundColor:"black",
+                                display: 'flex',
+                                flexDirection: 'column',
+                                textAlign: 'center',
+                                alignItems: 'center',
+                                height: '100%',
+                                justifyContent: 'center'
+                            }}>
+                            <Typography color={"white"} variant="h3">Log in or Sign Up to continue</Typography>
+                            <Container
+                                sx={{
+                                    margin: '20px 0',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <Button variant="outlined" color="secondary" size="large"
+                                    sx={{
+                                        fontSize: "large",
+                                        marginRight: '19.5px',
+                                    }}
+                                    href='/login'>
+                                    Log in
+                                </Button>
+                                <Button variant="outlined" color="secondary" size="large"
+                                    sx={{
+                                        fontSize: "large",
+                                        marginLeft: '19.5px'
+                                    }}
+                                    href='/student/register'>
+                                    Sign up
+                                </Button>
+                            </Container>
+                        </Grid>
+                    </Grid>
+                </Box>
+            </Container>
+        </>
+    );
 }
-export default Landing;
