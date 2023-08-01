@@ -5,7 +5,7 @@ import axios from 'axios';
 import { accessCurrentUser } from '../../../actions/authActions';
 import data from './question.json'
 
-export default function logic() {
+export default async function logic() {
     //This is where the result gets formatted and submitted
     function SubmitResult() {
         const token = accessCurrentUser().decoded;
