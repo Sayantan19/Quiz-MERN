@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions.js";
 import classnames from "classnames";
+import { TextField, Button, Typography, Container, Grid, IconButton } from "@mui/material";
 
 function withRouter(Component) {
     function ComponentWithRouterProp(props) {
@@ -72,38 +73,75 @@ class Registert extends Component {
     render() {
         const { errors } = this.state;
         return (
-            <div className="container" id="register">
-                <div className="container row">
-                    <div className="col s2">
-                        <Link to="/" style={{    display: "flex", textDecoration: "none", color: "black", fontFamily: 'Mulish', padding: "2px", margin: "2px auto"}}><i className="material-icons left">keyboard_backspace</i>  Back to home</Link>
-                        <div className="col s12">
-                            <h4><b>Register</b> below</h4>
-                            <p className="grey-text text-darken-1">Already have an account? <Link to="/login">Log in</Link></p>
-                        </div>
+            <Container maxWidth="sm" id="register">
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <Typography variant="h4" component="h4">Register below</Typography>
+                        <Typography variant="body1" color="textSecondary">Already have an account? <Link to="/login">Log in</Link></Typography>
+                    </Grid>
+                    <Grid item xs={12}>
                         <form noValidate onSubmit={this.onSubmit}>
-                            <div className="input-field col s12">
-                                <input onChange={this.onChange} value={this.state.name} error={errors.name} id="name" type="text" className={classnames("cred w-100", { invalid: errors.name })} placeholder="Name"/>
-                                <span className="red-text">{errors.name}</span>
-                            </div>
-                            <div className="input-field col s12">
-                                <input onChange={this.onChange} value={this.state.email} error={errors.email} id="email" type="email" className={classnames("cred w-100", { invalid: errors.email })} placeholder="Email" />
-                                <span className="red-text">{errors.email}</span>
-                            </div>
-                            <div className="input-field col s12">
-                                <input onChange={this.onChange} value={this.state.password} error={errors.password} id="password" type="password" className={classnames("cred w-100", { invalid: errors.password })} placeholder="Password" />
-                                <span className="red-text">{errors.password}</span>
-                            </div>
-                            <div className="input-field col s12">
-                                <input onChange={this.onChange} value={this.state.password2} error={errors.password2} id="password2" type="password" className={classnames("cred w-100", { invalid: errors.password2 })} placeholder="Confirm Password" />
-                                <span className="red-text">{errors.password2}</span>
-                            </div>
-                            <div className="col s12">
-                                <button style={{ width: "150px", borderRadius: "3px", letterSpacing: "1.5px", marginTop: "1rem" }} type="submit" className="btn btn-dark hoverable accent-3">Sign up</button>
-                            </div>
+                            <TextField sx={{margin:'0.5rem 0'}}
+                                onChange={this.onChange}
+                                value={this.state.name}
+                                error={errors.name ? true : false}
+                                helperText={errors.name}
+                                id="name"
+                                type="text"
+                                label="Name"
+                                color="secondary"
+                                variant="filled"
+                                fullWidth
+                            />
+                            <TextField sx={{margin:'0.5rem 0'}}
+                                onChange={this.onChange}
+                                color="secondary"
+                                variant="filled"
+                                value={this.state.email}
+                                error={errors.email ? true : false}
+                                helperText={errors.email}
+                                id="email"
+                                type="email"
+                                label="Email"
+                                fullWidth
+                            />
+                            <TextField sx={{margin:'0.5rem 0'}}
+                                onChange={this.onChange}
+                                color="secondary"
+                                variant="filled"
+                                value={this.state.password}
+                                error={errors.password ? true : false}
+                                helperText={errors.password}
+                                id="password"
+                                type="password"
+                                label="Password"
+                                fullWidth
+                            />
+                            <TextField sx={{margin:'0.5rem 0'}}
+                                onChange={this.onChange}
+                                color="secondary"
+                                variant="filled"
+                                value={this.state.password2}
+                                error={errors.password2 ? true : false}
+                                helperText={errors.password2}
+                                id="password2"
+                                type="password"
+                                label="Confirm Password"
+                                fullWidth
+                            />
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                color="secondary"
+                                fullWidth
+                                style={{ marginTop: "1rem" }}
+                            >
+                                Sign up
+                            </Button>
                         </form>
-                    </div>
-                </div>
-            </div>
+                    </Grid>
+                </Grid>
+            </Container>
         );
     }
 }

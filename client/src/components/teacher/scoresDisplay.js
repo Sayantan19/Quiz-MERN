@@ -2,6 +2,7 @@
 import axios from 'axios';
 import exportFromJSON from 'export-from-json';
 import React, { useState, useEffect } from 'react';
+import { Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Button } from '@mui/material';
 import './teacher.css'
 
 export default function Scores() {
@@ -23,12 +24,12 @@ export default function Scores() {
         };
     }, []);
 
-    function handleOnClick(){
+    function handleOnClick() {
         window.location.href = '/teacher/landing'
     }
 
     // this function downloads the scores from a database to an excel file
-    async function downloadF(){
+    async function downloadF() {
         const data = content
         const fileName = 'Results'
         const exportType = exportFromJSON.types.xls
@@ -37,7 +38,49 @@ export default function Scores() {
 
     return (
         <>
-            <div className="container" id="score-table">
+            <Container maxWidth="md" id="score-table">
+                <div id="score">
+                    <TableContainer>
+                        <Table sx={{ minWidth: 650 }}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>#</TableCell>
+                                    <TableCell>Student Name</TableCell>
+                                    <TableCell>Student Score</TableCell>
+                                    <TableCell>Time Taken for Completion</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {content && content.length > 0 ? (
+                                    content.map((item, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell>{index + 1}</TableCell>
+                                            <TableCell>{item.name}</TableCell>
+                                            <TableCell>{item.score}</TableCell>
+                                            <TableCell>{item.time}</TableCell>
+                                        </TableRow>
+                                    ))
+                                ) : (
+                                    <TableRow>
+                                        <TableCell colSpan={4} align="center">
+                                            No content available
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </div>
+                <Container maxWidth="md">
+                    <Button variant="outlined" color="primary" id="save" onClick={downloadF}>
+                        Save Scores
+                    </Button>
+                    <Button variant="outlined" color="primary" id="logout" onClick={handleOnClick}>
+                        Back to home
+                    </Button>
+                </Container>
+            </Container>
+            {/* <div className="container" id="score-table">
                 <div id="score">
                     <table className="table table-light table-bordered" id="score">
                         <thead id="table-heading">
@@ -71,7 +114,7 @@ export default function Scores() {
                     <button type="button" className="btn btn-outline-dark" id="save" onClick={downloadF}>Save Scores</button>
                     <button type="button" className="btn btn-outline-dark" id="logout" onClick={handleOnClick}>Back to home</button>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 }

@@ -125,6 +125,7 @@ class Login extends Component {
                                             color='secondary'
                                             sx={{
                                                 marginBottom: '1em',
+                                                color:'black'
                                             }}
                                             id="email"
                                             type="email"
@@ -143,6 +144,7 @@ class Login extends Component {
                                             color='secondary'
                                             onChange={this.onChange}
                                             value={this.password}
+                                            sx={{color:'black'}}
                                             id="password"
                                             type="password"
                                             label="Password"
