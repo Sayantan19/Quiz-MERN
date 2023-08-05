@@ -44,20 +44,20 @@ export default function Scores() {
                         <Table sx={{ minWidth: 650 }}>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>#</TableCell>
-                                    <TableCell>Student Name</TableCell>
-                                    <TableCell>Student Score</TableCell>
-                                    <TableCell>Time Taken for Completion</TableCell>
+                                    <TableCell><Typography variant="h5">#</Typography></TableCell>
+                                    <TableCell><Typography variant="h5">Student Name</Typography></TableCell>
+                                    <TableCell><Typography textAlign={'center'} variant="h5">Student Score</Typography></TableCell>
+                                    <TableCell><Typography textAlign={'center'} variant="h5">Time Taken for Completion</Typography></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {content && content.length > 0 ? (
                                     content.map((item, index) => (
                                         <TableRow key={index}>
-                                            <TableCell>{index + 1}</TableCell>
-                                            <TableCell>{item.name}</TableCell>
-                                            <TableCell>{item.score}</TableCell>
-                                            <TableCell>{item.time}</TableCell>
+                                            <TableCell><Typography textAlign={'left'} variant="body1">{index + 1}</Typography></TableCell>
+                                            <TableCell><Typography textAlign={'left'} variant="body1">{item.name}</Typography></TableCell>
+                                            <TableCell><Typography textAlign={'center'} variant="body1">{item.score}</Typography></TableCell>
+                                            <TableCell><Typography textAlign={'center'} variant="body1">{item.time}</Typography></TableCell>
                                         </TableRow>
                                     ))
                                 ) : (
@@ -72,10 +72,10 @@ export default function Scores() {
                     </TableContainer>
                 </div>
                 <Container maxWidth="md">
-                    <Button variant="outlined" color="primary" id="save" onClick={downloadF}>
+                    <Button variant="contained" color="secondary" onClick={downloadF}>
                         Save Scores
                     </Button>
-                    <Button variant="outlined" color="primary" id="logout" onClick={handleOnClick}>
+                    <Button variant="text" color="secondary" className="mx-3" onClick={handleOnClick}>
                         Back to home
                     </Button>
                 </Container>

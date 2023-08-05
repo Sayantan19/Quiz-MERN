@@ -16,46 +16,49 @@ class TeacherDash extends Component {
   render() {
     const { user } = this.props.auth;
     return (
-      <Container maxWidth="sm" className="w-50 my-3" id="teacherDash">
-        <Typography variant="h4" className="text-center">
-          Do you want to Set questions, Check Student Scores or Logout?
-        </Typography>
-        <br />
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={4}>
-            <Button
-              component={Link}
-              to="/teacher/questions"
-              variant="contained"
-              color="primary"
-              fullWidth
-            >
-              Set Questions
-            </Button>
+      <div className="d-flex align-items-center justify-content-center" style={{ height: '80vh' }}>
+        <Container maxWidth="sm" style={{ height: '60vh', border: "2px solid #ab47bc", borderRadius: "10px" }} className="my-3" id="teacherDash">
+          <Typography variant="h4" className="text-center ">
+            Do you want to Set questions, Check Student Scores or Logout?
+          </Typography>
+          <br />
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={4}>
+              <Button
+                component={Link}
+                to="/teacher/questions"
+                variant="contained"
+                color="secondary"
+                fullWidth
+              >
+                Set Questions
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Button
+                component={Link}
+                to="/teacher/scores"
+                variant="outlined"
+                color="secondary"
+                fullWidth
+              >
+                Check Scores
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <Button
+                onClick={this.onLogoutClick}
+                variant="contained"
+                color="secondary"
+                fullWidth
+                startIcon={<ExitToAppIcon />}
+              >
+                Logout
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <Button
-              component={Link}
-              to="/teacher/scores"
-              variant="outlined"
-              fullWidth
-            >
-              Check Scores
-            </Button>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <Button
-              onClick={this.onLogoutClick}
-              variant="contained"
-              color="primary"
-              fullWidth
-              startIcon={<ExitToAppIcon />}
-            >
-              Logout
-            </Button>
-          </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </div>
     );
   }
 }

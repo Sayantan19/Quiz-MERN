@@ -2,13 +2,19 @@
 import React, { useState } from 'react'
 import './teacher.css'
 import axios from 'axios';
+import { Box, Button, Container, Divider, Alert, TextField, Typography, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
 
 export default function Questions() {
     const [state, setState] = useState({
         questiontime: 0,
-        quizquestions: 0
+        quizquestions: 0,
+        papername: '',
+        papercode: ''
     });
+
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [showErrorModal, setShowErrorModal] = useState(false);
 
     const [file, setFile] = useState(null);
 
@@ -21,10 +27,23 @@ export default function Questions() {
         console.log(state);
     }
 
-    const [uploadStatus, setUploadStatus] = useState(0);
+    const [uploadStatus, setUploadStatus] = useState(false);
+
+    const handleOnClose = () => {
+        if (showSuccessModal) {
+            setShowSuccessModal(false)
+            window.location.href = '/teacher/landing'
+        }
+        if (showErrorModal) {
+            setShowErrorModal(false)
+        }
+    }
+
     const onSubmit = e => {
         e.preventDefault();
         const data = {
+            papercode: state.papercode,
+            papername: state.papername,
             questiontime: state.questiontime,
             quizquestions: state.quizquestions
         }
@@ -33,61 +52,140 @@ export default function Questions() {
                 console.log(response.data)
             })
             .catch(res => { console.log("Error: ", res) })
-        const formData = new FormData();
-        formData.append('file', file);
 
-        axios.post('/teacher/questions/upload', formData)
-            .then(response => {
-                if (response.data === 'File uploaded successfully.') {
-                    console.log('hello')
-                    setUploadStatus(1);
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            axios.post('/teacher/questions/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data' // Make sure to set the content type
                 }
             })
-            .catch(error => {
-                console.log(error);
-            });
-
-        console.log(uploadStatus)
-
-        axios.post('/teacher/questions/process', 'process')
-            .then(response => {
-                console.log(response.data)
-                alert('Questions have been uploaded successfully. Redirecting you to the dashboard!')
-                window.location.href = '/landing';
-            })
-            .catch(error => {
-                console.log(error);
-            })
-
+                .then(response => {
+                    console.log(response.data);
+                    setUploadStatus(true);
+                    setShowSuccessModal(true); // Show the success modal
+                })
+                .catch(err => {
+                    console.error('Error uploading Excel file:', err);
+                    setShowErrorModal(true);
+                });
+        } else {
+            console.log('No file selected.');
+            setShowErrorModal(true);
+        }
     }
 
     return (
         <>
-            <div className="container form-group" style={{ background: 'white', borderRadius: '3px', marginTop: '5em', padding: '1em' }} id='info'>
-                <div className="forms">
-                    <label htmlFor="questiontime" className="form-label">
-                        <h3><b>Specify the time to be given for each question (in seconds)</b><span style={{ color: 'red', fontSize: '15px' }}>*Required</span></h3>
-                    </label>
-                    <input type="text" className="form-control" name="questiontime" id="questiontime" onChange={handleChange}
-                        placeholder="" required={true} />
-                </div>
-                <hr />
-                <div className="forms">
-                    <label htmlFor="quizquestions" className="form-label">
-                        <h3><b>Specify the number of questions in the quiz</b> <span style={{ color: 'red', fontSize: '15px' }}>*Required</span></h3>
-                    </label>
-                    <input type="text" className="form-control" id="quizquestions" name="quizquestions" onChange={handleChange}
-                        placeholder="" required={true} />
-                </div>
-                <div className="forms">
+            <div style={{ height: '75vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Container style={{ border: '2px solid #ab47bc', borderRadius: '10px', padding: '2rem' }} id="info">
+                    <Typography variant="h5" component="b">
+                        Paper Name:
+                        <span style={{ color: 'red', fontSize: '15px' }}> &nbsp;*Required</span>
+                    </Typography>
+                    <TextField
+                        name="papername"
+                        id="papername"
+                        variant="standard"
+                        color='secondary'
+                        fullWidth
+                        onChange={handleChange}
+                        placeholder="Your response"
+                        sx={{ padding: '1rem 0' }}
+                        required
+                    />
+                    <Divider />
+                    <Typography variant="h5" component="b">
+                        Paper Code:
+                        <span style={{ color: 'red', fontSize: '15px' }}> &nbsp;*Required</span>
+                    </Typography>
+                    <TextField
+                        name="papercode"
+                        id="papercode"
+                        variant="standard"
+                        color='secondary'
+                        fullWidth
+                        onChange={handleChange}
+                        placeholder="Your response"
+                        sx={{ padding: '1rem 0' }}
+                        required
+                    />
+                    <Divider />
+                    <Typography variant="h5" component="b">
+                        Specify the time to be given for each question (in seconds)
+                        <span style={{ color: 'red', fontSize: '15px' }}> &nbsp;*Required</span>
+                    </Typography>
+                    <TextField
+                        name="questiontime"
+                        id="questiontime"
+                        variant="standard"
+                        color='secondary'
+                        fullWidth
+                        onChange={handleChange}
+                        placeholder="Your response"
+                        sx={{ padding: '1rem 0' }}
+                        required
+                    />
+                    <Divider />
+                    <Typography variant="h5" component="b">
+                        Specify the number of questions in the quiz
+                        <span style={{ color: 'red', fontSize: '15px' }}>&nbsp;*Required</span>
+                    </Typography>
+                    <TextField
+                        name="quizquestions"
+                        id="quizquestions"
+                        variant="standard"
+                        color='secondary'
+                        fullWidth
+                        onChange={handleChange}
+                        placeholder="Your response"
+                        sx={{ padding: '1rem 0' }}
+                        required
+                    />
                     <label htmlFor="uploadFile" className="form-label">
-                        <h3><b>Specify the number of questions in the quiz</b> <span style={{ color: 'red', fontSize: '15px' }}>*Required</span></h3>
+                        <Typography variant="h5" component="b">
+                            Upload the question file (.xlsx)
+                            <span style={{ color: 'red', fontSize: '15px' }}>&nbsp;*Required</span>
+                        </Typography>
                     </label>
-                    <input type="file" className='form-control' name='uploadFile' id='uploadFile' onChange={handleFileChange} />
-                </div>
-                <hr />
-                <button className="btn btn-outline-dark forms" id="nextbut" onClick={onSubmit}>Next</button>
+                    <TextField
+                        accept=".xlsx, .xls"
+                        type="file"
+                        name="uploadFile"
+                        id="uploadFile"
+                        fullWidth
+                        variant='standard'
+                        color='secondary'
+                        onChange={handleFileChange}
+                    />
+                    <Divider />
+                    <Box display="flex" justifyContent="center" marginTop={'1rem'}>
+                        <Button variant="outlined" color="secondary" onClick={onSubmit}>
+                            Next
+                        </Button>
+                    </Box>
+                </Container>
             </div>
+            <Dialog open={showSuccessModal} onClose={handleOnClose}>
+                <DialogTitle>SUCCESS!</DialogTitle>
+                <DialogContent>
+                    <Typography variant="body1">Your file has been successfully uploaded.</Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button variant='text' color='secondary' onClick={handleOnClose}>Close</Button>
+                </DialogActions>
+            </Dialog>
+            <Dialog open={showErrorModal} onClose={handleOnClose}>
+                <DialogTitle>ERROR!</DialogTitle>
+                <DialogContent>
+                    <Typography variant="body1">Your file was unsuccessful.</Typography>
+                </DialogContent>
+                <DialogActions>
+                    <Button variant='text' color='secondary' onClick={handleOnClose}>Close</Button>
+                </DialogActions>
+            </Dialog>
         </>
     )
 }
