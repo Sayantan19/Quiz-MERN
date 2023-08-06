@@ -1,8 +1,9 @@
 //This is the component which sets the questions for the quiz.
 import React, { useState } from 'react'
+import { MuiFileInput } from 'mui-file-input'
 import './teacher.css'
 import axios from 'axios';
-import { Box, Button, Container, Divider, Alert, TextField, Typography, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { Box, Button, Container, Divider, Alert, TextField, Typography, Dialog, DialogTitle, DialogContent, DialogActions, InputLabel } from '@mui/material';
 
 
 export default function Questions() {
@@ -10,16 +11,19 @@ export default function Questions() {
         questiontime: 0,
         quizquestions: 0,
         papername: '',
-        papercode: ''
+        papercode: '',
+        testno: ''
     });
 
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
+    const [formErrors, setFormErrors] = useState({});
 
     const [file, setFile] = useState(null);
 
     const handleFileChange = (event) => {
-        setFile(event.target.files[0]);
+        console.log(event)
+        setFile(event);
     };
 
     const handleChange = e => {
@@ -39,11 +43,43 @@ export default function Questions() {
         }
     }
 
+    const validateForm = () => {
+        const errors = {};
+        if (!state.papername) {
+            errors.papername = 'Paper name is required';
+        }
+        if (!state.papercode) {
+            errors.papercode = 'Paper code is required';
+        }
+        if (!state.questiontime) {
+            errors.questiontime = 'Question time is required';
+        }
+        if (!state.quizquestions) {
+            errors.quizquestions = 'Quiz questions is required';
+        }
+        if (!state.testno) {
+            errors.quizquestions = 'Test number is required';
+        }
+        if (!file) {
+            errors.file = 'File Upload is required';
+        }
+        setFormErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
+
     const onSubmit = e => {
         e.preventDefault();
+
+        // Validate the form
+        if (!validateForm()) {
+            setShowErrorModal(true);
+            return;
+        }
+
         const data = {
             papercode: state.papercode,
             papername: state.papername,
+            testno: state.testno,
             questiontime: state.questiontime,
             quizquestions: state.quizquestions
         }
@@ -79,10 +115,10 @@ export default function Questions() {
 
     return (
         <>
-            <div style={{ height: '75vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ minHeight: '85vh',overflowY:'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Container style={{ border: '2px solid #ab47bc', borderRadius: '10px', padding: '2rem' }} id="info">
                     <Typography variant="h5" component="b">
-                        Paper Name:
+                        Enter Paper Name:
                         <span style={{ color: 'red', fontSize: '15px' }}> &nbsp;*Required</span>
                     </Typography>
                     <TextField
@@ -92,13 +128,15 @@ export default function Questions() {
                         color='secondary'
                         fullWidth
                         onChange={handleChange}
-                        placeholder="Your response"
+                        placeholder="Paper Name"
                         sx={{ padding: '1rem 0' }}
                         required
+                        error={!!formErrors.papername}
+                        helperText={formErrors.papername}
                     />
                     <Divider />
                     <Typography variant="h5" component="b">
-                        Paper Code:
+                        Enter Paper Code:
                         <span style={{ color: 'red', fontSize: '15px' }}> &nbsp;*Required</span>
                     </Typography>
                     <TextField
@@ -108,9 +146,11 @@ export default function Questions() {
                         color='secondary'
                         fullWidth
                         onChange={handleChange}
-                        placeholder="Your response"
+                        placeholder="Paper Code"
                         sx={{ padding: '1rem 0' }}
                         required
+                        error={!!formErrors.papercode}
+                        helperText={formErrors.papercode}
                     />
                     <Divider />
                     <Typography variant="h5" component="b">
@@ -124,9 +164,11 @@ export default function Questions() {
                         color='secondary'
                         fullWidth
                         onChange={handleChange}
-                        placeholder="Your response"
+                        placeholder="Time for each question"
                         sx={{ padding: '1rem 0' }}
                         required
+                        error={!!formErrors.questiontime}
+                        helperText={formErrors.questiontime}
                     />
                     <Divider />
                     <Typography variant="h5" component="b">
@@ -140,9 +182,29 @@ export default function Questions() {
                         color='secondary'
                         fullWidth
                         onChange={handleChange}
-                        placeholder="Your response"
+                        placeholder="Number of questions"
                         sx={{ padding: '1rem 0' }}
                         required
+                        error={!!formErrors.quizquestions}
+                        helperText={formErrors.quizquestions}
+                    />
+                    <Divider />
+                    <Typography variant="h5" component="b">
+                        Specify the test number
+                        <span style={{ color: 'red', fontSize: '15px' }}>&nbsp;*Required</span>
+                    </Typography>
+                    <TextField
+                        name="testno"
+                        id="testno"
+                        variant="standard"
+                        color='secondary'
+                        fullWidth
+                        onChange={handleChange}
+                        placeholder="Test no."
+                        sx={{ padding: '1rem 0' }}
+                        required
+                        error={!!formErrors.testno}
+                        helperText={formErrors.testno}
                     />
                     <label htmlFor="uploadFile" className="form-label">
                         <Typography variant="h5" component="b">
@@ -150,42 +212,43 @@ export default function Questions() {
                             <span style={{ color: 'red', fontSize: '15px' }}>&nbsp;*Required</span>
                         </Typography>
                     </label>
-                    <TextField
-                        accept=".xlsx, .xls"
-                        type="file"
-                        name="uploadFile"
-                        id="uploadFile"
+                    <br></br>
+                    <MuiFileInput
                         fullWidth
+                        placeholder="Choose file"
+                        value={file}
+                        onChange={handleFileChange}
                         variant='standard'
                         color='secondary'
-                        onChange={handleFileChange}
+                        error={!!formErrors.file}
+                        helperText={formErrors.file}
                     />
                     <Divider />
                     <Box display="flex" justifyContent="center" marginTop={'1rem'}>
                         <Button variant="outlined" color="secondary" onClick={onSubmit}>
-                            Next
+                            Set Questions
                         </Button>
                     </Box>
                 </Container>
+                <Dialog open={showSuccessModal} onClose={handleOnClose}>
+                    <DialogTitle>SUCCESS!</DialogTitle>
+                    <DialogContent>
+                        <Typography variant="body1">Successfully set the questions. Redirecting you to the dashboard</Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button variant='text' color='secondary' onClick={handleOnClose}>Close</Button>
+                    </DialogActions>
+                </Dialog>
+                <Dialog open={showErrorModal} onClose={handleOnClose}>
+                    <DialogTitle>ERROR!</DialogTitle>
+                    <DialogContent>
+                        <Typography variant="body1">Question setting unsuccesful.</Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button variant='text' color='secondary' onClick={handleOnClose}>Close</Button>
+                    </DialogActions>
+                </Dialog>
             </div>
-            <Dialog open={showSuccessModal} onClose={handleOnClose}>
-                <DialogTitle>SUCCESS!</DialogTitle>
-                <DialogContent>
-                    <Typography variant="body1">Your file has been successfully uploaded.</Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button variant='text' color='secondary' onClick={handleOnClose}>Close</Button>
-                </DialogActions>
-            </Dialog>
-            <Dialog open={showErrorModal} onClose={handleOnClose}>
-                <DialogTitle>ERROR!</DialogTitle>
-                <DialogContent>
-                    <Typography variant="body1">Your file was unsuccessful.</Typography>
-                </DialogContent>
-                <DialogActions>
-                    <Button variant='text' color='secondary' onClick={handleOnClose}>Close</Button>
-                </DialogActions>
-            </Dialog>
         </>
     )
 }

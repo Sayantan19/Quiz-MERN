@@ -1,16 +1,21 @@
 const express = require("express");
 const router = express.Router();
 
-const { SetQuestion, UploadQuestion, UploadFile, ExcelToJson } = require('../controllers/questionController.js')
+const { SetQuestion, UploadFile, GetQuestion } = require('../controllers/questionController.js')
 
 // @route POST api/questions/question
 // @desc to set the question settings
-// @access Public
+// @access Private
 router.post('/question', SetQuestion)
 
 // @route POST api/questions/upload
 // @desc to upload the question file
-// @access Public
+// @access Private
 router.post('/upload', UploadFile)
+
+// @route GET api/question/get-question
+// @desc to retrieve the question file
+// @access Private
+router.get('/get-question', GetQuestion)
 
 module.exports = router;

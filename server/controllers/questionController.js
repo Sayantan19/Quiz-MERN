@@ -2,23 +2,25 @@
 const xlsx = require('xlsx');
 const fs = require('fs');
 const multer = require("multer");
+const PaperDetails = require('../models/PaperDetails');
 let questionData = {}
 
 //This function handles the settings of the questions in the quiz.
-//For now I have included 2 things: 
+//For now I have included 3 things: 
 //1. The number of questions
 //2. The time for each question
+//3. Marking scheme
 
-function convertSpacesToUnderscores(filename) {
-    filename = filename.toLowerCase()
-    return filename.replace(/ /g, '_');
-  }
+function removeSpacesFromFilename(filename) {
+    // Use a regular expression to match all spaces (global flag 'g')
+    return filename.replace(/\s/g, '');
+}
 
 const SetQuestion = (req, res) => {
     if (res) {
         const request = req.body;
         const response = 'Received';
-        const filename = '../../Data/'+convertSpacesToUnderscores(request.papercode)+'.json';
+        const filename = '../../Data/' + removeSpacesFromFilename(request.papercode) + '_test_' + removeSpacesFromFilename(request.testno) + '.json';
         const folderName = '../../Data'
         //Creates a folder if it doesn't exist previously.
         try {
@@ -41,7 +43,7 @@ const SetQuestion = (req, res) => {
             fs.writeFileSync(filename, '{}');
         }
 
-        fs.readFile(filename, 'utf8', (err, data) => {
+        fs.readFile(filename, 'utf8', async (err, data) => {
             if (err) throw err;
             const fileData = JSON.parse(data);
             if (fileData.Question_settings === undefined) {
@@ -50,11 +52,38 @@ const SetQuestion = (req, res) => {
             }
             else {
                 fileData['Question_settings'] = request;
+                if (!Array.isArray(fileData.quizData)) {
+                    fileData.quizData = []; // Initialize quizData as an empty array if it's not already
+                }
                 if (!Array.isArray(questionData)) {
                     questionData = [questionData]; // Convert to an array with a single element
                 }
                 fileData['quizData'].push(...questionData); // Use spread operator to add individual questions
             }
+            await PaperDetails.findOne({ code: request.papercode, testno: request.testno })
+                .then((data) => {
+                    if (data) {
+                        console.log('Good');
+                    } else {
+                        console.log(request)
+                        const newPaperDetail = new PaperDetails({
+                            name: request.papername,
+                            code: request.papercode,
+                            testno: request.testno
+                        })
+                        newPaperDetail.save()
+                            .then(result => {
+                                console.log('Paper details saved successfully');
+                            })
+                            .catch(err => {
+                                console.log('Error:', err);
+                            });
+                    }
+                })
+                .catch((error) => {
+                    console.log('Error:', error);
+                    res.status(500).send('Error finding paper details');
+                });
 
             fs.writeFile(filename, JSON.stringify(fileData, null, 4), (err) => {
                 if (err) throw err;
@@ -107,4 +136,20 @@ const UploadFile = (req, res) => {
     });
 };
 
-module.exports = { SetQuestion, UploadFile }
+
+const GetQuestion = (req, res) => {
+    const { papercode, testno } = req.body;
+    const filePath = `../../Data/${papercode}_test_${testno}.json`; // Assuming file extension is ".json"
+
+    fs.readFile(filePath, 'utf8', (err, data) => {
+        if (err) {
+            console.error(`Error opening file: ${err}`);
+            res.status(500).json({ error: 'Failed to open file' });
+        } else {
+            const fileContents = JSON.parse(data);
+            res.json(fileContents);
+        }
+    });
+}
+
+module.exports = { SetQuestion, UploadFile, GetQuestion }
