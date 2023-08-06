@@ -65,7 +65,6 @@ const SetQuestion = (req, res) => {
                     if (data) {
                         console.log('Good');
                     } else {
-                        console.log(request)
                         const newPaperDetail = new PaperDetails({
                             name: request.papername,
                             code: request.papercode,
@@ -130,7 +129,6 @@ const UploadFile = (req, res) => {
             const jsonData = xlsx.utils.sheet_to_json(worksheet);
             // Send the JSON data as the response
             questionData = jsonData;
-            console.log(questionData[0])
             res.json(jsonData);
         }
     });
@@ -138,7 +136,8 @@ const UploadFile = (req, res) => {
 
 
 const GetQuestion = (req, res) => {
-    const { papercode, testno } = req.body;
+    const papercode = removeSpacesFromFilename(req.body.code)
+    const testno = removeSpacesFromFilename(req.body.testno)
     const filePath = `../../Data/${papercode}_test_${testno}.json`; // Assuming file extension is ".json"
 
     fs.readFile(filePath, 'utf8', (err, data) => {

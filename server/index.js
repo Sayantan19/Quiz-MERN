@@ -7,11 +7,10 @@ const logger = require('morgan');
 const app = express();
 const cors = require('cors');
 
-const student = require("./routes/users");
 const results = require("./routes/results");
-const teacher = require("./routes/users");
 const users = require("./routes/users");
 const questions = require('./routes/question');
+const paperDetails = require('./routes/paperDetails')
 
 //CORS middleware
 app.use(cors())
@@ -44,7 +43,8 @@ require("./config/passport")(passport);
 // Routes
 app.use("/users", users);
 app.use('/results', results);
-app.use('/teacher/questions', questions);
+app.use('/questions', questions);
+app.use('/paper-details', paperDetails)
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));

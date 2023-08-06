@@ -15,25 +15,24 @@ class Login extends Component {
         };
     }
     componentDidMount() {
-        console.log(this.props)
         const user = accessCurrentUser();
         // If logged in and user navigates to Register page, should redirect them to dashboard
         if (this.props.auth.isAuthenticated) {
 
-            if (user.isTeacher === "false")
+            if (user.isTeacher === "false") {
                 window.location.href = "/student/rule"; // push user to dashboard when they login
+            }
             else
                 window.location.href = '/teacher/landing';
         }
     }
 
     UNSAFE_componentWillReceiveProps(nextProps) {
-        console.log('nextProps: ', nextProps)
         if (nextProps.auth.isAuthenticated) {
             const user = accessCurrentUser();
-            console.log(user)
-            if (user.isTeacher === "false")
-                window.location.href = "/student/rule"; // push user to dashboard when they login
+            if (user.isTeacher === "false") {
+                window.location.href = "/student/exam-choice"; // push user to dashboard when they login
+            }
             else
                 window.location.href = '/teacher/landing'
         }
@@ -54,7 +53,6 @@ class Login extends Component {
             email: this.state.email,
             password: this.state.password
         };
-        console.log(userData);
         this.props.loginUser(userData); // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
     };
 
@@ -79,7 +77,7 @@ class Login extends Component {
                         alignItems: 'center',
                         boxShadow: '0px 0px 15px 10px #743f7e',
                         height: '70vh',
-                        borderRadius:'10px'
+                        borderRadius: '10px'
                     }}>
                         <Grid
                             spacing={2}
@@ -125,26 +123,25 @@ class Login extends Component {
                                             color='secondary'
                                             sx={{
                                                 marginBottom: '1em',
-                                                color:'black'
+                                                color: 'black'
                                             }}
                                             id="email"
                                             type="email"
                                             label="Email"
-                                            className={classnames('cred', {
+                                            className={classnames('cred ', {
                                                 invalid: errors.email || errors.emailnotfound,
                                             })}
                                             error={Boolean(errors.email || errors.emailnotfound)}
                                             helperText={errors.email || errors.emailnotfound}
                                             fullWidth
                                             focused
-                                            disableClearable
                                             autoComplete="off"
                                         />
                                         <TextField
-                                            color='secondary'
+                                            color="secondary"
                                             onChange={this.onChange}
                                             value={this.password}
-                                            sx={{color:'black'}}
+                                            sx={{ color: 'black' }}
                                             id="password"
                                             type="password"
                                             label="Password"

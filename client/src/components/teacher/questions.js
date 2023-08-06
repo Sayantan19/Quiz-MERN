@@ -22,13 +22,15 @@ export default function Questions() {
     const [file, setFile] = useState(null);
 
     const handleFileChange = (event) => {
-        console.log(event)
         setFile(event);
     };
 
     const handleChange = e => {
         setState({ ...state, [e.target.id]: e.target.value })
-        console.log(state);
+    }
+
+    function handleOnClick() {
+        window.location.href = '/teacher/landing'
     }
 
     const [uploadStatus, setUploadStatus] = useState(false);
@@ -83,9 +85,9 @@ export default function Questions() {
             questiontime: state.questiontime,
             quizquestions: state.quizquestions
         }
-        axios.post('/teacher/questions/question', data)
+        axios.post('/questions/question', data)
             .then(function (response) {
-                console.log(response.data)
+                console.log('Success')
             })
             .catch(res => { console.log("Error: ", res) })
 
@@ -93,13 +95,12 @@ export default function Questions() {
             const formData = new FormData();
             formData.append('file', file);
 
-            axios.post('/teacher/questions/upload', formData, {
+            axios.post('/questions/upload', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data' // Make sure to set the content type
                 }
             })
                 .then(response => {
-                    console.log(response.data);
                     setUploadStatus(true);
                     setShowSuccessModal(true); // Show the success modal
                 })
@@ -115,7 +116,7 @@ export default function Questions() {
 
     return (
         <>
-            <div style={{ minHeight: '85vh',overflowY:'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ minHeight: '100vh', overflowY: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Container style={{ border: '2px solid #ab47bc', borderRadius: '10px', padding: '2rem' }} id="info">
                     <Typography variant="h5" component="b">
                         Enter Paper Name:
@@ -225,8 +226,11 @@ export default function Questions() {
                     />
                     <Divider />
                     <Box display="flex" justifyContent="center" marginTop={'1rem'}>
-                        <Button variant="outlined" color="secondary" onClick={onSubmit}>
+                        <Button variant="contained" color="secondary" onClick={onSubmit}>
                             Set Questions
+                        </Button>
+                        <Button variant="text" color="secondary" className="mx-3" onClick={handleOnClick}>
+                            Back to home
                         </Button>
                     </Box>
                 </Container>

@@ -15,7 +15,6 @@ function withRouter(Component) {
         let location = useLocation();
         let navigate = useNavigate();
         let params = useParams();
-        console.log(props)
         return (
             <Component
                 {...props}
@@ -41,8 +40,6 @@ class Registers extends Component {
 
     componentDidMount() {
         // If logged in and user navigates to Login page, should redirect them to dashboard
-        console.log("Authenticated? ", this.props.auth.isAuthenticated)
-        console.log("History: ", this.props.router.navigate)
         if (this.props.auth.isAuthenticated) {
             this.props.router.navigate("/");
         }
@@ -69,11 +66,7 @@ class Registers extends Component {
             password2: this.state.password2,
             teacher: false
         };
-        console.log(this.props)
-        console.log("History recorded: ", this.props.router.navigate)
         this.props.registerUser(newUser, this.props.router.navigate);
-        console.log(newUser);
-        console.log(typeof (newUser));
     };
 
     render() {

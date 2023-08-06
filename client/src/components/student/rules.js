@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './student.css'
+import { useLocation, useNavigate } from 'react-router-dom'; // Import the useLocation hook
 import { Container, List, ListItem, Typography, Box, FormControlLabel, Checkbox, Link, Button } from '@mui/material'
 import { KeyboardArrowRightOutlined } from '@mui/icons-material'
 import { purple } from '@mui/material/colors'
@@ -8,6 +9,15 @@ import { purple } from '@mui/material/colors'
 //This is the Rules component. It displays rules of the quiz which the user has to comply to
 export default function Rules() {
     const [checked, setChecked] = useState(false);
+    const location = useLocation(); // Use the useLocation hook to access location state
+    const questionData = location.state?.questionData; // Get the response data from the location state
+    const navigate = useNavigate(); // This hook allows us to navigate to a different route
+
+    const handleSubmit = () =>{
+        // Pass the response data to the Rules component when navigating to it
+        navigate('/student/quiz', { state: { questionData: questionData } });
+    }
+
     const handleChange = () => {
         if (checked === false) {
             document.getElementById('start').style.display = 'block';
@@ -17,7 +27,8 @@ export default function Rules() {
         }
         setChecked(!checked);
     };
-    const purp = purple[50];
+    const purp = purple[50];    
+
     return (
         <>
             <Container
@@ -47,10 +58,8 @@ export default function Rules() {
                     <List>
                         <ListItem><KeyboardArrowRightOutlined />This is an MCQ based quiz.</ListItem>
                         <ListItem><KeyboardArrowRightOutlined />Questions will be asked from all domains pertaining to the subject.</ListItem>
-                        <ListItem><KeyboardArrowRightOutlined />4 points will be awarded for each correct answer.</ListItem>
-                        <ListItem><KeyboardArrowRightOutlined />1 point to be deducted for each incorrect answer.</ListItem>
-                        <ListItem><KeyboardArrowRightOutlined />Ranking will be done based on the total points obtained and the time taken to finish the questions</ListItem>
-                        <ListItem><KeyboardArrowRightOutlined />In case of tie break, the time taken to submit the quiz will be considered as the deciding factor.</ListItem>
+                        <ListItem><KeyboardArrowRightOutlined />{questionData.quizData[0]['positive_marking']} points will be awarded for each correct answer.</ListItem>
+                        <ListItem><KeyboardArrowRightOutlined />{questionData.quizData[0]['negative_marking']} point will be awarded for each incorrect answer.</ListItem>
                         <ListItem><KeyboardArrowRightOutlined />Use of unfair means will be strictly dealt with. Please note that there is a proctoring system enabled for checking whether you are using any unfair means.</ListItem>
                         <ListItem><KeyboardArrowRightOutlined />Anyone caught cheating, accessing the internet or use any other means which can damage the spirit of the event will result in immediate disqualification of that team.</ListItem>
                         <ListItem><KeyboardArrowRightOutlined />Please be careful while answering. Answers attempted won't be saved and once you proceed to the next question, you will not be allowed to go back.</ListItem>
@@ -63,7 +72,7 @@ export default function Rules() {
                         </ListItem>
                     </List>
                     <div className="container" id="submit-button">
-                        <Link href='/student/quiz' underline='none'><Button
+                        <Link onClick={handleSubmit} underline='none'><Button
                             sx={{
                                 borderColor: purp,
                                 color: 'white',

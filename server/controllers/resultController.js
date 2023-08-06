@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 //Sends the results of the exam that the student gave
 const ResultSend = (req, res) => {
-
+    console.log(req.body)
     if (res) {
         const id = req.body.id;
         const query = { _id: id };
@@ -14,18 +14,27 @@ const ResultSend = (req, res) => {
             .then(user => {
                 const name = user.name;
                 const email = user.email;
-                Result.findOne({ email })
+                const fraudcheck = {email: email , papername: req.body.papername, papercode: req.body.papercode, testno: req.body.testno}
+                Result.findOne(fraudcheck)
                     .then(result => {
                         if (result) {
                             console.log('Fraud Case');
                             res.send('Fraud case');
                         }
                         else {
+                            let cheatcount = 0
+                            if(req.body.cheated > 0)
+                                cheatcount = req.body.cheated
                             const newResult = new Result({
                                 name: name,
                                 email: email,
                                 score: req.body.score,
-                                time: req.body.time
+                                time: req.body.time,
+                                cheated: cheatcount,
+                                totalmarks: req.body.totalmarks,
+                                papername: req.body.papername,
+                                papercode: req.body.papercode,
+                                testno: req.body.testno
                             })
                             newResult.save()
                                 .then(result => res.json(result))
@@ -49,20 +58,20 @@ const Display = (req, res) => {
         User.findOne(query)
             .then(user => {
                 const e = user.email;
-                const query1 = {email: e}
+                const query1 = { email: e }
                 Result.findOne(query1)
                     .then(result => {
                         const data = JSON.stringify(result)
                         res.send(data)
                     })
-                    .catch(response =>{console.log(response)})
+                    .catch(response => { console.log(response) })
             })
     }
     else
         res.send('Not Found')
 }
 
-const DisplayAll =  (req, res) => {
+const DisplayAll = (req, res) => {
     if (res) {
         Result.find()
             .then(result => {

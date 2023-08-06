@@ -16,6 +16,6 @@ router.post('/upload', UploadFile)
 // @route GET api/question/get-question
 // @desc to retrieve the question file
 // @access Private
-router.get('/get-question', GetQuestion)
+router.post('/get-question', GetQuestion)
 
 module.exports = router;

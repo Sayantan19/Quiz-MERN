@@ -12,7 +12,8 @@ class Summary extends Component {
         super(props);
         this.state = {
             score: null,
-            time: null
+            time: null,
+            totalmarks: null,
         };
     }
 
@@ -23,13 +24,13 @@ class Summary extends Component {
         }
         axios.post("/results/display", dat)
             .then(response => {
-                console.log('Result: ' + response.data)
+                console.log(response)
                 this.setState({ score: response.data.score })
                 this.setState({ time: response.data.time })
-
+                this.setState({ totalmarks: response.data.totalmarks })
             })
             .catch(response => {
-                console.log('Jhamela: ' + response.status)
+                console.log('Error: ' + response.status)
             })
     }
 
@@ -43,7 +44,7 @@ class Summary extends Component {
     render() {
         const { score } = this.state
         const { time } = this.state
-
+        const { totalmarks } = this.state
         return (
             <>
                 <Container
