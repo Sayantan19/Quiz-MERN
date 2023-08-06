@@ -2,9 +2,8 @@
 import { React, useEffect } from 'react';
 import './student.css';
 import logic from './quiz/logic.js';
-import proctor from './quiz/proctor.js'
 import { Box, Button, ButtonGroup, Container, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Quiz() {
     const location = useLocation(); // Use the useLocation hook to access location state

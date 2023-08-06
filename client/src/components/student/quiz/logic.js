@@ -2,7 +2,7 @@
 // This is where the question is randomized and displayed.
 
 import axios from 'axios';
-import { accessCurrentUser } from '../../../actions/authActions';
+import { accessCurrentUser, logoutUser } from '../../../actions/authActions';
 import proctor from './proctor';
 
 export default async function logic(questionData) {
@@ -50,17 +50,18 @@ export default async function logic(questionData) {
 
     //This is where the result gets formatted and submitted
     function SubmitResult() {
+        const timetaken = (timerValue - totalSeconds)
         const token = accessCurrentUser().decoded;
         const data1 = {
             'id': token.id,
             'name': token.name,
             'score': correctscore,
-            'time': (timerValue - totalSeconds),
+            'time': timetaken,
             'cheated': cheated,
             'totalmarks': totalMarks,
-            'papername' : data.Question_settings.papername,
-            'papercode' : data.Question_settings.papercode,
-            'testno' : data.Question_settings.testno
+            'papername': data.Question_settings.papername,
+            'papercode': data.Question_settings.papercode,
+            'testno': data.Question_settings.testno
         }
         axios.post('/results/result', data1)
             .then(function (response) {
@@ -69,10 +70,10 @@ export default async function logic(questionData) {
                 }
                 else if (response.data === 'Fraud case') {
                     alert('Congratulations on wasting your time giving the exam again!');
-                    window.location.href = '/student/summary';
+                    window.location.href = `/student/summary/${0}/${0}/${0}`
                 }
                 else {
-                    window.location.href = '/student/summary';
+                    window.location.href = `/student/summary/${correctscore}/${timetaken}/${totalMarks}`;
                 }
             }).catch(console.log("Fraud case"));
     }
