@@ -1,10 +1,11 @@
 import React from 'react';
-import { Landing } from '../../components/index.js';
+import { Footer, Landing } from '../../components/index.js';
 
 export default function LandingPage() {
   return (
     <>
         <Landing />
+        <Footer />
     </>
   );
 }

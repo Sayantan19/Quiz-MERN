@@ -22,22 +22,24 @@
 
 #score-table
 {
+    border: 2px solid #ab47bc;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    background-color: white;
-    margin: 5em auto;
     align-items: center;
-    /* width: 100%; */
     justify-content: center;
+    margin: 5em auto;
     padding: 10px;
-    border: 2px solid black;
-    border-radius: 5px;
-    height: 25em;
+    gap: 1rem;
 }
 
 #score{
     width: 100%;
-    overflow-y: scroll;
+    max-height: 50vh;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #save{
@@ -48,10 +50,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 80vh;
+    flex-direction: column;
 }
 
-#register{
-    background-color: white;
+/* #register{
+    background-color: black;
     margin: 2em auto;
     padding: 10px;
     display: flex;
@@ -59,4 +63,4 @@
     justify-content: center;
     width: 50%;
     border-radius: 5px ;
-}
+} */

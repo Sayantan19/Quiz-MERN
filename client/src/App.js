@@ -2,7 +2,7 @@ import './App.css';
 import React, {useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
 import { Landing, Login, Registert, teacherDash } from './pages/index.js';
-import { Rules, Quiz, Summary, Registers} from './pages/index.js';
+import { Rules, Quiz, Summary, Registers, ExamChoice} from './pages/index.js';
 import { Questions, Scores } from './pages/index.js';
 import { Provider } from "react-redux";
 import store from "./store.js";
@@ -39,8 +39,8 @@ export default function App() {
         <Route path='/' element={<Landing />} />
         <Route path='/student/register' element={<Registers />} />
         <Route path='/teacher/register' element={<Registert />} /> 
-        {/* <Route path='/teacher/register' element={<TeacherRegister/>} /> */}
         <Route path='/login' element={<Login />} />
+        <Route path='/student/exam-choice'    element={<PrivateRoute path="/student/exam-choice" component={ExamChoice} />} /> 
         <Route path='/student/rule'    element={<PrivateRoute path="/student/rule" component={Rules} />} /> 
         <Route path='/student/quiz'    element={<PrivateRoute path="/student/quiz" component={Quiz} />} />
         <Route path='/student/summary' element={<PrivateRoute path="/student/summary" component={Summary} />} />

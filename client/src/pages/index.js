@@ -8,3 +8,4 @@ export {default as teacherDash} from './teacher/teacher_dashboard.js';
 export {default as Scores} from './teacher/scores_display.js';
 export {default as Questions} from './teacher/question.js';
 export {default as Registert} from './teacher/teacher_register.js';
+export {default as ExamChoice} from './student/examChoice.js'

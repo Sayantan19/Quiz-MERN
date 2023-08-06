@@ -11,6 +11,18 @@ const ResultSchema = new Schema({
     type: String,
     required: true
   },
+  papername: {
+    type: String,
+    required: true
+  },
+  papercode: {
+    type: String,
+    required: true
+  },
+  testno: {
+    type: String,
+    required: true
+  },
   score: {
     type: Number,
     required: true
@@ -18,6 +30,14 @@ const ResultSchema = new Schema({
   time: {
     type: Number,
     required: true
-  }
+  },
+  totalmarks: {
+    type: Number,
+    required: true
+  },
+  cheated: {
+    type: Number,
+    required: true
+  },
 });
 module.exports = Result = mongoose.model("student-scores", ResultSchema);

@@ -13,7 +13,6 @@ import {
 export const registerUser = (userData, navigate) => dispatch => {
     axios.post("/users/register", userData)
         .then(function (res) {
-            console.log(res.status);
             alert('You have successfully registered. Redirecting you to Login page')
             navigate("/login")
         }) // re-direct to login on successful register
@@ -32,8 +31,6 @@ export const loginUser = (userData) => dispatch => {
             // Save to localStorage
             // Set token to localStorage
             const { token, teacher } = res.data;
-            console.log(token)
-            console.log(teacher)
             localStorage.setItem("jwtToken", token);
             localStorage.setItem("isTeacher", teacher);
             

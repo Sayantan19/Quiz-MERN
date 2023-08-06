@@ -201,14 +201,16 @@ input[type="radio"].form-check-input.answer:checked {
 }
 
 #register {
-    background-color: white;
-    margin: 2em auto;
+    /* background-color: black; */
+    margin: auto;
     padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 50%;
+    height: 80vh;
     border-radius: 5px;
+    gap: 2em;
 }
 
 /* Summary page */

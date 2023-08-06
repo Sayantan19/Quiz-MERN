@@ -10,12 +10,12 @@
 #foot {
     background-color: black;
     padding-top: 1.25em;
-    padding-bottom: 1.25em;
-    margin-top: 1.5%;
+    padding-bottom: 1.5em;
     width: 100%;
-    position: fixed;
+    position: static;
     bottom: 0;
-    display: inline-block;
+    margin: 0;
+    display: block;
 }
 
 /* Heading */
@@ -47,17 +47,9 @@
 
 /* Landing page */
 #Landing {
-    box-shadow: 0px 0px 20px 15px #743f7e;
+    box-shadow: 0px 0px 20px 10px #743f7e;
 }
 
-/* Login Page */
-#email {
-    color: #000000 !important;
-}
-
-#password {
-    color: #000000 !important;
-}
 
 .account-block {
     padding: 0;
@@ -110,4 +102,11 @@ input:-webkit-autofill,
   }
 a:hover{
     color: inherit;
+}
+
+#email{
+    color: black !important;
+}
+#password{
+    color: black !important;
 }
