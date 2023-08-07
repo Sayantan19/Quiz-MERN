@@ -92,12 +92,12 @@ To develop a complete software solution which can be used by any teacher to cond
 <ul>
 <li><h3>Teacher Side</h3>
 
-![Teacher flow](https://user-images.githubusercontent.com/75779600/231784441-b09b709a-696a-4fe3-8cce-0cb4f58199c0.png)
+![image](https://github.com/Sayantan19/Quiz-MERN/assets/75779600/91d239bf-f85a-4169-a943-b06fe8b3e0f6)
 
 </li>
 <li><h3>Student Side</h3>
 
-![Student flow](https://user-images.githubusercontent.com/75779600/231784079-83b95206-8de9-4a3d-a9d6-6cc6072cd17f.png)
+![image](https://github.com/Sayantan19/Quiz-MERN/assets/75779600/f580061b-76f5-4910-8702-829a58cc9b26)
 
 </li>
 </ul>
@@ -114,7 +114,7 @@ To develop a complete software solution which can be used by any teacher to cond
         secretOrKey: "secret"
     }
 </li>
-
+</ul>
 <h3>Step 3: Installing dependencies: </h3>
 <ul>
 <li>
@@ -126,7 +126,7 @@ To develop a complete software solution which can be used by any teacher to cond
     npm i
 </li>
 </ul>
-<h3>Step 5: Running the applications</h3>
+<h3>Step 4: Running the applications</h3>
 <ul>
 <li>Copy the following code in the terminal:
 
