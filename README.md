@@ -15,26 +15,36 @@ To develop a complete software solution which can be used by any teacher to cond
 
 <h2>Features:</h2>
 <ul>
-  <li><em>Proctoring Functionality</em>: This feature is under development, so far I have been able to incorporate face detection in proctoring side</li> 
+  <li><em>Proctoring Functionality</em>: This feature is under development, so far I have been able to incorporate face detection (Singular and Multiple) in proctoring side</li> 
   <li><em>Lightwight</em>: The teacher and the student side together take up around half a GB of space.(subject to scaling and further developments)</li>
   <li><em>Easy to use</em>: Very minimalistic design with easy to use features</li>
   <li><em>Customizable</em>: I am planning to incorporate different question forms for assessment like handwriting detection for subjective answer recognition, so that the teachers can correct subjective answers in a seamless and easy manner</li>
 </ul>
 
-## Snapshots of the application (Click on the image for a better view)
-<h3>Teacher Side:</h3>
+<h2>Snapshots of the application (Click on the image for a better view)</h2>
 
-|<img src="https://user-images.githubusercontent.com/75779600/231831652-699a8988-8c48-4cf0-b543-055af02c54f3.png"/>|<img src="https://user-images.githubusercontent.com/75779600/231831646-93c65cef-02c6-41b6-aff6-f3cd6b10543c.png"/>|
-|----|----|
-|<img src="https://user-images.githubusercontent.com/75779600/231831629-de833e4d-4826-4c92-9360-47f5e62494de.png"/>|<img src="https://user-images.githubusercontent.com/75779600/231831635-78834957-4643-4ed9-8db4-a0448592ec96.png"/>|
+<div style="display: flex; flex-wrap: wrap;">
+  <a href="https://github.com/Sayantan19/Quiz-MERN/assets/75779600/ada29ea0-5b0b-4651-8e96-d6e0dd5e19f0">
+    <img src="https://github.com/Sayantan19/Quiz-MERN/assets/75779600/ada29ea0-5b0b-4651-8e96-d6e0dd5e19f0" alt="Screenshot 1" style="width: 100%;">
+  </a>
+  <div style="display: flex">
+    <a href="https://github.com/Sayantan19/Quiz-MERN/assets/75779600/e832e9b7-9b0a-4129-8a5e-01deb127dc78">
+      <img src="https://github.com/Sayantan19/Quiz-MERN/assets/75779600/e832e9b7-9b0a-4129-8a5e-01deb127dc78" alt="Screenshot 2" style="width: 48%">
+    </a>
+    <a href="https://github.com/Sayantan19/Quiz-MERN/assets/75779600/c70f9d1b-210b-48fe-b214-70b9cab2de29">
+      <img src="https://github.com/Sayantan19/Quiz-MERN/assets/75779600/c70f9d1b-210b-48fe-b214-70b9cab2de29" alt="Screenshot 3" style="width: 48%;">
+    </a>
+  </div>
+  <div style="display: flex">
+    <a href="https://github.com/Sayantan19/Quiz-MERN/assets/75779600/568d2ca8-f818-4ec2-9e0e-f94057c5a37a">
+      <img src="https://github.com/Sayantan19/Quiz-MERN/assets/75779600/568d2ca8-f818-4ec2-9e0e-f94057c5a37a" alt="Screenshot 4" style="width: 48%;">
+    </a>
+    <a href="https://github.com/Sayantan19/Quiz-MERN/assets/75779600/65021909-6589-4dc5-857c-623a2a706a5b">
+      <img src="https://github.com/Sayantan19/Quiz-MERN/assets/75779600/65021909-6589-4dc5-857c-623a2a706a5b" alt="Screenshot 5" style="width: 48%;">
+    </a>
+  </div>
+</div>
 
-<h3>Student Side:</h3>
-
-|<img src="https://user-images.githubusercontent.com/75779600/231831638-affd02ed-ddaa-4e60-b479-e16212476720.png"/>|<img src="https://user-images.githubusercontent.com/75779600/231831608-7937a774-b462-43ea-8145-c86a048071c7.png"/>|
-|----|----|
-<img src="https://user-images.githubusercontent.com/75779600/231831632-8fe5320c-7a1a-4b9c-81a0-607d0e3fe43a.png"/>|<img src="https://user-images.githubusercontent.com/75779600/231831640-8afceefc-2460-49d2-9b1d-c764ecbf51d6.png"/>|
-
-<h2>Technologies Used:</h2>
 
 <ul>
 <li><h3>Frameworks:</h3>
@@ -104,46 +114,30 @@ To develop a complete software solution which can be used by any teacher to cond
         secretOrKey: "secret"
     }
 </li>
-<li>Repeat the same steps for the Teacher folder</li>
-</ul>
 
-
-<h3>Step 3: Installing dependencies in the Student Side</h3>
+<h3>Step 3: Installing dependencies: </h3>
 <ul>
-<li>Copy the following code in the terminal (one line at a time):
-
-    cd Student/backend
+<li>
+  
+    cd client
     npm i
     cd ..
-    cd frontend
-    npm i
-</li>
-</ul>
-
-<h3>Step 4: Installing dependencies in the Teacher Side</h3>
-<ul>
-<li>Copy the following code in the terminal (one line at a time):
-
-    cd Teacher/backend
-    npm i
-    cd ..
-    cd frontend
+    cd server
     npm i
 </li>
 </ul>
 <h3>Step 5: Running the applications</h3>
 <ul>
-<li>Copy the following code in the terminal for the backend:
+<li>Copy the following code in the terminal:
 
-    cd Teacher/backend
+    cd client
     npm start
 </li>
-<li>Copy the following code in a new terminal for the frontend:
+<li>In another terminal:
 
-    cd Teacher/frontend
+    cd server
     npm start
 </li>
-<li>Repeat the same steps for running the Student part</li>
 </ul>
 
 
