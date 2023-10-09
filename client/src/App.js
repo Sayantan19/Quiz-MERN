@@ -43,7 +43,7 @@ export default function App() {
         <Route path='/student/exam-choice'    element={<PrivateRoute path="/student/exam-choice" component={ExamChoice} />} /> 
         <Route path='/student/rule'    element={<PrivateRoute path="/student/rule" component={Rules} />} /> 
         <Route path='/student/quiz'    element={<PrivateRoute path="/student/quiz" component={Quiz} />} />
-        <Route path='/student/summary/:correctscore/:timetaken/:totalmarks' element={<PrivateRoute path="/student/summary/:correctscore/:timetaken/:totalmarks" component={Summary} />} />
+        <Route path='/student/summary' element={<PrivateRoute path="/student/summary" component={Summary} />} />
 
         <Route path='/teacher/landing' element={<PrivateRoute path="/teacher/landing" component={teacherDash} /> } />
         <Route path='/teacher/scores' element={<PrivateRoute path="/teacher/scores" component={Scores} />} /> 

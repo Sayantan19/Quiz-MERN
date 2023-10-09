@@ -58,8 +58,8 @@ export default function Rules() {
                     <List>
                         <ListItem><KeyboardArrowRightOutlined />This is an MCQ based quiz.</ListItem>
                         <ListItem><KeyboardArrowRightOutlined />Questions will be asked from all domains pertaining to the subject.</ListItem>
-                        <ListItem><KeyboardArrowRightOutlined />{questionData.quizData[0]['positive_marking']} points will be awarded for each correct answer.</ListItem>
-                        <ListItem><KeyboardArrowRightOutlined />{questionData.quizData[0]['negative_marking']} point will be awarded for each incorrect answer.</ListItem>
+                        <ListItem><KeyboardArrowRightOutlined />{questionData.quizData[0]['positive_marks'] || '4'} points will be awarded for each correct answer.</ListItem>
+                        <ListItem><KeyboardArrowRightOutlined />{questionData.quizData[0]['negative_marks'] || '-1'} point will be awarded for each incorrect answer.</ListItem>
                         <ListItem><KeyboardArrowRightOutlined />Use of unfair means will be strictly dealt with. Please note that there is a proctoring system enabled for checking whether you are using any unfair means.</ListItem>
                         <ListItem><KeyboardArrowRightOutlined />Anyone caught cheating, accessing the internet or use any other means which can damage the spirit of the event will result in immediate disqualification of that team.</ListItem>
                         <ListItem><KeyboardArrowRightOutlined />Please be careful while answering. Answers attempted won't be saved and once you proceed to the next question, you will not be allowed to go back.</ListItem>

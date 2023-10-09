@@ -3,7 +3,7 @@
 
 import axios from 'axios';
 import { accessCurrentUser, logoutUser } from '../../../actions/authActions';
-import proctor from './proctor';
+// import proctor from './proctor';
 
 export default async function logic(questionData) {
     const data = questionData
@@ -13,7 +13,8 @@ export default async function logic(questionData) {
     let time = localStorage.getItem('saved_timer'); //Initializing the time at the beginning of the quiz
     const timerID = setInterval(timeUpdate, 1000);  //To update the time
     const totalMarks = NoOfQuestions * Number(data.quizData[0]['positive_marks'])
-    const cheated = await proctor(questionData, totalMarks)
+    // const cheated = await proctor(questionData, totalMarks)
+    const cheated = 0
 
     const quizData = data.quizData; //The question set is stored in 'quizData'
     //Various elements of the question to be displayed in the page.
@@ -33,6 +34,7 @@ export default async function logic(questionData) {
     //Variables for manipulation and navigation of the questions
     let visited = new Array(quizData.length).fill(0)
     let selector = new Array(NoOfQuestions).fill(0)
+    let optionSelector = []
     let answerList = new Array(NoOfQuestions).fill('n')
     let correctIncorrect = new Array(NoOfQuestions).fill(0)
     let currentQuiz = 0
@@ -70,10 +72,10 @@ export default async function logic(questionData) {
                 }
                 else if (response.data === 'Fraud case') {
                     alert('Congratulations on wasting your time giving the exam again!');
-                    window.location.href = `/student/summary/${0}/${0}/${0}`
+                    window.location.href = `/student/summary`
                 }
                 else {
-                    window.location.href = `/student/summary/${correctscore}/${timetaken}/${totalMarks}`;
+                    window.location.href = `/student/summary`;
                 }
             }).catch(console.log("Fraud case"));
     }
@@ -103,8 +105,8 @@ export default async function logic(questionData) {
     }
 
     //This function selects the questions from a pool of n number of questions stored in the .json file
-    QuestionSelector()
-    function QuestionSelector() {
+    questionSelector()
+    function questionSelector() {
         let i = 0
         while (i < NoOfQuestions) {
             let x = Math.floor(Math.random() * quizData.length);
@@ -116,6 +118,22 @@ export default async function logic(questionData) {
         }
     }
 
+    questionShuffler()
+    function questionShuffler() {
+        let i = 0
+        while(i<NoOfQuestions) {
+            let array = ['a','b','c','d']
+            let shuffledArray = []
+            while (array.length > 0) {
+                const randomIndex = Math.floor(Math.random() * array.length) 
+                shuffledArray.push(array[randomIndex])
+                array.splice(randomIndex,1)
+            }
+            optionSelector.push(shuffledArray);
+            i++;
+        }
+    }
+
     //Used to display the questions on the screen
     loadQuiz()
     function loadQuiz() {
@@ -123,9 +141,15 @@ export default async function logic(questionData) {
             document.getElementById('prev').setAttribute("disabled", "");
             document.getElementById('prev').removeAttribute("enabled", "");
         }
+        else if(count === NoOfQuestions - 1) {
+            document.getElementById('next').setAttribute("disabled", "");
+            document.getElementById('next').removeAttribute("enabled", "");
+        }
         else if (count > 0) {
             document.getElementById('prev').setAttribute("enabled", "");
             document.getElementById('prev').removeAttribute("disabled", "");
+            document.getElementById('next').setAttribute("enabled", "");
+            document.getElementById('next').removeAttribute("disabled", "");
         }
         if (answerList[count] === 'n')
             deselectAnswers()
@@ -134,12 +158,14 @@ export default async function logic(questionData) {
         currentQuiz = selector[count];
 
         document.getElementById("qno").innerHTML = (count + 1);
-        const currentQuizData = quizData[currentQuiz]
+        const currentQuizData = quizData[currentQuiz];
         questionEl.innerText = currentQuizData.question
-        a_text.innerText = currentQuizData.a
-        b_text.innerText = currentQuizData.b
-        c_text.innerText = currentQuizData.c
-        d_text.innerText = currentQuizData.d
+
+        // Display the shuffled answer options
+        a_text.innerText = currentQuizData[optionSelector[count][0]];
+        b_text.innerText = currentQuizData[optionSelector[count][1]];
+        c_text.innerText = currentQuizData[optionSelector[count][2]];
+        d_text.innerText = currentQuizData[optionSelector[count][3]];
     }
 
     //function to deselect all the options.
@@ -149,18 +175,17 @@ export default async function logic(questionData) {
 
     //This is used to select the option that the user clicks
     function getSelected() {
-        let answer
+        let answerId
         let flag = 0
         answerEls.forEach(answerEl => {
             if (answerEl.checked) {
-                answer = answerEl.id
-                flag = 1
+                answerId = answerEl.id
+                flag = 1;
             }
         })
-        if (flag === 1)
-            return answer
-        else
+        if(flag===0)
             return 'n'
+        return answerId
     }
 
 
@@ -178,7 +203,6 @@ export default async function logic(questionData) {
             calculateMarks()
             clearInterval(timerID);
             localStorage.removeItem('saved_timer');
-            // closeNav();
             SubmitResult()
         }
     }
@@ -211,13 +235,30 @@ export default async function logic(questionData) {
     //For calculating the marks obtained by the user
     function calculateMarks() {
         for (let i = 0; i < answerList.length; i++) {
-            if (answerList[i] === quizData[selector[i]].correct) {
-                correctIncorrect[i] = Number(questionData.quizData[0]['positive_marks']);
-                correctscore += Number(questionData.quizData[0]['positive_marks']);
+            let answer = ''
+            switch(answerList[i]) {
+                case 'a':
+                    answer = quizData[selector[i]].a;
+                    break;
+                case 'b':
+                    answer = quizData[selector[i]].b;
+                    break;
+                case 'c':
+                    answer = quizData[selector[i]].c;
+                    break;
+                case 'd':
+                    answer = quizData[selector[i]].d;
+                    break;
+                default:
+                    answer = 'n'
             }
-            else if (answerList[i] === 'n') {
+            if (answer === 'n') {
                 correctIncorrect[i] = 0;
                 correctscore += 0;
+            }
+            else if (answer.toLowerCase() === (quizData[selector[i]].correct).toLowerCase()) {
+                correctIncorrect[i] = Number(questionData.quizData[0]['positive_marks']);
+                correctscore += Number(questionData.quizData[0]['positive_marks']);
             }
             else {
                 correctIncorrect[i] = Number(questionData.quizData[0]['negative_marks']);
