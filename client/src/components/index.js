@@ -10,5 +10,6 @@ export {default as Registert} from './teacher/teacher_regist.js';
 export {default as TeacherDash} from './teacher/teacher_dash.js';
 export {default as Scores} from './teacher/scoresDisplay';
 export {default as Questions} from './teacher/questions';
+export {default as StudentCredGen} from './teacher/student_cred_generator';
 export {default as Private} from './common/privateRoute';
 export {default as ExamChoice} from './student/examChoice';

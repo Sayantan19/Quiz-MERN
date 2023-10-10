@@ -22,8 +22,8 @@ class TeacherDash extends Component {
             Do you want to Set questions, Check Student Scores or Logout?
           </Typography>
           <br />
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={4}>
+          <Grid container spacing={2} className="mt-2">
+            <Grid item xs={12} sm={6}>
               <Button
                 component={Link}
                 to="/teacher/questions"
@@ -34,7 +34,7 @@ class TeacherDash extends Component {
                 Set Questions
               </Button>
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={6}>
               <Button
                 component={Link}
                 to="/teacher/scores"
@@ -45,7 +45,20 @@ class TeacherDash extends Component {
                 Check Scores
               </Button>
             </Grid>
-            <Grid item xs={12} sm={4}>
+          </Grid>
+          <Grid container spacing={2} className="my-2">
+            <Grid item xs={12} sm={6}>
+              <Button
+                component={Link}
+                to="/teacher/student-cred-gen"
+                variant="outlined"
+                color="secondary"
+                fullWidth
+              >
+                Generate Student Credentials
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={6}>
               <Button
                 onClick={this.onLogoutClick}
                 variant="contained"
@@ -56,6 +69,7 @@ class TeacherDash extends Component {
                 Logout
               </Button>
             </Grid>
+
           </Grid>
         </Container>
       </div>

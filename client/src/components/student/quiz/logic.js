@@ -252,11 +252,12 @@ export default async function logic(questionData) {
                 default:
                     answer = 'n'
             }
+            console.log(answer)
             if (answer === 'n') {
                 correctIncorrect[i] = 0;
                 correctscore += 0;
             }
-            else if (answer.toLowerCase() === (quizData[selector[i]].correct).toLowerCase()) {
+            else if (answer.toLowerCase === String(quizData[selector[i]].correct).toLowerCase) {
                 correctIncorrect[i] = Number(questionData.quizData[0]['positive_marks']);
                 correctscore += Number(questionData.quizData[0]['positive_marks']);
             }

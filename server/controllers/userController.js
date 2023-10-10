@@ -91,4 +91,70 @@ const Register = (req, res) => {
     });
 }
 
-module.exports = { SignIn, Register }
+const generatePass = () => {
+    const length = 6;
+    const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+    const digitChars = '0123456789';
+    const specialChars = '!@#$%^&*()-_=+[]{}|;:,<.>?';
+
+    const getRandomChar = (charSet) => {
+        const randomIndex = Math.floor(Math.random() * charSet.length);
+        return charSet.charAt(randomIndex);
+    };
+
+    // Ensure at least one character from each character set
+    const password = [
+        getRandomChar(uppercaseChars),
+        getRandomChar(lowercaseChars),
+        getRandomChar(digitChars),
+        getRandomChar(specialChars),
+    ];
+
+    // Fill the rest of the password with random characters
+    for (let i = password.length; i < length; i++) {
+        const charSet = uppercaseChars + lowercaseChars + digitChars + specialChars;
+        password.push(getRandomChar(charSet));
+    }
+
+    // Shuffle the characters in the password array
+    for (let i = password.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [password[i], password[j]] = [password[j], password[i]];
+    }
+
+    return password.join('');
+}
+
+const AutoGen = (req, res) => {
+    const finalList = [];
+
+    for (const student of req.body.data) {
+        const pass = generatePass();
+
+        const payload = {
+            body: {
+                name: student.name,
+                email: student.email,
+                password: pass,
+                password2: pass,
+                teacher: false,
+            },
+        };
+
+        // Call the Register function and use a different variable name for the response
+        Register(payload)
+        const details = {
+            name: student.name,
+            email: student.email,
+            password: pass,
+        };
+        finalList.push(details);
+
+    }
+    console.log(finalList)
+    // Once all registrations are attempted, you can send the finalList response
+    return finalList;
+};
+
+module.exports = { SignIn, Register, AutoGen }
