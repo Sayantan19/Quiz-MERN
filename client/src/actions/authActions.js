@@ -49,6 +49,31 @@ export const loginUser = (userData) => dispatch => {
         });
 };
 
+// Login - get user token
+export const loginUserWithOTP = (userData) => dispatch => {
+    axios.post("/users/otp-login", userData)
+        .then(function (res) {
+            // Save to localStorage
+            // Set token to localStorage
+            const { token, teacher } = res.data;
+            localStorage.setItem("jwtToken", token);
+            localStorage.setItem("isTeacher", teacher);
+            
+            // Set token to Auth header
+            setAuthToken(token);
+            // Decode token to get user data
+            const decoded = jwt_decode(token);
+            // Set current user
+            dispatch(setCurrentUser(decoded));
+        })
+        .catch(function (err) {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        });
+};
+
 //This function decodes the current user's JWT and displays the email and MongoDB id
 export function accessCurrentUser() {
     if (localStorage.jwtToken) {
