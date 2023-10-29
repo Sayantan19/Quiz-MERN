@@ -6,7 +6,7 @@ export default function Footer() {
         <>
             <footer className="text-center" id="foot">
                 <div className="text-white">
-                    &#169;{new Date().getFullYear()} Sayantan Bose, Department of CSBS. All rights Reserved.
+                    &#169;{new Date().getFullYear()} Department of CSBS. All rights Reserved.
                 </div>
             </footer>
         </>

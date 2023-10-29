@@ -1,100 +1,102 @@
-//This contains all the relevant functions for uploading questions, and relevant settings based on it
 const xlsx = require('xlsx');
 const fs = require('fs');
 const multer = require("multer");
 const PaperDetails = require('../models/PaperDetails');
-let questionData = {}
-
-//This function handles the settings of the questions in the quiz.
-//For now I have included 3 things: 
-//1. The number of questions
-//2. The time for each question
-//3. Marking scheme
+let questionData = {};
 
 function removeSpacesFromFilename(filename) {
-    // Use a regular expression to match all spaces (global flag 'g')
     return filename.replace(/\s/g, '');
 }
 
-const SetQuestion = (req, res) => {
-    if (res) {
-        const request = req.body;
-        const response = 'Received';
-        const filename = '../../Data/' + removeSpacesFromFilename(request.papercode) + '_test_' + removeSpacesFromFilename(request.testno) + '.json';
-        const folderName = '../../Data'
-        //Creates a folder if it doesn't exist previously.
-        try {
-            if (!fs.existsSync(folderName)) {
-                fs.mkdirSync(folderName);
-            }
-        } catch (err) {
-            console.error(err);
+const createFolderIfNotExists = (folderName) => {
+    try {
+        if (!fs.existsSync(folderName)) {
+            fs.mkdirSync(folderName);
         }
-        // Check if file exists
-        if (fs.existsSync(filename)) {
-            // Check file size
-            const stats = fs.statSync(filename);
-            if (stats.size === 0) {
-                // Write an empty JSON object to the file
-                fs.writeFileSync(filename, '{}');
-            }
-        } else {
-            // Create the file and write an empty JSON object to it
-            fs.writeFileSync(filename, '{}');
-        }
+    } catch (err) {
+        console.error(err);
+    }
+};
 
-        fs.readFile(filename, 'utf8', async (err, data) => {
-            if (err) throw err;
+const saveQuestionDataToFile = (filename, fileData, request, res) => {
+    fs.readFile(filename, 'utf8', async (err, data) => {
+        if (err) {
+            console.error('Error:', err);
+            res.status(500).json({ error: 'Failed to read file' });
+        } else {
             const fileData = JSON.parse(data);
             if (fileData.Question_settings === undefined) {
-                const data = { "Question_settings": request, "quizData": questionData }
+                const data = { "Question_settings": request, "quizData": questionData };
                 Object.assign(fileData, data);
-            }
-            else {
+            } else {
                 fileData['Question_settings'] = request;
                 if (!Array.isArray(fileData.quizData)) {
-                    fileData.quizData = []; // Initialize quizData as an empty array if it's not already
+                    fileData.quizData = [];
                 }
                 if (!Array.isArray(questionData)) {
-                    questionData = [questionData]; // Convert to an array with a single element
+                    questionData = [questionData];
                 }
-                fileData['quizData'].push(...questionData); // Use spread operator to add individual questions
+                fileData['quizData'].push(...questionData);
             }
-            await PaperDetails.findOne({ code: request.papercode, testno: request.testno })
-                .then((data) => {
-                    if (data) {
-                        console.log('Good');
-                    } else {
-                        const newPaperDetail = new PaperDetails({
-                            name: request.papername,
-                            code: request.papercode,
-                            testno: request.testno
-                        })
-                        newPaperDetail.save()
-                            .then(result => {
-                                console.log('Paper details saved successfully');
-                            })
-                            .catch(err => {
-                                console.log('Error:', err);
+
+            try {
+                await PaperDetails.findOne({ code: request.papercode, testno: request.testno })
+                    .then((data) => {
+                        if (data) {
+                            console.log('Paper details found.');
+                        } else {
+                            const newPaperDetail = new PaperDetails({
+                                name: request.papername,
+                                code: request.papercode,
+                                testno: request.testno
                             });
-                    }
-                })
-                .catch((error) => {
-                    console.log('Error:', error);
-                    res.status(500).send('Error finding paper details');
-                });
+                            newPaperDetail.save()
+                                .then(result => {
+                                    console.log('Paper details saved successfully');
+                                })
+                                .catch(err => {
+                                    console.error('Error:', err);
+                                    res.status(500).json({ error: 'Error saving paper details' });
+                                });
+                        }
+                    });
+            } catch (error) {
+                console.error('Error:', error);
+                res.status(500).json({ error: 'Error finding paper details' });
+            }
 
             fs.writeFile(filename, JSON.stringify(fileData, null, 4), (err) => {
-                if (err) throw err;
+                if (err) {
+                    console.error('Error:', err);
+                    res.status(500).json({ error: 'Failed to write file' });
+                } else {
+                    res.status(200).json({ message: 'Question data saved successfully' });
+                }
             });
-        });
-        res.send(response);
-    }
-    else
-        console.log(req.status);
-}
+        }
+    });
+};
 
-// Multer configuration for file upload
+const SetQuestion = (req, res) => {
+    const request = req.body;
+    const response = 'Received';
+    const filename = `../../Data/${removeSpacesFromFilename(request.papercode)}_test_${removeSpacesFromFilename(request.testno)}.json`;
+    const folderName = `../../Data`;
+
+    createFolderIfNotExists(folderName);
+
+    if (fs.existsSync(filename)) {
+        const stats = fs.statSync(filename);
+        if (stats.size === 0) {
+            fs.writeFileSync(filename, '{}');
+        }
+    } else {
+        fs.writeFileSync(filename, '{}');
+    }
+
+    saveQuestionDataToFile(filename, {}, request, res);
+};
+
 const upload = multer({
     storage: multer.memoryStorage(),
     fileFilter: function (req, file, cb) {
@@ -106,39 +108,35 @@ const upload = multer({
     },
 }).single('file');
 
-//Takes the uploaded file from the frontend and converts it to JSON format
 const UploadFile = (req, res) => {
     upload(req, res, (err) => {
         if (err) {
-            console.log(err);
-            res.status(400).send('Error uploading file.');
+            console.error(err);
+            res.status(400).json({ error: 'Error uploading file' });
         } else {
             if (!req.file) {
-                return res.status(400).send('No file uploaded.');
+                res.status(400).json({ error: 'No file uploaded' });
+            } else {
+                const fileData = req.file.buffer;
+
+                // Convert Excel data to JSON
+                const workbook = xlsx.read(fileData, { type: 'buffer' });
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+                const jsonData = xlsx.utils.sheet_to_json(worksheet);
+
+                questionData = jsonData;
+
+                res.status(200).json({ message: 'File uploaded successfully', data: jsonData });
             }
-
-            const fileData = req.file.buffer; // Access the file buffer directly
-
-            questionData = {}
-
-            // Now you can use the fileData to convert it to JSON or perform other actions
-            // For example, to convert the Excel data to JSON:
-            const workbook = xlsx.read(fileData, { type: 'buffer' });
-            const firstSheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[firstSheetName];
-            const jsonData = xlsx.utils.sheet_to_json(worksheet);
-            // Send the JSON data as the response
-            questionData = jsonData;
-            res.json(jsonData);
         }
     });
 };
 
-
 const GetQuestion = (req, res) => {
-    const papercode = removeSpacesFromFilename(req.body.code)
-    const testno = removeSpacesFromFilename(req.body.testno)
-    const filePath = `../../Data/${papercode}_test_${testno}.json`; // Assuming file extension is ".json"
+    const papercode = removeSpacesFromFilename(req.body.code);
+    const testno = removeSpacesFromFilename(req.body.testno);
+    const filePath = `../../Data/${papercode}_test_${testno}.json`;
 
     fs.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
@@ -146,9 +144,9 @@ const GetQuestion = (req, res) => {
             res.status(500).json({ error: 'Failed to open file' });
         } else {
             const fileContents = JSON.parse(data);
-            res.json(fileContents);
+            res.status(200).json(fileContents);
         }
     });
-}
+};
 
-module.exports = { SetQuestion, UploadFile, GetQuestion }
+module.exports = { SetQuestion, UploadFile, GetQuestion };
