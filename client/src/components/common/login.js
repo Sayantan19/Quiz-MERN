@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { accessCurrentUser, loginUserWithOTP } from '../../actions/authActions';
+import { accessCurrentUser, loginUser, loginUserWithOTP } from '../../actions/authActions';
 import classnames from 'classnames';
 import {
     Container,
@@ -23,7 +23,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-function Login({ loginUserWithOTP, auth, errors }) {
+function Login({ loginUser, auth, errors }) {
     const [otpSent, setOtpSent] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
@@ -119,10 +119,10 @@ function Login({ loginUserWithOTP, auth, errors }) {
 
         const userData = {
             email,
-            otp,
+            password,
         };
 
-        loginUserWithOTP(userData);
+        loginUser(userData);
         setLoading(false)
     };
 
@@ -190,7 +190,35 @@ function Login({ loginUserWithOTP, auth, errors }) {
                                         focused
                                         autoComplete="off"
                                     />
-                                    <Button
+                                    <TextField
+                                            color="secondary"
+                                            onChange={onChange}
+                                            value={password}
+                                            sx={{ color: 'black' }}
+                                            id="password"
+                                            type="password"
+                                            label="Password"
+                                            className={classnames('cred', {
+                                                invalid: errors.password || errors.passwordincorrect,
+                                            })}
+                                            error={Boolean(errors.password || errors.passwordincorrect)}
+                                            helperText={errors.password || errors.passwordincorrect}
+                                            fullWidth
+                                            focused
+                                            disableClearable
+                                            autoComplete="off"
+                                        />
+                                        <Button
+                                            variant="contained"
+                                            color="secondary"
+                                            type="submit"
+                                            fullWidth
+                                            onClick={onSubmit}
+                                            sx={{ mt: 3, mb: 2 }}
+                                        >
+                                            Login
+                                        </Button>
+                                    {/* <Button
                                         variant="contained"
                                         color="secondary"
                                         type="submit"
@@ -200,7 +228,7 @@ function Login({ loginUserWithOTP, auth, errors }) {
                                         sx={{ mt: 3, mb: 2 }}
                                     >
                                         Send OTP
-                                    </Button>
+                                    </Button> */}
                                     <Typography variant="caption" color="black" mt={3} mb={0}>
                                         Don't have an account?{' '}
                                         <Link href="/student/register" className="ml-1" color={'secondary'}>
@@ -368,4 +396,4 @@ const mapStateToProps = (state) => ({
     errors: state.errors,
 });
 
-export default connect(mapStateToProps, { loginUserWithOTP })(Login);
+export default connect(mapStateToProps, { loginUser })(Login);
