@@ -271,7 +271,7 @@ function Login({ loginUser, auth, errors }) {
                                         Login
                                     </Button>
                                     <Typography variant="caption" color="black" mt={3} mb={0}>
-                                        You can request another OTP after 10 seconds.&nbsp;
+                                        You can retry after 10 seconds.&nbsp;
                                         <Link
                                             onClick={resendTimer === 0 ? onSendEmail : null} // Allow click only when resendTimer is 0
                                             className="ml-1"
@@ -387,7 +387,7 @@ function Login({ loginUser, auth, errors }) {
 }
 
 Login.propTypes = {
-    loginUserWithOTP: PropTypes.func.isRequired,
+    loginUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
 };
