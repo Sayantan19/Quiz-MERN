@@ -359,7 +359,7 @@ function Login({ loginUserWithOTP, auth, errors }) {
 }
 
 Login.propTypes = {
-    loginUserWithOTP: PropTypes.func.isRequired,
+    loginUser: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
 };
