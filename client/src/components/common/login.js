@@ -23,7 +23,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-function Login({ loginUserWithOTP, auth, errors }) {
+function Login({ loginUser, auth, errors }) {
     const [otpSent, setOtpSent] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
@@ -243,7 +243,7 @@ function Login({ loginUserWithOTP, auth, errors }) {
                                         Login
                                     </Button>
                                     <Typography variant="caption" color="black" mt={3} mb={0}>
-                                        You can request another OTP after 10 seconds.&nbsp;
+                                        You can retry after 10 seconds.&nbsp;
                                         <Link
                                             onClick={resendTimer === 0 ? onSendEmail : null} // Allow click only when resendTimer is 0
                                             className="ml-1"
