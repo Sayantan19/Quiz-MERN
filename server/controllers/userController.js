@@ -118,7 +118,7 @@ const Register = (req, res) => {
 
     User.findOne({ email: req.body.email }).then(user => {
         if (user) {
-            return res.status(400).send('Email already exists');
+            return res.status(400).send({email: 'Email already exists'});
         } else {
             const newUser = new User({
                 name: req.body.name,
@@ -136,7 +136,7 @@ const Register = (req, res) => {
                         .then(user => res.status(200).send(user))
                         .catch(err => {
                             console.error(err);
-                            return res.status(500).send(`Error: ${err}`);
+                            return res.status(500).send({password:`Error: ${err}`});
                         });
                 });
             });

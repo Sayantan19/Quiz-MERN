@@ -14,7 +14,7 @@ export default async function logic(questionData) {
     const timerID = setInterval(timeUpdate, 1000);  //To update the time
     const totalMarks = NoOfQuestions * Number(data.quizData[0]['positive_marks'])
     // const cheated = await proctor(questionData, totalMarks)
-    const cheated = 0
+    let cheated = 0
 
     const quizData = data.quizData; //The question set is stored in 'quizData'
     //Various elements of the question to be displayed in the page.
@@ -206,6 +206,18 @@ export default async function logic(questionData) {
             SubmitResult()
         }
     }
+
+    document.addEventListener("visibilitychange", function() {
+        if (document.hidden) {
+          // The user switched to another tab or minimized the browser.
+          cheated += 1;
+          alert('Tab changed/minimized. Event has been recorded')
+        } else {
+          // The user switched back to this tab.
+          console.log("User is on this tab.");
+        }
+      });
+      
 
     //Adds functionality to the next button
     nextBtn.addEventListener('click', onNext)

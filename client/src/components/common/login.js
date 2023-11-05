@@ -108,6 +108,7 @@ function Login({ loginUserWithOTP, auth, errors }) {
                     title: 'Could not send email',
                     body: `${e.response.data.message}`
                 })
+                setOtpSent(false)
             })
         setLoading(false);
         setShowDialog(true);
@@ -358,7 +359,7 @@ function Login({ loginUserWithOTP, auth, errors }) {
 }
 
 Login.propTypes = {
-    loginUser: PropTypes.func.isRequired,
+    loginUserWithOTP: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
 };
