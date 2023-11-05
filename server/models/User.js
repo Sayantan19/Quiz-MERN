@@ -21,6 +21,10 @@ const UserSchema = new Schema({
   teacher: {
     type: Boolean,
     default: false
+  },
+  userId: {
+    type: String,
+    required: true
   }
 });
 module.exports = User = mongoose.model("user-credentials", UserSchema);

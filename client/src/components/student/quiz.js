@@ -88,9 +88,9 @@ export default function Quiz() {
                                 <Grid item xs={6} id="timer" name="timer">
                                     <span>Time Left:</span>
                                 </Grid>
-                                <Grid item xs={6} id="cheat">
-                                    <span>Times cheated: 0</span>
-                                </Grid>
+                                {/* <Grid item xs={6} id="cheat">
+                                    <span>Times cheated: {cheated}</span>
+                                </Grid> */}
                             </Grid>
                             <div>
                                 <ButtonGroup id="buttons">

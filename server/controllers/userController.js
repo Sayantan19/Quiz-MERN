@@ -6,6 +6,13 @@ const Redis = require('ioredis');
 const bcrypt = require("bcryptjs");
 const validateRegisterInput = require("../validation/register");
 
+const idGenerator = () => {
+    // Generate a random number between 100 and 999 (inclusive).
+    const min = 100;
+    const max = 999;
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 const OTPSignIn = async (req, res) => {
     const redis = new Redis();
 
@@ -16,7 +23,7 @@ const OTPSignIn = async (req, res) => {
     const email = req.body.email;
 
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({email});
 
         if (!user) {
             return res.status(404).send('Email not found');
@@ -62,7 +69,7 @@ const OTPSignIn = async (req, res) => {
 };
 
 const SignIn = async (req, res) => {
-    const { errors, isValid } = validateLoginInput(req.body);
+    const {errors, isValid} = validateLoginInput(req.body);
 
     if (!isValid) {
         return res.status(400).send(errors);
@@ -72,7 +79,7 @@ const SignIn = async (req, res) => {
     const password = req.body.password;
 
     try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({email});
 
         if (!user) {
             return res.status(404).send({emailNotFound: 'Email not found'});
@@ -110,21 +117,36 @@ const SignIn = async (req, res) => {
 };
 
 const Register = (req, res) => {
-    const { errors, isValid } = validateRegisterInput(req.body);
+    const {errors, isValid} = validateRegisterInput(req.body);
 
     if (!isValid) {
         return res.status(400).send(errors);
     }
 
-    User.findOne({ email: req.body.email }).then(user => {
+    User.findOne({email: req.body.email}).then(user => {
+        let id = ''
         if (user) {
-            return res.status(400).send('Email already exists');
+            return res.status(400).send({email: 'Email already exists'});
         } else {
+            while (true) {
+                let flag= 0
+                id = (req.body.teacher ? 't' : 's') + idGenerator
+                User.findOne({userId: id}).then(user => {
+                    console.log(user)
+                    if(user) {
+                        flag=1
+                    }
+                })
+                if (flag == 1)
+                    continue
+                break
+            }
             const newUser = new User({
                 name: req.body.name,
                 email: req.body.email,
                 password: req.body.password,
-                teacher: req.body.teacher
+                teacher: req.body.teacher,
+                userId: id
             });
 
             bcrypt.genSalt(10, (err, salt) => {
@@ -136,7 +158,7 @@ const Register = (req, res) => {
                         .then(user => res.status(200).send(user))
                         .catch(err => {
                             console.error(err);
-                            return res.status(500).send(`Error: ${err}`);
+                            return res.status(500).send({password:`Error: ${err}`});
                         });
                 });
             });
@@ -144,4 +166,4 @@ const Register = (req, res) => {
     });
 };
 
-module.exports = { OTPSignIn, SignIn, Register };
+module.exports = {OTPSignIn, SignIn, Register, idGenerator};
