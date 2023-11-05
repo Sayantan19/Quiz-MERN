@@ -23,7 +23,7 @@ import {
 } from '@mui/material';
 import axios from 'axios';
 
-function Login({ loginUser, auth, errors }) {
+function Login({ loginUserWithOTP, auth, errors }) {
     const [otpSent, setOtpSent] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
