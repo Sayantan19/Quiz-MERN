@@ -37,7 +37,7 @@ class TeacherDash extends Component {
             <Grid item xs={12} sm={6}>
               <Button
                 component={Link}
-                to="/teacher/scores"
+                to="/teacher/papers"
                 variant="outlined"
                 color="secondary"
                 fullWidth
