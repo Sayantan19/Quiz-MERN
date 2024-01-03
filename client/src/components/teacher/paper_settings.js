@@ -15,7 +15,6 @@ export default function PaperSettings() {
         axios.get('/paper-details/get-details-teacher/' + userId)
             .then((res) => {
                 setContent(res.data.response);
-                console.log(res.data.response)
             })
             .catch(() => {
                 console.log('Error');
@@ -26,6 +25,18 @@ export default function PaperSettings() {
             getPaper()
         };
     }, []);
+
+    const onMod = async (paperCode, testno) => {
+        const data = { paperCode, testno }
+        axios.post('/paper-details/change-paper-status', data)
+            .then((res) => {
+                alert('Status updated successfully');
+                window.location.reload();
+            })
+            .catch((e) => {
+                console.log('Error: ', e)
+            })
+    }
 
     return (<Box
         component="main"
@@ -41,6 +52,7 @@ export default function PaperSettings() {
                         <TableCell><Typography variant="h5">Paper Name</Typography></TableCell>
                         <TableCell><Typography variant="h5">Paper Code</Typography></TableCell>
                         <TableCell><Typography textAlign={'center'} variant="h5">Test no.</Typography></TableCell>
+                        <TableCell><Typography textAlign={'center'} variant="h5">Status</Typography></TableCell>
                         <TableCell><Typography textAlign={'center'} variant="h5">Actions</Typography></TableCell>
                     </TableRow>
                 </TableHead>
@@ -52,8 +64,9 @@ export default function PaperSettings() {
                                 <TableCell><Typography textAlign={'left'} variant="body1">{item.name}</Typography></TableCell>
                                 <TableCell><Typography textAlign={'left'} variant="body1">{item.code}</Typography></TableCell>
                                 <TableCell><Typography textAlign={'center'} variant="body1">{item.testno}</Typography></TableCell>
-                                <TableCell sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-                                    <Button variant='contained' color='secondary'>{item.active ? 'Deactivate' : 'Activate'}</Button>
+                                <TableCell><Typography textAlign={'center'} variant="body1">{item.active? 'Active': 'Inactive'}</Typography></TableCell>
+                                <TableCell sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <Button onClick={() => onMod(item.code, item.testno)} variant='contained' color='secondary'>{item.active ? 'Deactivate' : 'Activate'}</Button>
                                 </TableCell>
                             </TableRow>
                         ))

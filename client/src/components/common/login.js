@@ -171,116 +171,120 @@ function Login({ loginUserWithOTP, auth, errors }) {
                             </Typography>
                             {!otpSent && (
                                 <>
-                                    <TextField
-                                        onChange={onChange}
-                                        value={email}
-                                        color="secondary"
-                                        sx={{
-                                            marginBottom: '1em',
-                                            color: 'black',
-                                        }}
-                                        id="email"
-                                        type="email"
-                                        label="Email"
-                                        className={classnames('cred ', {
-                                            invalid: errors.email || errors.emailNotFound,
-                                        })}
-                                        error={Boolean(errors.email || errors.emailNotFound)}
-                                        helperText={errors.email || errors.emailNotFound}
-                                        fullWidth
-                                        focused
-                                        autoComplete="off"
-                                    />
-                                    {/*<TextField*/}
-                                    {/*        color="secondary"*/}
-                                    {/*        onChange={onChange}*/}
-                                    {/*        value={password}*/}
-                                    {/*        sx={{ color: 'black' }}*/}
-                                    {/*        id="password"*/}
-                                    {/*        type="password"*/}
-                                    {/*        label="Password"*/}
-                                    {/*        className={classnames('cred', {*/}
-                                    {/*            invalid: errors.password || errors.passwordincorrect,*/}
-                                    {/*        })}*/}
-                                    {/*        error={Boolean(errors.password || errors.passwordincorrect)}*/}
-                                    {/*        helperText={errors.password || errors.passwordincorrect}*/}
-                                    {/*        fullWidth*/}
-                                    {/*        focused*/}
-                                    {/*        disableClearable*/}
-                                    {/*        autoComplete="off"*/}
-                                    {/*    />*/}
-                                    {/*    <Button*/}
-                                    {/*        variant="contained"*/}
-                                    {/*        color="secondary"*/}
-                                    {/*        type="submit"*/}
-                                    {/*        fullWidth*/}
-                                    {/*        onClick={onSubmit}*/}
-                                    {/*        sx={{ mt: 3, mb: 2 }}*/}
-                                    {/*    >*/}
-                                    {/*        Login*/}
-                                    {/*    </Button>*/}
-                                    <Button
-                                        variant="contained"
-                                        color="secondary"
-                                        type="submit"
-                                        onClick={onSendEmail}
-                                        disabled={otpSent}
-                                        fullWidth
-                                        sx={{ mt: 3, mb: 2 }}
-                                    >
-                                        Send OTP
-                                    </Button>
-                                    <Typography variant="caption" color="black" mt={3} mb={0}>
-                                        Don't have an account?{' '}
-                                        <Link href="/student/register" className="ml-1" color={'secondary'}>
-                                            Register
-                                        </Link>
-                                    </Typography>
+                                    <form>
+                                        <TextField
+                                            onChange={onChange}
+                                            value={email}
+                                            color="secondary"
+                                            sx={{
+                                                marginBottom: '1em',
+                                                color: 'black',
+                                            }}
+                                            id="email"
+                                            type="email"
+                                            label="Email"
+                                            className={classnames('cred ', {
+                                                invalid: errors.email || errors.emailNotFound,
+                                            })}
+                                            error={Boolean(errors.email || errors.emailNotFound)}
+                                            helperText={errors.email || errors.emailNotFound}
+                                            fullWidth
+                                            focused
+                                            autoComplete="off"
+                                        />
+                                        {/*<TextField*/}
+                                        {/*        color="secondary"*/}
+                                        {/*        onChange={onChange}*/}
+                                        {/*        value={password}*/}
+                                        {/*        sx={{ color: 'black' }}*/}
+                                        {/*        id="password"*/}
+                                        {/*        type="password"*/}
+                                        {/*        label="Password"*/}
+                                        {/*        className={classnames('cred', {*/}
+                                        {/*            invalid: errors.password || errors.passwordincorrect,*/}
+                                        {/*        })}*/}
+                                        {/*        error={Boolean(errors.password || errors.passwordincorrect)}*/}
+                                        {/*        helperText={errors.password || errors.passwordincorrect}*/}
+                                        {/*        fullWidth*/}
+                                        {/*        focused*/}
+                                        {/*        disableClearable*/}
+                                        {/*        autoComplete="off"*/}
+                                        {/*    />*/}
+                                        {/*    <Button*/}
+                                        {/*        variant="contained"*/}
+                                        {/*        color="secondary"*/}
+                                        {/*        type="submit"*/}
+                                        {/*        fullWidth*/}
+                                        {/*        onClick={onSubmit}*/}
+                                        {/*        sx={{ mt: 3, mb: 2 }}*/}
+                                        {/*    >*/}
+                                        {/*        Login*/}
+                                        {/*    </Button>*/}
+                                        <Button
+                                            variant="contained"
+                                            color="secondary"
+                                            type="submit"
+                                            onClick={onSendEmail}
+                                            disabled={otpSent}
+                                            fullWidth
+                                            sx={{ mt: 3, mb: 2 }}
+                                        >
+                                            Send OTP
+                                        </Button>
+                                        <Typography variant="caption" color="black" mt={3} mb={0}>
+                                            Don't have an account?{' '}
+                                            <Link href="/student/register" className="ml-1" color={'secondary'}>
+                                                Register
+                                            </Link>
+                                        </Typography>
+                                    </form>
                                 </>)}
                             {otpSent && (
                                 <>
-                                    <TextField
-                                        onChange={onChange}
-                                        value={otp}
-                                        color="secondary"
-                                        sx={{
-                                            marginBottom: '1em',
-                                            color: 'black',
-                                        }}
-                                        id="otp"
-                                        type="otp"
-                                        label="OTP"
-                                        className={classnames('cred ', {
-                                            invalid: errors.otp || errors.error,
-                                        })}
-                                        error={Boolean(errors.otp || errors.error)}
-                                        helperText={errors.otp || errors.error}
-                                        fullWidth
-                                        focused
-                                        autoComplete="off"
-                                    />
-                                    <Button
-                                        variant="contained"
-                                        color="secondary"
-                                        type="submit"
-                                        disabled={!otpSent}
-                                        fullWidth
-                                        onClick={onSubmit}
-                                        sx={{ mt: 3, mb: 2 }}
-                                    >
-                                        Login
-                                    </Button>
-                                    <Typography variant="caption" color="black" mt={3} mb={0}>
-                                        You can request another OTP after 10 seconds.&nbsp;
-                                        <Link
-                                            onClick={resendTimer === 0 ? onSendEmail : null} // Allow click only when resendTimer is 0
-                                            className="ml-1"
+                                    <form>
+                                        <TextField
+                                            onChange={onChange}
+                                            value={otp}
                                             color="secondary"
-                                            style={{ cursor: 'pointer', display: resendTimer === 0 ? 'inline' : 'none', fontSize: '12px' }} // Style to change cursor
+                                            sx={{
+                                                marginBottom: '1em',
+                                                color: 'black',
+                                            }}
+                                            id="otp"
+                                            type="otp"
+                                            label="OTP"
+                                            className={classnames('cred ', {
+                                                invalid: errors.otp || errors.error,
+                                            })}
+                                            error={Boolean(errors.otp || errors.error)}
+                                            helperText={errors.otp || errors.error}
+                                            fullWidth
+                                            focused
+                                            autoComplete="off"
+                                        />
+                                        <Button
+                                            variant="contained"
+                                            color="secondary"
+                                            type="submit"
+                                            disabled={!otpSent}
+                                            fullWidth
+                                            onClick={onSubmit}
+                                            sx={{ mt: 3, mb: 2 }}
                                         >
-                                            Resend OTP
-                                        </Link>
-                                    </Typography>
+                                            Login
+                                        </Button>
+                                        <Typography variant="caption" color="black" mt={3} mb={0}>
+                                            You can request another OTP after 10 seconds.&nbsp;
+                                            <Link
+                                                onClick={resendTimer === 0 ? onSendEmail : null} // Allow click only when resendTimer is 0
+                                                className="ml-1"
+                                                color="secondary"
+                                                style={{ cursor: 'pointer', display: resendTimer === 0 ? 'inline' : 'none', fontSize: '12px' }} // Style to change cursor
+                                            >
+                                                Resend OTP
+                                            </Link>
+                                        </Typography>
+                                    </form>
                                 </>)}
 
                         </Container>

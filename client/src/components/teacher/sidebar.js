@@ -1,27 +1,19 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
+import {AppBar, Box, CssBaseline,Divider,Drawer,IconButton,List, ListItem, ListItemButton,ListItemIcon, ListItemText,Toolbar, Typography} from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { Add, Edit, Feed, Home } from '@mui/icons-material';
+import { Add, Edit, ExitToApp, Feed, Home } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import { accessCurrentUser } from '../../actions/authActions';
+import { accessCurrentUser, logoutUser } from '../../actions/authActions';
+import { connect } from "react-redux";
+import PropTypes from 'prop-types';
+
+
 
 const drawerWidth = 240;
 
-export default function Sidebar() {
+const Sidebar = () => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const routes = ['/teacher/landing', '/teacher/questions', '/teacher/questions', '/teacher/papers'];
     const icons = [<Home />, <Add />, <Edit />, <Feed />]; // Replace with your own icons
@@ -31,15 +23,21 @@ export default function Sidebar() {
     };
     const user = accessCurrentUser();
 
+    const onLogoutClick = (e) => {
+        e.preventDefault();
+        logoutUser();
+        window.location.href = '/';
+    };
+
     const drawer = (
         <div>
-            <Toolbar sx={{margin:"1em 0", flexDirection: "column", alignItems:"flex-start", justifyContent:"left"}}>
-            <Typography variant="body2" component="div">
-                Welcome
-            </Typography>
-            <Typography variant="h6" component="div" >
-                {user.name}
-            </Typography> 
+            <Toolbar sx={{ margin: "1em 0", flexDirection: "column", alignItems: "flex-start", justifyContent: "left" }}>
+                <Typography variant="body2" component="div">
+                    Welcome
+                </Typography>
+                <Typography variant="h6" component="div" >
+                    {user.name}
+                </Typography>
             </Toolbar>
             <Divider />
             <List>
@@ -56,9 +54,10 @@ export default function Sidebar() {
             <List>
                 {['Logout'].map((text, index) => (
                     <ListItem key={text} disablePadding>
-                        <ListItemButton>
+                        <ListItemButton
+                            onClick={onLogoutClick}>
                             <ListItemIcon>
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                <ExitToApp />
                             </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItemButton>
@@ -133,3 +132,17 @@ export default function Sidebar() {
         </Box>
     );
 }
+
+Sidebar.propTypes = {
+    logoutUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = (state) => ({
+    auth: state.auth
+});
+
+export default connect(
+    mapStateToProps,
+    { logoutUser }
+)(Sidebar);
