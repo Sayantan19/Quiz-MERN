@@ -2,8 +2,8 @@
 import { React, useEffect } from 'react';
 import './student.css';
 import logic from './quiz/logic.js';
-import { Box, Button, ButtonGroup, Container, Grid } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { Box, Button, ButtonGroup, Container, FormControlLabel, FormLabel, Grid, Radio, RadioGroup } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Quiz() {
     const location = useLocation(); // Use the useLocation hook to access location state
@@ -58,7 +58,7 @@ export default function Quiz() {
                                     <label htmlFor="a" id="a_text" className="answertext"></label>
                                 </li>
                                 <li className="d-flex mx-2 align-items-center">
-                                    <input type="radio" name="answer" id="b" value="" className="form-check-input answer" />
+                                    <input type="radio" name="answer" id="b" className="form-check-input answer" />
                                     <label htmlFor="b" id="b_text" className="answertext"></label>
                                 </li>
                                 <li className="d-flex mx-2 align-items-center">
@@ -88,9 +88,9 @@ export default function Quiz() {
                                 <Grid item xs={6} id="timer" name="timer">
                                     <span>Time Left:</span>
                                 </Grid>
-                                {/* <Grid item xs={6} id="cheat">
-                                    <span>Times cheated: {cheated}</span>
-                                </Grid> */}
+                                <Grid item xs={6} id="cheat">
+                                    <span>Times cheated: 0</span>
+                                </Grid>
                             </Grid>
                             <div>
                                 <ButtonGroup id="buttons">

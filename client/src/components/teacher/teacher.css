@@ -28,10 +28,18 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 10em auto;
+    margin: 5em auto;
     padding: 10px;
     gap: 1rem;
-    height: 60vh;
+}
+
+#score{
+    width: 100%;
+    max-height: 50vh;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #save{

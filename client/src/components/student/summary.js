@@ -70,7 +70,11 @@ const Summary = ({ logoutUser }) => {
                         >
                             <CardContent>
                                 <div id='summary-body'>
-                                    <h2>Thank you for taking this test! You will be notifed about your results later!</h2>
+                                    <h2>Thank you for taking this test! Here is the summary:</h2>
+                                    <div className="container">
+                                        <div><h5 id="Score">Points Scored: {score}/{totalmarks}</h5></div>
+                                        <div><h5 id="Time">Time spent: {time} seconds</h5></div>
+                                    </div>
                                     <Button variant="outlined" color="secondary" href='/' onClick={onLogoutClick}>
                                         Logout
                                     </Button>

@@ -14,14 +14,6 @@ const PaperDetailsSchema = new Schema({
   testno: {
     type: String,
     required: true
-  },
-  userId: {
-    type: String,
-    required: true
-  },
-  active: {
-    type: Boolean,
-    required: true
   }
 });
 module.exports = PaperDetails = mongoose.model("paper-details", PaperDetailsSchema);
