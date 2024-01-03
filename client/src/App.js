@@ -1,7 +1,7 @@
 import './App.css';
 import React, {useEffect} from "react";
 import { Routes, Route } from "react-router-dom";
-import { Landing, Login, Registert, teacherDash } from './pages/index.js';
+import { Landing, Login, PaperSettingsPage, Registert, StudentCredGen, teacherDash } from './pages/index.js';
 import { Rules, Quiz, Summary, Registers, ExamChoice} from './pages/index.js';
 import { Questions, Scores } from './pages/index.js';
 import { Provider } from "react-redux";
@@ -43,11 +43,13 @@ export default function App() {
         <Route path='/student/exam-choice'    element={<PrivateRoute path="/student/exam-choice" component={ExamChoice} />} /> 
         <Route path='/student/rule'    element={<PrivateRoute path="/student/rule" component={Rules} />} /> 
         <Route path='/student/quiz'    element={<PrivateRoute path="/student/quiz" component={Quiz} />} />
-        <Route path='/student/summary/:correctscore/:timetaken/:totalmarks' element={<PrivateRoute path="/student/summary/:correctscore/:timetaken/:totalmarks" component={Summary} />} />
+        <Route path='/student/summary' element={<PrivateRoute path="/student/summary" component={Summary} />} />
 
         <Route path='/teacher/landing' element={<PrivateRoute path="/teacher/landing" component={teacherDash} /> } />
         <Route path='/teacher/scores' element={<PrivateRoute path="/teacher/scores" component={Scores} />} /> 
+        <Route path='/teacher/papers' element={<PrivateRoute path="/teacher/papers" component={PaperSettingsPage} />} /> 
         <Route path='/teacher/questions' element={<PrivateRoute path="/teacher/questions" component={Questions} />} /> 
+        <Route path='/teacher/student-cred-gen' element={<PrivateRoute path="/teacher/student-cred-gen" component={StudentCredGen} />} /> 
       </Routes>
     </Provider>
   );

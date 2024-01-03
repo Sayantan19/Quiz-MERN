@@ -30,9 +30,38 @@ export const loginUser = (userData) => dispatch => {
         .then(function (res) {
             // Save to localStorage
             // Set token to localStorage
-            const { token, teacher } = res.data;
+            const { token, teacher, name, userID } = res.data;
             localStorage.setItem("jwtToken", token);
             localStorage.setItem("isTeacher", teacher);
+            localStorage.setItem("name", name);
+            localStorage.setItem("userId", userID)
+            
+            // Set token to Auth header
+            setAuthToken(token);
+            // Decode token to get user data
+            const decoded = jwt_decode(token);
+            // Set current user
+            dispatch(setCurrentUser(decoded));
+        })
+        .catch(function (err) {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        });
+};
+
+// Login - get user token
+export const loginUserWithOTP = (userData) => dispatch => {
+    axios.post("/users/otp-login", userData)
+        .then(function (res) {
+            // Save to localStorage
+            // Set token to localStorage
+            const { token, teacher, name, userId } = res.data;
+            localStorage.setItem("jwtToken", token);
+            localStorage.setItem("isTeacher", teacher);
+            localStorage.setItem("name", name);
+            localStorage.setItem("userId", userId)
             
             // Set token to Auth header
             setAuthToken(token);
@@ -54,7 +83,9 @@ export function accessCurrentUser() {
     if (localStorage.jwtToken) {
         const decoded = jwt_decode(localStorage.jwtToken);
         const teacher = localStorage.isTeacher;
-        return {"decoded": decoded, "isTeacher": teacher};
+        const name = localStorage.name;
+        const userId = localStorage.userId;
+        return {"decoded": decoded, "isTeacher": teacher, "name": name, "userId": userId};
     }
     else
         return null;
@@ -78,7 +109,9 @@ export const setUserLoading = () => {
 export const logoutUser = () => dispatch => {
     // Remove token from local storage
     localStorage.removeItem("jwtToken");
-    localStorage.removeItem("isTeacher")
+    localStorage.removeItem("isTeacher");
+    localStorage.removeItem("name");
+    localStorage.removeItem("userId");  
     // Remove auth header for future requests
     setAuthToken(false);
     // Set current user to empty object {} which will set isAuthenticated to false

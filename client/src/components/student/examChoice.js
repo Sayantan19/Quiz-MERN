@@ -12,9 +12,11 @@ const ExamChoice = () => {
     useEffect(() => {
         // Make the API call to fetch the options
         axios.get('/paper-details/get-details')
-            .then(response => setOptions(response.data))
+            .then(response => setOptions(response.data.response))
             .catch(error => console.error(error));
     }, []);
+
+    console.log(options)
 
     const handleDropdownChange = (event) => {
         setSelectedValue(event.target.value);

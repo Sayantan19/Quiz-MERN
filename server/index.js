@@ -10,7 +10,8 @@ const cors = require('cors');
 const results = require("./routes/results");
 const users = require("./routes/users");
 const questions = require('./routes/question');
-const paperDetails = require('./routes/paperDetails')
+const paperDetails = require('./routes/paperDetails');
+const email = require('./routes/email');
 
 //CORS middleware
 app.use(cors())
@@ -44,7 +45,8 @@ require("./config/passport")(passport);
 app.use("/users", users);
 app.use('/results', results);
 app.use('/questions', questions);
-app.use('/paper-details', paperDetails)
+app.use('/paper-details', paperDetails);
+app.use('/email',email);
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => console.log(`Server up and running on port ${port} !`));
