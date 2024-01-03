@@ -50,7 +50,9 @@ const OTPSignIn = async (req, res) => {
                         res.status(200).send({
                             success: true,
                             token: "Bearer " + token,
-                            teacher: user.teacher
+                            teacher: user.teacher,
+                            name: user.name,
+                            userId: user.userId
                         });
                     }
                 );
@@ -102,7 +104,9 @@ const SignIn = async (req, res) => {
                         res.status(200).send({
                             success: true,
                             token: "Bearer " + token,
-                            teacher: user.teacher
+                            teacher: user.teacher,
+                            name: user.name,
+                            userId: user.userId
                         });
                     }
                 );

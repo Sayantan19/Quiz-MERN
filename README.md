@@ -2,7 +2,7 @@
 
 <h2>Project Description</h2>
 This is a Comprehensive Assessment System that I am currently working on.
-It was initially developed on Flask, for the Prelims Round of the TechQuiz, the Quiz Event of Technovation 2022 (Technovation is the name of our department tech fest). Upon the advice of my professor and mentor, I decided to take this project further and implement a full fledged assessment system.
+It was initially developed on Flask, for the Prelims Round of the TechQuiz, the Quiz Event of Technovation 2022 (Technovation is the name of our department tech fest). Now, under the guidance of my professor and mentor, I have devloped this software further for taking assessments in my department.
 
 <h2>Aim:</h2>
 To develop a complete software solution which can be used by any teacher to conduct pop quizzes and other various assessments.
