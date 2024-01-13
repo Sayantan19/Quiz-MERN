@@ -4,26 +4,12 @@ import { connect } from 'react-redux';
 import { accessCurrentUser, loginUser, loginUserWithOTP } from '../../actions/authActions';
 import classnames from 'classnames';
 import {
-    Container,
-    Box,
-    Grid,
-    CardContent,
-    Card,
-    Typography,
-    Link,
-    TextField,
-    Button,
-    CircularProgress,
-    Backdrop,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    DialogContentText,
+    Container, Box, Grid, CardContent, Card, Typography, Link, TextField, Button, CircularProgress, Backdrop, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText,
 } from '@mui/material';
 import axios from 'axios';
 
-function Login({ loginUserWithOTP, auth, errors }) {
+function Login({ loginUser, loginUserWithOTP, auth, errors }) {
+    const [passwordMode, setPasswordMode] = useState(false);
     const [otpSent, setOtpSent] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
@@ -127,6 +113,24 @@ function Login({ loginUserWithOTP, auth, errors }) {
         setLoading(false)
     };
 
+    const onSubmitUsingPassword = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+
+        const userData = {
+            email,
+            password,
+        };
+
+        loginUser(userData);
+        setLoading(false)
+    };
+
+    const onModeChange = () => {
+        setPasswordMode(!passwordMode);
+        console.log(passwordMode);
+    }
+
     return (
         <>
             <Container
@@ -169,57 +173,74 @@ function Login({ loginUserWithOTP, auth, errors }) {
                             <Typography variant="body2" color="textdark" mb={2}>
                                 Please enter your email address to continue.
                             </Typography>
-                            {!otpSent && (
-                                <>
-                                    <form>
+                            <form>
+                                <TextField
+                                    onChange={onChange}
+                                    value={email}
+                                    color="secondary"
+                                    sx={{
+                                        marginBottom: '1em',
+                                        color: 'black',
+                                    }}
+                                    id="email"
+                                    type="email"
+                                    label="Email"
+                                    className={classnames('cred ', {
+                                        invalid: errors.email || errors.emailNotFound,
+                                    })}
+                                    error={Boolean(errors.email || errors.emailNotFound)}
+                                    helperText={errors.email || errors.emailNotFound}
+                                    fullWidth
+                                    focused
+                                    autoComplete="off"
+                                />
+                                {passwordMode && (
+                                    <>
                                         <TextField
-                                            onChange={onChange}
-                                            value={email}
                                             color="secondary"
-                                            sx={{
-                                                marginBottom: '1em',
-                                                color: 'black',
-                                            }}
-                                            id="email"
-                                            type="email"
-                                            label="Email"
-                                            className={classnames('cred ', {
-                                                invalid: errors.email || errors.emailNotFound,
+                                            onChange={onChange}
+                                            value={password}
+                                            sx={{ color: 'black' }}
+                                            id="password"
+                                            type="password"
+                                            label="Password"
+                                            className={classnames('cred', {
+                                                invalid: errors.password || errors.passwordIncorrect,
                                             })}
-                                            error={Boolean(errors.email || errors.emailNotFound)}
-                                            helperText={errors.email || errors.emailNotFound}
+                                            error={Boolean(errors.password || errors.passwordIncorrect)}
+                                            helperText={errors.password || errors.passwordIncorrect}
                                             fullWidth
                                             focused
+                                            disableClearable
                                             autoComplete="off"
                                         />
-                                        {/*<TextField*/}
-                                        {/*        color="secondary"*/}
-                                        {/*        onChange={onChange}*/}
-                                        {/*        value={password}*/}
-                                        {/*        sx={{ color: 'black' }}*/}
-                                        {/*        id="password"*/}
-                                        {/*        type="password"*/}
-                                        {/*        label="Password"*/}
-                                        {/*        className={classnames('cred', {*/}
-                                        {/*            invalid: errors.password || errors.passwordincorrect,*/}
-                                        {/*        })}*/}
-                                        {/*        error={Boolean(errors.password || errors.passwordincorrect)}*/}
-                                        {/*        helperText={errors.password || errors.passwordincorrect}*/}
-                                        {/*        fullWidth*/}
-                                        {/*        focused*/}
-                                        {/*        disableClearable*/}
-                                        {/*        autoComplete="off"*/}
-                                        {/*    />*/}
-                                        {/*    <Button*/}
-                                        {/*        variant="contained"*/}
-                                        {/*        color="secondary"*/}
-                                        {/*        type="submit"*/}
-                                        {/*        fullWidth*/}
-                                        {/*        onClick={onSubmit}*/}
-                                        {/*        sx={{ mt: 3, mb: 2 }}*/}
-                                        {/*    >*/}
-                                        {/*        Login*/}
-                                        {/*    </Button>*/}
+                                        <Button
+                                            variant="contained"
+                                            color="secondary"
+                                            type="submit"
+                                            fullWidth
+                                            onClick={onSubmitUsingPassword}
+                                            sx={{ mt: 3, mb: 2 }}
+                                        >
+                                            Login
+                                        </Button>
+                                        <div>
+                                            <Typography variant="caption" color="black" mt={3} mb={0}>
+                                                <Link onClick={onModeChange} className="ml-1" color={'secondary'}>
+                                                    Sign in using otp
+                                                </Link>
+                                            </Typography>
+                                        </div>
+                                        <Typography variant="caption" color="black" mt={3} mb={0}>
+                                            Don't have an account?{' '}
+                                            <Link href="/student/register" className="ml-1" color={'secondary'}>
+                                                Register
+                                            </Link>
+                                        </Typography>
+                                    </>
+                                )}
+                                {!otpSent && !passwordMode && (
+                                    <>
                                         <Button
                                             variant="contained"
                                             color="secondary"
@@ -231,15 +252,23 @@ function Login({ loginUserWithOTP, auth, errors }) {
                                         >
                                             Send OTP
                                         </Button>
+                                        <div>
+                                            <Typography variant="caption" color="black" mt={3} mb={0}>
+                                                <Link onClick={onModeChange} className="ml-1" color={'secondary'}>
+                                                    Sign in using password
+                                                </Link>
+                                            </Typography>
+                                        </div>
                                         <Typography variant="caption" color="black" mt={3} mb={0}>
                                             Don't have an account?{' '}
                                             <Link href="/student/register" className="ml-1" color={'secondary'}>
                                                 Register
                                             </Link>
                                         </Typography>
-                                    </form>
-                                </>)}
-                            {otpSent && (
+
+                                    </>)}
+                            </form>
+                            {!passwordMode && otpSent && (
                                 <>
                                     <form>
                                         <TextField
@@ -282,6 +311,19 @@ function Login({ loginUserWithOTP, auth, errors }) {
                                                 style={{ cursor: 'pointer', display: resendTimer === 0 ? 'inline' : 'none', fontSize: '12px' }} // Style to change cursor
                                             >
                                                 Resend OTP
+                                            </Link>
+                                        </Typography>
+                                        <div>
+                                            <Typography variant="caption" color="black" mt={3} mb={0}>
+                                                <Link onClick={onModeChange} className="ml-1" color={'secondary'}>
+                                                    Sign in using password
+                                                </Link>
+                                            </Typography>
+                                        </div>
+                                        <Typography variant="caption" color="black" mt={3} mb={0}>
+                                            Don't have an account?{' '}
+                                            <Link href="/student/register" className="ml-1" color={'secondary'}>
+                                                Register
                                             </Link>
                                         </Typography>
                                     </form>
@@ -391,6 +433,7 @@ function Login({ loginUserWithOTP, auth, errors }) {
 }
 
 Login.propTypes = {
+    loginUser: PropTypes.func.isRequired,
     loginUserWithOTP: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
@@ -401,4 +444,4 @@ const mapStateToProps = (state) => ({
     errors: state.errors,
 });
 
-export default connect(mapStateToProps, { loginUserWithOTP })(Login);
+export default connect(mapStateToProps, { loginUserWithOTP, loginUser })(Login);
