@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 
 const drawerWidth = 240;
 
-const Sidebar = () => {
+const Sidebar = ({logoutUser, auth}) => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const routes = ['/teacher/landing', '/teacher/questions', '/teacher/questions', '/teacher/papers'];
     const icons = [<Home />, <Add />, <Edit />, <Feed />]; // Replace with your own icons
