@@ -16,6 +16,6 @@ router.post("/display", Display);
 // @route POST api/results/scores
 // @desc displays results of quiz
 // @access Public
-router.get('/scores', DisplayAll);
+router.get('/scores/:code/:testno', DisplayAll);
 
 module.exports = router

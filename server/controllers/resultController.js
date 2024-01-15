@@ -98,8 +98,9 @@ const Display = (req, res) => {
 
 // Displays results of all students
 const DisplayAll = (req, res) => {
+    const {code, testno} = req.params;
     if (req) {
-        Result.find()
+        Result.find({'papercode': code, testno})
             .then(result => {
                 const data = JSON.stringify(result);
                 res.status(200).send(data);

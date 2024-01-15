@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import { accessCurrentUser } from '../../actions/authActions';
-import { Button, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
+import { Button, Link, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 
 const drawerWidth = 240;
 
@@ -40,12 +40,13 @@ export default function PaperSettings() {
 
     return (<Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, marginLeft: '240px' }}
+        sx={{ flexGrow: 1, p: 3 }}
     >
-        <Toolbar />
         <Typography paragraph>
+            <Link sx={{ 'display': 'flex', 'alignItems': 'center', 'justifyContent': 'flex-end', textDecoration: 'none'}} href="/teacher/questions">
+                <Button variant='contained' color='secondary'>Add a new paper</Button>
+            </Link>
             <Table>
-
                 <TableHead>
                     <TableRow>
                         <TableCell><Typography variant="h5">#</Typography></TableCell>
@@ -64,9 +65,10 @@ export default function PaperSettings() {
                                 <TableCell><Typography textAlign={'left'} variant="body1">{item.name}</Typography></TableCell>
                                 <TableCell><Typography textAlign={'left'} variant="body1">{item.code}</Typography></TableCell>
                                 <TableCell><Typography textAlign={'center'} variant="body1">{item.testno}</Typography></TableCell>
-                                <TableCell><Typography textAlign={'center'} variant="body1">{item.active? 'Active': 'Inactive'}</Typography></TableCell>
-                                <TableCell sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    <Button onClick={() => onMod(item.code, item.testno)} variant='contained' color='secondary'>{item.active ? 'Deactivate' : 'Activate'}</Button>
+                                <TableCell><Typography textAlign={'center'} variant="body1">{item.active ? 'Active' : 'Inactive'}</Typography></TableCell>
+                                <TableCell sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
+                                    <Button onClick={() => onMod(item.code, item.testno)} variant='contained' color='secondary' sx={{'width': '125px'}}>{item.active ? 'Deactivate' : 'Activate'}</Button>
+                                    <Button href={`/teacher/scores/${item.code}/${item.testno}`} variant='contained' color='secondary' sx={{'width': '125px'}}>View scores</Button>
                                 </TableCell>
                             </TableRow>
                         ))
@@ -79,19 +81,6 @@ export default function PaperSettings() {
                     )}
                 </TableBody>
             </Table>
-        </Typography>
-        <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-            eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-            neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-            tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-            sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-            tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-            et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-            tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-            eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-            posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
     </Box>
     );

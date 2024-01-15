@@ -48,7 +48,9 @@ const saveQuestionDataToFile = (filename, fileData, request, res) => {
                             const newPaperDetail = new PaperDetails({
                                 name: request.papername,
                                 code: request.papercode,
-                                testno: request.testno
+                                testno: request.testno,
+                                active: true,
+                                userId: request.userId
                             });
                             newPaperDetail.save()
                                 .then(result => {

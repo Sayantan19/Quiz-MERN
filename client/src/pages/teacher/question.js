@@ -5,7 +5,9 @@ export default function QuestionPage() {
     return (
         <>
             <Sidebar />
-            <Questions/>
+            <div id="set-question" style={{marginLeft:'240px', "display": "flex", 'flexDirection': 'row', 'justifyContent': 'center', 'alignItems': 'center' }}>
+                <Questions />
+            </div>
         </>
     )
 }

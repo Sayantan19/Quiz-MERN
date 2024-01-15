@@ -16,7 +16,7 @@ const TeacherDash = ({ auth, logoutUser }) => {
   };
 
   return (
-    <div className="d-flex align-items-center justify-content-center" style={{ height: '80vh' }}>
+    <div className="d-flex align-items-center justify-content-center" style={{ height: '80vh', marginLeft: '240px' }}>
       <Container maxWidth="sm" style={{ height: '60vh', border: "2px solid #ab47bc", borderRadius: "10px" }} className="my-3" id="teacherDash">
         <Typography variant="h4" className="text-center ">
           Welcome to Comprehensive Assessment System, {user.name}!
