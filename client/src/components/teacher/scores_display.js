@@ -4,12 +4,14 @@ import exportFromJSON from 'export-from-json';
 import React, { useState, useEffect } from 'react';
 import { Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Button } from '@mui/material';
 import './teacher.css'
+import { useParams } from 'react-router-dom';
 
 export default function Scores() {
     const [content, setContent] = useState(null);
+    const {code, testno} = useParams();
 
     async function getScores() {
-        axios.get('/results/scores')
+        axios.get(`/results/scores/${code}/${testno}`)
             .then((res) => {
                 setContent(res.data);
             })

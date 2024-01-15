@@ -4,6 +4,7 @@ import { MuiFileInput } from 'mui-file-input'
 import './teacher.css'
 import axios from 'axios';
 import { Box, Button, Container, Divider, Alert, TextField, Typography, Dialog, DialogTitle, DialogContent, DialogActions, InputLabel } from '@mui/material';
+import { accessCurrentUser } from '../../actions/authActions';
 
 
 export default function Questions() {
@@ -14,6 +15,8 @@ export default function Questions() {
         papercode: '',
         testno: ''
     });
+
+    const userDetails = accessCurrentUser();
 
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
@@ -83,7 +86,8 @@ export default function Questions() {
             papername: state.papername,
             testno: state.testno,
             questiontime: state.questiontime,
-            quizquestions: state.quizquestions
+            quizquestions: state.quizquestions,
+            userId: userDetails.userId
         }
         axios.post('/questions/question', data)
             .then(function (response) {

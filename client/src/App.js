@@ -46,7 +46,7 @@ export default function App() {
         <Route path='/student/summary' element={<PrivateRoute path="/student/summary" component={Summary} />} />
 
         <Route path='/teacher/landing' element={<PrivateRoute path="/teacher/landing" component={teacherDash} /> } />
-        <Route path='/teacher/scores' element={<PrivateRoute path="/teacher/scores" component={Scores} />} /> 
+        <Route path='/teacher/scores/:code/:testno' element={<PrivateRoute path="/teacher/scores/:code/:testno" component={Scores} />} /> 
         <Route path='/teacher/papers' element={<PrivateRoute path="/teacher/papers" component={PaperSettingsPage} />} /> 
         <Route path='/teacher/questions' element={<PrivateRoute path="/teacher/questions" component={Questions} />} /> 
         <Route path='/teacher/student-cred-gen' element={<PrivateRoute path="/teacher/student-cred-gen" component={StudentCredGen} />} /> 

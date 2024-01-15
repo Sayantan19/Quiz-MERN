@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {AppBar, Box, CssBaseline,Divider,Drawer,IconButton,List, ListItem, ListItemButton,ListItemIcon, ListItemText,Toolbar, Typography} from '@mui/material';
+import { AppBar, Box, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -13,10 +13,10 @@ import PropTypes from 'prop-types';
 
 const drawerWidth = 240;
 
-const Sidebar = ({logoutUser, auth}) => {
+const Sidebar = ({ logoutUser, auth }) => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const routes = ['/teacher/landing', '/teacher/questions', '/teacher/questions', '/teacher/papers'];
-    const icons = [<Home />, <Add />, <Edit />, <Feed />]; // Replace with your own icons
+    const icons = [<Home sx={{ color: 'black' }} />, <Add sx={{ color: 'black' }} />, <Edit sx={{ color: 'black' }} />, <Feed sx={{ color: 'black' }} />]; // Replace with your own icons
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -30,10 +30,10 @@ const Sidebar = ({logoutUser, auth}) => {
     };
 
     const drawer = (
-        <div>
-            <Toolbar sx={{ margin: "1em 0", flexDirection: "column", alignItems: "flex-start", justifyContent: "left" }}>
+        <div id="drawer">
+            <Toolbar sx={{ padding: "0.7em 0", flexDirection: "column", alignItems: "flex-start", justifyContent: "left", backgroundColor: 'black', color: 'white' }}>
                 <Typography variant="body2" component="div">
-                    Welcome
+                    Welcome,
                 </Typography>
                 <Typography variant="h6" component="div" >
                     {user.name}
@@ -42,22 +42,24 @@ const Sidebar = ({logoutUser, auth}) => {
             <Divider />
             <List>
                 {['Home', 'Create a new exam', 'Set questions', 'Your papers'].map((text, index) => (
-                    <ListItem key={text} disablePadding>
-                        <ListItemButton component={Link} to={routes[index]}>
-                            <ListItemIcon>{icons[index]}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItemButton>
-                    </ListItem>
+                    <>
+                        <ListItem key={text} disablePadding>
+                            <ListItemButton component={Link} to={routes[index]}>
+                                <ListItemIcon>{icons[index]}</ListItemIcon>
+                                <ListItemText primary={text} />
+                            </ListItemButton>
+                        </ListItem>
+                        <hr style={{'margin': '0'}}/>
+                    </>
                 ))}
             </List>
-            <Divider />
-            <List>
+            <List sx={{ position: 'absolute', bottom: '0' }}>
                 {['Logout'].map((text, index) => (
                     <ListItem key={text} disablePadding>
                         <ListItemButton
                             onClick={onLogoutClick}>
                             <ListItemIcon>
-                                <ExitToApp />
+                                <ExitToApp sx={{ color: 'black' }} />
                             </ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItemButton>
@@ -70,34 +72,11 @@ const Sidebar = ({logoutUser, auth}) => {
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
-            <AppBar
-                position="fixed"
-                sx={{
-                    width: { sm: `calc(100% - ${drawerWidth}px)` },
-                    ml: { sm: `${drawerWidth}px` },
-                }}
-            >
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        Teacher Dashboard
-                    </Typography>
-                </Toolbar>
-            </AppBar>
             <Box
                 component="nav"
                 sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
                 aria-label="mailbox folders"
             >
-                {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Drawer
                     variant="temporary"
                     open={mobileOpen}
@@ -107,7 +86,7 @@ const Sidebar = ({logoutUser, auth}) => {
                     }}
                     sx={{
                         display: { xs: 'block', sm: 'none' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, background: 'white' },
                     }}
                 >
                     {drawer}
@@ -116,7 +95,7 @@ const Sidebar = ({logoutUser, auth}) => {
                     variant="permanent"
                     sx={{
                         display: { xs: 'none', sm: 'block' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth, background: 'white', color: 'black' },
                     }}
                     open
                 >
