@@ -16,7 +16,8 @@ export default function Questions() {
         testno: ''
     });
 
-    const userDetails = accessCurrentUser();
+    const user = accessCurrentUser().decoded;
+    console.log(user)
 
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
@@ -87,7 +88,7 @@ export default function Questions() {
             testno: state.testno,
             questiontime: state.questiontime,
             quizquestions: state.quizquestions,
-            userId: userDetails.userId
+            userId: user.userId
         }
         axios.post('/questions/question', data)
             .then(function (response) {

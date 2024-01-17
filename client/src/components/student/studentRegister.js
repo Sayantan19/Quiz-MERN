@@ -34,6 +34,7 @@ class Registers extends Component {
             email: "",
             password: "",
             password2: "",
+            roll: '',
             errors: {}
         };
     }
@@ -64,6 +65,7 @@ class Registers extends Component {
             email: this.state.email,
             password: this.state.password,
             password2: this.state.password2,
+            roll: this.state.roll,
             teacher: false
         };
         this.props.registerUser(newUser, this.props.router.navigate);
@@ -92,7 +94,7 @@ class Registers extends Component {
                                 variant="filled"
                                 fullWidth
                             />
-                            <TextField sx={{margin:'0.5rem 0'}}
+                            <TextField sx={{margin:'0.5rem 0', color: 'white'}}
                                 onChange={this.onChange}
                                 color="secondary"
                                 variant="filled"
@@ -102,6 +104,18 @@ class Registers extends Component {
                                 id="email"
                                 type="email"
                                 label="Email"
+                                fullWidth
+                            />
+                            <TextField sx={{margin:'0.5rem 0'}}
+                                onChange={this.onChange}
+                                value={this.state.roll}
+                                error={errors.roll ? true : false}
+                                helperText={errors.roll}
+                                id="roll"
+                                type="text"
+                                label="Roll"
+                                color="secondary"
+                                variant="filled"
                                 fullWidth
                             />
                             <TextField sx={{margin:'0.5rem 0'}}

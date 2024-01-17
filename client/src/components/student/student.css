@@ -213,6 +213,10 @@ input[type="radio"].form-check-input.answer:checked {
     gap: 2em;
 }
 
+#email1 {
+    color: black !important;
+}
+
 /* Summary page */
 #summary-body {
     display: flex;

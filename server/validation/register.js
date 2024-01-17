@@ -7,9 +7,17 @@ module.exports = function validateRegisterInput(data) {
   data.email = !isEmpty(data.email) ? data.email : "";
   data.password = !isEmpty(data.password) ? data.password : "";
   data.password2 = !isEmpty(data.password2) ? data.password2 : "";
+  data.teacher = (data.teacher !== null) ? data.teacher : null;
+  data.roll = !isEmpty(data.roll) ? data.roll : "";
   // Name checks
   if (Validator.isEmpty(data.name)) {
     errors.name = "Name field is required";
+  }
+  if (data.teacher === null) {
+    errors.name = "Teacher field is required";
+  }
+  if (data.teacher === false && Validator.isEmpty(data.roll)) {
+    errors.roll = "Roll field is required";
   }
   // Email checks
   if (Validator.isEmpty(data.email)) {

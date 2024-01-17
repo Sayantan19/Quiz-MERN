@@ -10,7 +10,7 @@ const drawerWidth = 240;
 
 export default function PaperSettings() {
     const [content, setContent] = useState(null);
-    const { token, isTeacher, name, userId } = accessCurrentUser();
+    const { userId } = accessCurrentUser().decoded;
     async function getPaper() {
         axios.get('/paper-details/get-details-teacher/' + userId)
             .then((res) => {
