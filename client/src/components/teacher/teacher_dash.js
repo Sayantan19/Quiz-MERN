@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { logoutUser } from "../../actions/authActions";
+import { accessCurrentUser, logoutUser } from "../../actions/authActions";
 import { Container, Grid, Button, Typography } from "@mui/material";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const TeacherDash = ({ auth, logoutUser }) => {
   const { user } = auth;
-
+  console.log(accessCurrentUser().decoded)
   const onLogoutClick = (e) => {
     e.preventDefault();
     logoutUser();
@@ -31,7 +31,7 @@ const TeacherDash = ({ auth, logoutUser }) => {
               color="secondary"
               fullWidth
             >
-              Set Questions
+              Create a new exam
             </Button>
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -47,18 +47,7 @@ const TeacherDash = ({ auth, logoutUser }) => {
           </Grid>
         </Grid>
         <Grid container spacing={2} className="my-2">
-          <Grid item xs={12} sm={6}>
-            <Button
-              component={Link}
-              to="/teacher/student-cred-gen"
-              variant="outlined"
-              color="secondary"
-              fullWidth
-            >
-              Generate Student Credentials
-            </Button>
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={12}>
             <Button
               onClick={onLogoutClick}
               variant="contained"

@@ -27,9 +27,10 @@ function Login({ loginUser, loginUserWithOTP, auth, errors }) {
     })
 
     useEffect(() => {
-        const user = accessCurrentUser();
         if (auth.isAuthenticated) {
-            if (user.isTeacher === 'false') {
+            const user = accessCurrentUser();
+            console.log(user);
+            if (user.decoded.teacher === false) {
                 window.location.href = '/student/exam-choice';
             } else {
                 window.location.href = '/teacher/landing';
@@ -46,7 +47,10 @@ function Login({ loginUser, loginUserWithOTP, auth, errors }) {
     const { email, password, otp } = formData;
 
     const onChange = (e) => {
-        setFormData({ ...formData, [e.target.id]: e.target.value });
+        if(e.target.id === 'email1')
+            setFormData({ ... formData, ['email']: e.target.value});
+        else
+            setFormData({ ...formData, [e.target.id]: e.target.value });
     };
 
     const handleCloseDialog = () => {
@@ -182,7 +186,7 @@ function Login({ loginUser, loginUserWithOTP, auth, errors }) {
                                         marginBottom: '1em',
                                         color: 'black',
                                     }}
-                                    id="email"
+                                    id="email1"
                                     type="email"
                                     label="Email"
                                     className={classnames('cred ', {

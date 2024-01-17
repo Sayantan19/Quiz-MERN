@@ -15,13 +15,13 @@ const drawerWidth = 240;
 
 const Sidebar = ({ logoutUser, auth }) => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const routes = ['/teacher/landing', '/teacher/questions', '/teacher/questions', '/teacher/papers'];
-    const icons = [<Home sx={{ color: 'black' }} />, <Add sx={{ color: 'black' }} />, <Edit sx={{ color: 'black' }} />, <Feed sx={{ color: 'black' }} />]; // Replace with your own icons
+    const routes = ['/teacher/landing', '/teacher/questions', '/teacher/papers'];
+    const icons = [<Home sx={{ color: 'black' }} />, <Add sx={{ color: 'black' }} />, <Feed sx={{ color: 'black' }} />]; // Replace with your own icons
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
-    const user = accessCurrentUser();
+    const user = accessCurrentUser().decoded;
 
     const onLogoutClick = (e) => {
         e.preventDefault();
@@ -41,7 +41,7 @@ const Sidebar = ({ logoutUser, auth }) => {
             </Toolbar>
             <Divider />
             <List>
-                {['Home', 'Create a new exam', 'Set questions', 'Your papers'].map((text, index) => (
+                {['Home', 'Create a new exam', 'Your papers'].map((text, index) => (
                     <>
                         <ListItem key={text} disablePadding>
                             <ListItemButton component={Link} to={routes[index]}>

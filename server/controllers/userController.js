@@ -23,7 +23,7 @@ const OTPSignIn = async (req, res) => {
     const email = req.body.email;
 
     try {
-        const user = await User.findOne({email});
+        const user = await User.findOne({ email });
 
         if (!user) {
             return res.status(404).send('Email not found');
@@ -37,7 +37,9 @@ const OTPSignIn = async (req, res) => {
             if (value === req.body.otp) {
                 const payload = {
                     id: user.id,
-                    name: user.name
+                    name: user.name,
+                    teacher: user.teacher,
+                    userId: user.userId
                 };
 
                 jwt.sign(
@@ -50,28 +52,25 @@ const OTPSignIn = async (req, res) => {
                         res.status(200).send({
                             success: true,
                             token: "Bearer " + token,
-                            teacher: user.teacher,
-                            name: user.name,
-                            userId: user.userId
                         });
                     }
                 );
             } else {
                 console.log('Incorrect value');
-                return res.status(400).send({error: 'Incorrect OTP entered'});
+                return res.status(400).send({ error: 'Incorrect OTP entered' });
             }
         } else {
             console.log('Key not found in Redis.');
-            return res.status(404).send({error: 'OTP Expired'});
+            return res.status(404).send({ error: 'OTP Expired' });
         }
     } catch (error) {
         console.error('Error:', error);
-        return res.status(500).send({error: `Error: ${error}`});
+        return res.status(500).send({ error: `Error: ${error}` });
     }
 };
 
 const SignIn = async (req, res) => {
-    const {errors, isValid} = validateLoginInput(req.body);
+    const { errors, isValid } = validateLoginInput(req.body);
 
     if (!isValid) {
         return res.status(400).send(errors);
@@ -81,17 +80,19 @@ const SignIn = async (req, res) => {
     const password = req.body.password;
 
     try {
-        const user = await User.findOne({email});
+        const user = await User.findOne({ email });
 
         if (!user) {
-            return res.status(404).send({emailNotFound: 'Email not found'});
+            return res.status(404).send({ emailNotFound: 'Email not found' });
         }
 
         bcrypt.compare(password, user.password).then(isMatch => {
             if (isMatch) {
                 const payload = {
                     id: user.id,
-                    name: user.name
+                    name: user.name,
+                    teacher: user.teacher,
+                    userId: user.userId
                 };
 
                 jwt.sign(
@@ -103,15 +104,12 @@ const SignIn = async (req, res) => {
                     (err, token) => {
                         res.status(200).send({
                             success: true,
-                            token: "Bearer " + token,
-                            teacher: user.teacher,
-                            name: user.name,
-                            userId: user.userId
+                            token: "Bearer " + token
                         });
                     }
                 );
             } else {
-                return res.status(400).send({passwordIncorrect: 'Password incorrect'});
+                return res.status(400).send({ passwordIncorrect: 'Password incorrect' });
             }
         });
     } catch (error) {
@@ -121,24 +119,24 @@ const SignIn = async (req, res) => {
 };
 
 const Register = (req, res) => {
-    const {errors, isValid} = validateRegisterInput(req.body);
+    const { errors, isValid } = validateRegisterInput(req.body);
 
     if (!isValid) {
         return res.status(400).send(errors);
     }
 
-    User.findOne({email: req.body.email}).then(user => {
+    User.findOne({ email: req.body.email }).then(user => {
         let id = ''
         if (user) {
-            return res.status(400).send({email: 'Email already exists'});
+            return res.status(400).send({ email: 'Email already exists' });
         } else {
             while (true) {
-                let flag= 0
-                id = (req.body.teacher ? 't' : 's') + idGenerator
-                User.findOne({userId: id}).then(user => {
+                let flag = 0
+                id = (req.body.teacher ? ('t' + idGenerator) : ('s' + req.body.roll))
+                User.findOne({ userId: id }).then(user => {
                     console.log(user)
-                    if(user) {
-                        flag=1
+                    if (user) {
+                        flag = 1
                     }
                 })
                 if (flag == 1)
@@ -162,7 +160,7 @@ const Register = (req, res) => {
                         .then(user => res.status(200).send(user))
                         .catch(err => {
                             console.error(err);
-                            return res.status(500).send({password:`Error: ${err}`});
+                            return res.status(500).send({ password: `Error: ${err}` });
                         });
                 });
             });
@@ -170,4 +168,4 @@ const Register = (req, res) => {
     });
 };
 
-module.exports = {OTPSignIn, SignIn, Register, idGenerator};
+module.exports = { OTPSignIn, SignIn, Register, idGenerator };

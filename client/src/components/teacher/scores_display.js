@@ -26,13 +26,13 @@ export default function Scores() {
     }, []);
 
     function handleOnClick() {
-        window.location.href = '/teacher/landing'
+        window.history.back();
     }
 
     // this function downloads the scores from a database to an excel file
     async function downloadF() {
         const data = content
-        const fileName = 'Results'
+        const fileName = 'Results_'+code+'_'+testno;
         const exportType = exportFromJSON.types.xls
         exportFromJSON({ data, fileName, exportType })
     };
@@ -86,7 +86,7 @@ export default function Scores() {
                             Save Scores
                         </Button>
                         <Button variant="text" color="secondary" className="mx-3" onClick={handleOnClick}>
-                            Back to home
+                            Back
                         </Button>
                     </Container>
                 </Container>
