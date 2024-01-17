@@ -5,7 +5,8 @@ export default function QuestionPage() {
     return (
         <>
             <Sidebar />
-            <div id="set-question" style={{marginLeft:'240px', "display": "flex", 'flexDirection': 'row', 'justifyContent': 'center', 'alignItems': 'center' }}>
+            <Header name="Create a new exam" />
+            <div id="set-question" style={{marginLeft:'240px', marginTop: '50px'}}>
                 <Questions />
             </div>
         </>

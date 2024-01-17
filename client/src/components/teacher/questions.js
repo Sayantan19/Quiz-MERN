@@ -121,8 +121,8 @@ export default function Questions() {
 
     return (
         <>
-            <div style={{ minHeight: '100vh', overflowY: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Container style={{ border: '2px solid #ab47bc', borderRadius: '10px', padding: '2rem' }} id="info">
+            <div style={{ height: '100%'}}>
+                <Container id="info">
                     <Typography variant="h5" component="b">
                         Enter Paper Name:
                         <span style={{ color: 'red', fontSize: '15px' }}> &nbsp;*Required</span>
@@ -235,7 +235,7 @@ export default function Questions() {
                             Set Questions
                         </Button>
                         <Button variant="text" color="secondary" className="mx-3" onClick={handleOnClick}>
-                            Back to home
+                            Cancel
                         </Button>
                     </Box>
                 </Container>
