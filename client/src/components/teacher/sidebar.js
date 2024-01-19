@@ -1,9 +1,6 @@
 import * as React from 'react';
-import { AppBar, Box, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Add, Edit, ExitToApp, Feed, Home } from '@mui/icons-material';
+import { Box, CssBaseline, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from '@mui/material';
+import { Add, ExitToApp, Feed, Home } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { accessCurrentUser, logoutUser } from '../../actions/authActions';
 import { connect } from "react-redux";

@@ -217,6 +217,10 @@ input[type="radio"].form-check-input.answer:checked {
     color: black !important;
 }
 
+#password1 {
+    color: black !important;
+}
+
 /* Summary page */
 #summary-body {
     display: flex;

@@ -2,43 +2,40 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
-  "babel": {
-    "plugins": [
-      "@babel/plugin-syntax-import-assertions"
-    ]
-  },
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fvilers/disable-react-devtools": "^1.3.0",
     "@mui/icons-material": "^5.15.2",
     "@mui/material": "^5.15.2",
+    "@svgr/plugin-svgo": "^8.1.0",
+    "@svgr/webpack": "^8.1.0",
     "@tensorflow/tfjs": "^4.15.0",
     "@testing-library/jest-dom": "^6.1.6",
     "@testing-library/react": "^14.1.2",
     "@testing-library/user-event": "^14.5.2",
     "axios": "^1.6.3",
-    "babel-jest": "^26.6.0",
     "canvas": "^2.11.2",
     "classnames": "^2.5.1",
+    "css-select": "3.0.0",
     "export-from-json": "^1.7.4",
     "face-api.js": "^0.20.0",
     "is-empty": "^1.2.0",
     "jquery": "^3.7.1",
     "jwt-decode": "^4.0.0",
     "mui-file-input": "^4.0.3",
+    "nth-check": "2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.21.1",
-    "react-scripts": "^3.0.1",
+    "react-scripts": "^5.0.1",
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
-    "web-vitals": "^3.5.1",
-    "xlsx": "^0.18.5"
+    "web-vitals": "^3.5.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -59,7 +56,10 @@
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 safari version",
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
     ]
   }
 }

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { MuiFileInput } from 'mui-file-input'
 import './teacher.css'
 import axios from 'axios';
-import { Box, Button, Container, Divider, Alert, TextField, Typography, Dialog, DialogTitle, DialogContent, DialogActions, InputLabel } from '@mui/material';
+import { Box, Button, Container, Divider, Typography, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
 
 export default function StudentCredGen() {

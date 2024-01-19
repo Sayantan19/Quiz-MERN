@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import axios from 'axios';
 import Typography from '@mui/material/Typography';
 import { accessCurrentUser } from '../../actions/authActions';
 import { Button, Link, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
-
-const drawerWidth = 240;
 
 export default function PaperSettings() {
     const [content, setContent] = useState(null);

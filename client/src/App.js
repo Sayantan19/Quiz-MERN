@@ -6,7 +6,7 @@ import { Rules, Quiz, Summary, Registers, ExamChoice} from './pages/index.js';
 import { Questions, Scores } from './pages/index.js';
 import { Provider } from "react-redux";
 import store from "./store.js";
-import jwt_decode from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken.js";
 import { setCurrentUser, logoutUser } from "./actions/authActions.js";
 import PrivateRoute from './components/common/privateRoute';
@@ -18,7 +18,7 @@ export default function App() {
     const token = localStorage.jwtToken;
     setAuthToken(token);
     // Decode token and get user info and exp
-    const decoded = jwt_decode(token);
+    const decoded = jwtDecode(token);
     // Set user and isAuthenticated
     store.dispatch(setCurrentUser(decoded));
     // Check for expired token

@@ -8,6 +8,7 @@ export default function PaperSettingsPage() {
             <Sidebar />
             <div id="paper-details" style={{marginLeft:'240px', "display": "flex", 'flexDirection': 'row', 'justifyContent': 'center', 'alignItems': 'center' }}>
                 <PaperSettings />
+                <Footer />
             </div>
         </>
     )

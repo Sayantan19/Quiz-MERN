@@ -1,7 +1,7 @@
 //This file handles several responses based on the different authentication actions done by the user
 import axios from "axios";
 import setAuthToken from "../utils/setAuthToken.js";
-import jwt_decode from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 
 import {
     GET_ERRORS,
@@ -36,7 +36,7 @@ export const loginUser = (userData) => dispatch => {
             // Set token to Auth header
             setAuthToken(token);
             // Decode token to get user data
-            const decoded = jwt_decode(token);
+            const decoded = jwtDecode(token);
             // Set current user
             dispatch(setCurrentUser(decoded));
         })
@@ -60,7 +60,7 @@ export const loginUserWithOTP = (userData) => dispatch => {
             // Set token to Auth header
             setAuthToken(token);
             // Decode token to get user data
-            const decoded = jwt_decode(token);
+            const decoded = jwtDecode(token);
             // Set current user
             dispatch(setCurrentUser(decoded));
         })
@@ -75,7 +75,7 @@ export const loginUserWithOTP = (userData) => dispatch => {
 //This function decodes the current user's JWT and displays the email and MongoDB id
 export function accessCurrentUser() {
     if (localStorage.jwtToken) {
-        const decoded = jwt_decode(localStorage.jwtToken);
+        const decoded = jwtDecode(localStorage.jwtToken);
         return {"decoded": decoded };
     }
     else

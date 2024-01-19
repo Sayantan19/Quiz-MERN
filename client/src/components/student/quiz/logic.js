@@ -2,7 +2,7 @@
 // This is where the question is randomized and displayed.
 
 import axios from 'axios';
-import { accessCurrentUser, logoutUser } from '../../../actions/authActions';
+import { accessCurrentUser } from '../../../actions/authActions';
 // import proctor from './proctor';
 
 export default async function logic(questionData) {

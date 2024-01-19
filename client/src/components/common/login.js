@@ -49,6 +49,8 @@ function Login({ loginUser, loginUserWithOTP, auth, errors }) {
     const onChange = (e) => {
         if(e.target.id === 'email1')
             setFormData({ ... formData, ['email']: e.target.value});
+        else if(e.target.id === 'password1')
+            setFormData({ ... formData, ['password']: e.target.value});
         else
             setFormData({ ...formData, [e.target.id]: e.target.value });
     };
@@ -205,7 +207,7 @@ function Login({ loginUser, loginUserWithOTP, auth, errors }) {
                                             onChange={onChange}
                                             value={password}
                                             sx={{ color: 'black' }}
-                                            id="password"
+                                            id="password1"
                                             type="password"
                                             label="Password"
                                             className={classnames('cred', {

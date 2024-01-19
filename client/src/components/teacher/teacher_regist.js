@@ -5,8 +5,7 @@ import './teacher.css'
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions.js";
-import classnames from "classnames";
-import { TextField, Button, Typography, Container, Grid, IconButton } from "@mui/material";
+import { TextField, Button, Typography, Container, Grid } from "@mui/material";
 
 function withRouter(Component) {
     function ComponentWithRouterProp(props) {

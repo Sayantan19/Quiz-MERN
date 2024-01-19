@@ -8,6 +8,7 @@ export default function QuestionPage() {
             <Header name="Create a new exam" />
             <div id="set-question" style={{marginLeft:'240px', marginTop: '50px'}}>
                 <Questions />
+                <Footer />
             </div>
         </>
     )
