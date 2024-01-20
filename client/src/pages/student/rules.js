@@ -1,10 +1,11 @@
 import React from 'react'
-import { Rules } from '../../components/index.js'
+import { Footer, Rules } from '../../components/index.js'
 
 export default function RulePage() {
     return (
         <>
             <Rules />
+            <Footer />
         </>
     )
 }

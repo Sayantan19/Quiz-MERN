@@ -33,17 +33,17 @@ export default function Rules() {
         <>
             <Container
                 sx={{
-                    height: '100vh',
+                    height: '90vh',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
                     width: '80vw',
-                    borderRadius: '10px',
                     flexDirection: 'column'
                 }}
-            >
+                >
                 <Box
                     sx={{
+                        borderRadius: '10px',
                         boxShadow: '0px 0px 20px 15px #743f7e',
                         padding: '2em',
                         display: 'flex',

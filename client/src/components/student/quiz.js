@@ -79,7 +79,8 @@ export default function Quiz() {
                                 justifyContent: 'space-evenly',
                                 padding: '3em',
                                 minWidth: '30vw',
-                                borderRadius: '10px 0 0 10px'
+                                borderRadius: '0px 10px 10px 0px',
+                                background: 'black'
                             }}>
                             <div id='vidcont'>
                                 <video id='video' width='280' height='210' autoPlay={true} muted style={{borderRadius: '10px'}}/>

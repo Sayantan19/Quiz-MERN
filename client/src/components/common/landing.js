@@ -6,7 +6,7 @@ import { Box, Button, Container, Grid, Typography } from '@mui/material'
 export default function Landing() {
     return (
         <>
-            <div className="d-flex align-items-center justify-content-center" style={{ height: '90vh' }}>
+            <div className="d-flex align-items-center justify-content-center" style={{height: '90%'}}>
                 <Container sx={{
                     height: '80vh',
                     display: 'flex',

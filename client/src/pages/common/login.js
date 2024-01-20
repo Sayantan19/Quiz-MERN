@@ -1,10 +1,11 @@
 import React from 'react'
-import { Login } from '../../components/index.js'
+import { Footer, Login } from '../../components/index.js'
 
 export default function LoginPage() {
     return (
         <>
             <Login/>
+            <Footer />
         </>
     )
 }

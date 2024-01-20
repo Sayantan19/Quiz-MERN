@@ -6,10 +6,10 @@ export default function teacherDashboard() {
     <>
       <Header name="Welcome to the Portal" />
       <Sidebar />
-      <div id="dashboard" sx={{marginLeft: '240px', display: 'flex'}}>
+      <div id="dashboard" style={{marginLeft: '240px', display: 'flex', flexDirection: 'column'}}>
         <TeacherDash />
-      </div>
         <Footer />
+      </div>
     </>
   );
 }
