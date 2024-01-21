@@ -8,6 +8,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const TeacherDash = ({ auth, logoutUser }) => {
   const { user } = auth;
+  console.log(user)
   console.log(accessCurrentUser().decoded)
   const onLogoutClick = (e) => {
     e.preventDefault();

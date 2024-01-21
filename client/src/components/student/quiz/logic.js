@@ -54,8 +54,9 @@ export default async function logic(questionData) {
     function SubmitResult() {
         const timetaken = (timerValue - totalSeconds)
         const token = accessCurrentUser().decoded;
+        console.log(token)
         const data1 = {
-            'id': token.id,
+            'id': token.userId,
             'name': token.name,
             'score': correctscore,
             'time': timetaken,

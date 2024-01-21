@@ -5,6 +5,7 @@ import './teacher.css'
 import axios from 'axios';
 import { Box, Button, Container, Divider, TextField, Typography, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { accessCurrentUser } from '../../actions/authActions';
+import XLSX from 'xlsx';
 
 
 export default function Questions() {
@@ -17,13 +18,13 @@ export default function Questions() {
     });
 
     const user = accessCurrentUser().decoded;
-    console.log(user)
 
     const [showSuccessModal, setShowSuccessModal] = useState(false);
     const [showErrorModal, setShowErrorModal] = useState(false);
-    const [formErrors, setFormErrors] = useState({});
-
     const [file, setFile] = useState(null);
+    const [questions, setQuestions] = useState(null);
+
+    const [formErrors, setFormErrors] = useState({});
 
     const handleFileChange = (event) => {
         setFile(event);
@@ -73,9 +74,24 @@ export default function Questions() {
         return Object.keys(errors).length === 0;
     };
 
-    const onSubmit = e => {
+    const onSubmit = async e => {
         e.preventDefault();
-
+        console.log(file)
+        console.log('Checking the workbook');
+        const fileData = await file.arrayBuffer();
+        console.log(fileData)
+        if (fileData) {
+            const workbook = await XLSX.read(fileData, { type: 'buffer' });
+            const firstSheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[firstSheetName];
+            const raw_data = XLSX.utils.sheet_to_json(worksheet);
+            console.log('Checked the workbook');
+            setQuestions(raw_data);
+        } else {
+            console.log('No file selected.');
+            return; // or handle the absence of a file in some way
+        }
+        console.log('Raw data',questions);
         // Validate the form
         if (!validateForm()) {
             setShowErrorModal(true);
@@ -83,18 +99,22 @@ export default function Questions() {
         }
 
         const data = {
-            papercode: state.papercode,
-            papername: state.papername,
+            code: state.papercode,
+            name: state.papername,
             testno: state.testno,
             questiontime: state.questiontime,
             quizquestions: state.quizquestions,
-            userId: user.userId
+            userId: user.userId,
+            questions
         }
+
         axios.post('/questions/question', data)
             .then(function (response) {
                 console.log('Success')
             })
             .catch(res => { console.log("Error: ", res) })
+
+        return;
 
         if (file) {
             const formData = new FormData();
@@ -121,7 +141,7 @@ export default function Questions() {
 
     return (
         <>
-            <div style={{ height: '100%'}}>
+            <div style={{ height: '100%' }}>
                 <Container id="info">
                     <Typography variant="h5" component="b">
                         Enter Paper Name:

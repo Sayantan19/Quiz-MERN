@@ -1,3 +1,4 @@
+const { pool } = require('../config/keys');
 const PaperDetails = require('../models/PaperDetails');
 
 const GetDetails = async (req, res) => {
@@ -26,27 +27,29 @@ const GetDetails = async (req, res) => {
 
 const GetDetailsTeacher = async (req, res) => {
     try {
-        console.log(req.params.userId)
-        const response = await PaperDetails.find({ userId: req.params.userId });
-        if (response.length > 0) {
-            res.status(200).send({
-                status: 200,
-                response
-            });
+        const userId = req.params.userId;
+        const query = 'SELECT * FROM "paper-details" WHERE u_id = $1';
+        const { rows } = await pool.query(query, [userId]);
+      
+        if (rows.length > 0) {
+          res.status(200).json({
+            status: 200,
+            response: rows,
+          });
         } else {
-            console.log("No exams set");
-            res.status(404).send({
-                status: 404,
-                message: "No exams set."
-            });
+          console.log('No exams set');
+          res.status(404).json({
+            status: 404,
+            message: 'No exams set.',
+          });
         }
-    } catch (err) {
+      } catch (err) {
         console.error('Error:', err);
-        res.status(500).send({
-            status: 500,
-            message: `Error: ${err}`
+        res.status(500).json({
+          status: 500,
+          message: `Error: ${err.message || err}`,
         });
-    }
+      }
 }
 
 const ChangePaperStatus = (req, res) => {

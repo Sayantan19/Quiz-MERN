@@ -4,8 +4,9 @@ const Result = require('../../server/models/Result');
 // Sends the results of the exam that the student gave
 const ResultSend = (req, res) => {
     if (req) {
+        console.log(req.body)
         const id = req.body.id;
-        const query = { _id: id };
+        const query = { userId: id };
 
         User.findOne(query)
             .then(user => {
