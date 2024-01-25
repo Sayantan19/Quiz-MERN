@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const {GetDetails, GetDetailsTeacher, ChangePaperStatus} = require('../controllers/paperDetailsController')
+const { GetDetailsTeacher, ChangePaperStatus, GetActiveDetails, GetPaperDetails } = require('../controllers/paperDetailsController')
 
 // @route GET api/paperdetails/get-details
 // @desc to retrieve the paper details
 // @access Private
-router.get('/get-details', GetDetails)
+router.get('/get-details', GetActiveDetails)
 
 // @route GET api/paperdetails/get-details-teacher
 // @desc to retrieve the paper details set by the teacher
@@ -17,5 +17,7 @@ router.get('/get-details-teacher/:userId', GetDetailsTeacher)
 // @desc to deactivate/activate the paper set by the teacher
 // @access Private
 router.post('/change-paper-status', ChangePaperStatus)
+
+router.get('/get-paper-details/:p_id', GetPaperDetails)
 
 module.exports = router;

@@ -1,27 +1,30 @@
 const { pool } = require('../config/keys');
 const PaperDetails = require('../models/PaperDetails');
 
-const GetDetails = async (req, res) => {
+const GetActiveDetails = async (req, res) => {
+    const query = 'SELECT * FROM "paper-details" WHERE active = true';
     try {
-        const response = await PaperDetails.find({'active': true});
+        const result = await pool.query(query);
+        const response = result.rows;
+
         if (response.length > 0) {
-            res.status(200).send({
+            res.status(200).json({
                 status: 200,
-                response
+                response,
             });
         } else {
             console.log("You don't have any exams. Get a life.");
-            res.status(404).send({
+            return {
                 status: 404,
-                message: "You don't have any exams. Get a life."
-            });
+                message: "You don't have any exams. Get a life.",
+            };
         }
-    } catch (err) {
-        console.error('Error:', err);
-        res.status(500).send({
+    } catch (error) {
+        console.error('Error:', error);
+        return {
             status: 500,
-            message: `Error: ${err}`
-        });
+            message: `Error: ${error}`,
+        };
     }
 };
 
@@ -30,26 +33,26 @@ const GetDetailsTeacher = async (req, res) => {
         const userId = req.params.userId;
         const query = 'SELECT * FROM "paper-details" WHERE u_id = $1';
         const { rows } = await pool.query(query, [userId]);
-      
+
         if (rows.length > 0) {
-          res.status(200).json({
-            status: 200,
-            response: rows,
-          });
+            res.status(200).json({
+                status: 200,
+                response: rows,
+            });
         } else {
-          console.log('No exams set');
-          res.status(404).json({
-            status: 404,
-            message: 'No exams set.',
-          });
+            console.log('No exams set');
+            res.status(404).json({
+                status: 404,
+                message: 'No exams set.',
+            });
         }
-      } catch (err) {
+    } catch (err) {
         console.error('Error:', err);
         res.status(500).json({
-          status: 500,
-          message: `Error: ${err.message || err}`,
+            status: 500,
+            message: `Error: ${err.message || err}`,
         });
-      }
+    }
 }
 
 const ChangePaperStatus = (req, res) => {
@@ -97,5 +100,29 @@ const ChangePaperStatus = (req, res) => {
     }
 };
 
+const GetPaperDetails = async (req,res) => {
+    try {
+        const p_id = req.params.p_id;
+        const query = 'SELECT * FROM "paper-details" WHERE p_id = $1';
+        const { rows } = await pool.query(query, [p_id]);
 
-module.exports = { GetDetails, GetDetailsTeacher, ChangePaperStatus };
+        if (rows.length > 0) {
+            res.status(200).json({
+                response: rows[0],
+            });
+        } else {
+            console.log('No exams set');
+            res.status(404).json({
+                message: 'No exams set.',
+            });
+        }
+    } catch (err) {
+        console.error('Error:', err);
+        res.status(500).json({
+            status: 500,
+            message: `Error: ${err.message || err}`,
+        });
+    }
+}
+
+module.exports = { GetActiveDetails, GetDetailsTeacher, ChangePaperStatus, GetPaperDetails };

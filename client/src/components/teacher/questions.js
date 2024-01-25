@@ -89,9 +89,10 @@ export default function Questions() {
             setQuestions(raw_data);
         } else {
             console.log('No file selected.');
+            setShowErrorModal(true);
             return; // or handle the absence of a file in some way
         }
-        console.log('Raw data',questions);
+        console.log('Raw data', questions);
         // Validate the form
         if (!validateForm()) {
             setShowErrorModal(true);
@@ -115,37 +116,15 @@ export default function Questions() {
             .catch(res => { console.log("Error: ", res) })
 
         return;
-
-        if (file) {
-            const formData = new FormData();
-            formData.append('file', file);
-
-            axios.post('/questions/upload', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data' // Make sure to set the content type
-                }
-            })
-                .then(response => {
-                    setUploadStatus(true);
-                    setShowSuccessModal(true); // Show the success modal
-                })
-                .catch(err => {
-                    console.error('Error uploading Excel file:', err);
-                    setShowErrorModal(true);
-                });
-        } else {
-            console.log('No file selected.');
-            setShowErrorModal(true);
-        }
     }
 
     return (
         <>
-            <div style={{ height: '100%' }}>
-                <Container id="info">
-                    <Typography variant="h5" component="b">
+            <div className='h-100 mt-4 d-flex justify-content-center'>
+                <Container id="info" sx={{margin: '0'}}>
+                    <Typography variant="h6" component="b">
                         Enter Paper Name:
-                        <span style={{ color: 'red', fontSize: '15px' }}> &nbsp;*Required</span>
+                        <span style={{ color: 'red', fontSize: '10px' }}> &nbsp;*Required</span>
                     </Typography>
                     <TextField
                         name="papername"
@@ -155,15 +134,15 @@ export default function Questions() {
                         fullWidth
                         onChange={handleChange}
                         placeholder="Paper Name"
-                        sx={{ padding: '1rem 0' }}
+                        sx={{ padding: '0.75rem 0' }}
                         required
                         error={!!formErrors.papername}
                         helperText={formErrors.papername}
                     />
                     <Divider />
-                    <Typography variant="h5" component="b">
+                    <Typography variant="h6" component="b">
                         Enter Paper Code:
-                        <span style={{ color: 'red', fontSize: '15px' }}> &nbsp;*Required</span>
+                        <span style={{ color: 'red', fontSize: '10px' }}> &nbsp;*Required</span>
                     </Typography>
                     <TextField
                         name="papercode"
@@ -173,15 +152,15 @@ export default function Questions() {
                         fullWidth
                         onChange={handleChange}
                         placeholder="Paper Code"
-                        sx={{ padding: '1rem 0' }}
+                        sx={{ padding: '0.75rem 0' }}
                         required
                         error={!!formErrors.papercode}
                         helperText={formErrors.papercode}
                     />
                     <Divider />
-                    <Typography variant="h5" component="b">
+                    <Typography variant="h6" component="b">
                         Specify the time to be given for each question (in seconds)
-                        <span style={{ color: 'red', fontSize: '15px' }}> &nbsp;*Required</span>
+                        <span style={{ color: 'red', fontSize: '10px' }}> &nbsp;*Required</span>
                     </Typography>
                     <TextField
                         name="questiontime"
@@ -191,15 +170,15 @@ export default function Questions() {
                         fullWidth
                         onChange={handleChange}
                         placeholder="Time for each question"
-                        sx={{ padding: '1rem 0' }}
+                        sx={{ padding: '0.75rem 0' }}
                         required
                         error={!!formErrors.questiontime}
                         helperText={formErrors.questiontime}
                     />
                     <Divider />
-                    <Typography variant="h5" component="b">
+                    <Typography variant="h6" component="b">
                         Specify the number of questions in the quiz
-                        <span style={{ color: 'red', fontSize: '15px' }}>&nbsp;*Required</span>
+                        <span style={{ color: 'red', fontSize: '10px' }}>&nbsp;*Required</span>
                     </Typography>
                     <TextField
                         name="quizquestions"
@@ -209,15 +188,15 @@ export default function Questions() {
                         fullWidth
                         onChange={handleChange}
                         placeholder="Number of questions"
-                        sx={{ padding: '1rem 0' }}
+                        sx={{ padding: '0.75rem 0' }}
                         required
                         error={!!formErrors.quizquestions}
                         helperText={formErrors.quizquestions}
                     />
                     <Divider />
-                    <Typography variant="h5" component="b">
+                    <Typography variant="h6" component="b">
                         Specify the test number
-                        <span style={{ color: 'red', fontSize: '15px' }}>&nbsp;*Required</span>
+                        <span style={{ color: 'red', fontSize: '10px' }}>&nbsp;*Required</span>
                     </Typography>
                     <TextField
                         name="testno"
@@ -227,15 +206,15 @@ export default function Questions() {
                         fullWidth
                         onChange={handleChange}
                         placeholder="Test no."
-                        sx={{ padding: '1rem 0' }}
+                        sx={{ padding: '0.75rem 0' }}
                         required
                         error={!!formErrors.testno}
                         helperText={formErrors.testno}
                     />
                     <label htmlFor="uploadFile" className="form-label">
-                        <Typography variant="h5" component="b">
+                        <Typography variant="h6" component="b">
                             Upload the question file (.xlsx)
-                            <span style={{ color: 'red', fontSize: '15px' }}>&nbsp;*Required</span>
+                            <span style={{ color: 'red', fontSize: '10px' }}>&nbsp;*Required</span>
                         </Typography>
                     </label>
                     <br></br>

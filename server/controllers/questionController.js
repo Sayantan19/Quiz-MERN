@@ -93,6 +93,7 @@ const SetQuestion = async (req, res) => {
         try {
             const query = 'INSERT INTO question (q_id, q_type,q_content,positive_marks, negative_marks, p_code) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *'
             const insertData = await client.query(query, [question.q_id, question.q_type, question.q_content, question.positive_marks, question.negative_marks, question.p_code]);
+            res.status(200).json(insertData);
             console.log('Successful');
         } catch (e) {
             console.error('Error:', error);
@@ -100,24 +101,48 @@ const SetQuestion = async (req, res) => {
             return;
         }
     }
-    res.status(200).json({ message: 'Success' });
     return;
 };
 
-const GetQuestion = (req, res) => {
-    const papercode = removeSpacesFromName(req.body.code);
-    const testno = removeSpacesFromName(req.body.testno);
-    const filePath = `../../Data/${papercode}_test_${testno}.json`;
-
-    fs.readFile(filePath, 'utf8', (err, data) => {
-        if (err) {
-            console.error(`Error opening file: ${err}`);
-            res.status(500).json({ error: 'Failed to open file' });
+const GetQuestion = async (req, res) => {
+    try {
+        console.log(req.body.p_id)
+        const paperDetailsQuery = await pool.query('SELECT * FROM "paper-details" WHERE p_id = $1', [req.body.p_id]);
+        const paperDetails = paperDetailsQuery.rows[0];
+        if (paperDetails !== null) {
+            const questionQuery = `SELECT * FROM question WHERE p_code = $1 ORDER BY random() LIMIT $2;`;
+            const values = [paperDetails.code, paperDetails.no_of_questions];
+            try {
+                const result = await pool.query(questionQuery, values);
+                if(result.rows.length !== 0){
+                    res.status(200).json(result.rows)
+                    return;
+                } else {
+                    res.status(404).json({message: 'No paper found!'})
+                }
+            } catch (error) {
+                console.error('Error executing query:', error);
+                throw error;
+            }
         } else {
-            const fileContents = JSON.parse(data);
-            res.status(200).json(fileContents);
+            console.log('No paper found!');
+            res.status(404).json({ message: 'Paper not found' });
         }
-    });
+    } catch (err) {
+        console.error('Error: ', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+        return;
+    }
+
+    // fs.readFile(filePath, 'utf8', (err, data) => {
+    //     if (err) {
+    //         console.error(`Error opening file: ${err}`);
+    //         res.status(500).json({ error: 'Failed to open file' });
+    //     } else {
+    //         const fileContents = JSON.parse(data);
+    //         res.status(200).json(fileContents);
+    //     }
+    // });
 };
 
 module.exports = { SetQuestion, GetQuestion };

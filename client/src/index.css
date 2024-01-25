@@ -12,10 +12,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
-  background-image: url('Background.jpg');
+  /* background-image: url('Background.jpg'); */
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: auto;
+  background: linear-gradient(155deg, #540572, #a21dcf)  !important;
   height: 100vh;
 }
 

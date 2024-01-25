@@ -4,11 +4,13 @@ import { Footer, Header, Sidebar, TeacherDash } from '../../components/index.js'
 export default function teacherDashboard() {
   return (
     <>
-      <Header name="Welcome to the Portal" />
-      <Sidebar />
-      <div id="dashboard" style={{marginLeft: '240px', display: 'flex', flexDirection: 'column'}}>
-        <TeacherDash />
-        <Footer />
+      <div className='d-flex w-100'>
+        <Sidebar />
+        <div id="dashboard" className='w-100'>
+          <Header name="Teacher dashboard" />
+          <TeacherDash />
+          <Footer />
+        </div>
       </div>
     </>
   );

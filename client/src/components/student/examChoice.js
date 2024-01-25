@@ -16,19 +16,13 @@ const ExamChoice = () => {
             .catch(error => console.error(error));
     }, []);
 
-    console.log(options)
-
     const handleDropdownChange = (event) => {
         setSelectedValue(event.target.value);
     };
 
+    
     const handleSubmit = () => {
-        axios.post('/questions/get-question', selectedValue)
-            .then((response) => {
-                // Pass the response data to the Rules component when navigating to it
-                navigate('/student/rule', { state: { questionData: response.data } });
-            })
-            .catch(err => console.log(err));
+        navigate(`/student/rule/${selectedValue.p_id}`);
     };
 
     return (

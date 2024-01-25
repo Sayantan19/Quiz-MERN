@@ -41,8 +41,8 @@ export default function App() {
         <Route path='/teacher/register' element={<Registert />} /> 
         <Route path='/login' element={<Login />} />
         <Route path='/student/exam-choice'    element={<PrivateRoute path="/student/exam-choice" component={ExamChoice} />} /> 
-        <Route path='/student/rule'    element={<PrivateRoute path="/student/rule" component={Rules} />} /> 
-        <Route path='/student/quiz'    element={<PrivateRoute path="/student/quiz" component={Quiz} />} />
+        <Route path='/student/rule/:p_id'    element={<PrivateRoute path="/student/rule/:p_id" component={Rules} />} /> 
+        <Route path='/student/quiz/:p_id'    element={<PrivateRoute path="/student/quiz/:p_id" component={Quiz} />} />
         <Route path='/student/summary' element={<PrivateRoute path="/student/summary" component={Summary} />} />
 
         <Route path='/teacher/landing' element={<PrivateRoute path="/teacher/landing" component={teacherDash} /> } />

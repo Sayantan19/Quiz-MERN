@@ -4,11 +4,13 @@ import { Footer, Header, PaperSettings, Sidebar } from '../../components/index.j
 export default function PaperSettingsPage() {
     return (
         <>
-            <Header name='Your papers' />
-            <Sidebar />
-            <div id="paper-details" style={{marginLeft:'240px', "display": "flex", 'flexDirection': 'row', 'justifyContent': 'center', 'alignItems': 'center' }}>
-                <PaperSettings />
-                <Footer />
+            <div className='d-flex w-100'>
+                <Sidebar />
+                <div id="paper-details" className='w-100'>
+                    <Header name='Your papers' />
+                    <PaperSettings />
+                    <Footer />
+                </div>
             </div>
         </>
     )

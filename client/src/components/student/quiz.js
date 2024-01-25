@@ -1,19 +1,44 @@
 //This is the frontend side of the Quiz console
-import { React, useEffect } from 'react';
+import { React, useEffect, useState } from 'react';
 import './student.css';
 import logic from './quiz/logic.js';
-import { Box, Button, ButtonGroup, Container, Grid } from '@mui/material';
-import { useLocation } from 'react-router-dom';
+import { Box, Button, ButtonGroup, CircularProgress, Container, Grid } from '@mui/material';
+import { useLocation, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Quiz() {
-    const location = useLocation(); // Use the useLocation hook to access location state
-    const questionData = location.state?.questionData; // Get the response data from the location state
-    
+    // const location = useLocation(); // Use the useLocation hook to access location state
+    // const questionData = location.state?.questionData; // Get the response data from the location state
+    const { p_id } = useParams();
+    console.log(p_id)
+    const [questionData, setData] = useState(null);
+    const [paperData, setPaperData] = useState(null);
+
+
     useEffect(() => {
-        return () => {
-            logic(questionData)
+        const fetchData = async () => {
+            try {
+                const paperResponse = await axios.get(`/paper-details/get-paper-details/${ p_id }`)
+                setPaperData(paperResponse.data.response);
+                const questionResponse = await axios.post('/questions/get-question', { p_id });
+                setData(questionResponse.data);
+            } catch (error) {
+                console.log(error);
+                setData(null);
+            }
         };
-    }, []);
+
+        fetchData();
+    }, [p_id])
+    
+    if (questionData === null && paperData === null) {
+        return (
+            <div style={{width: '100%', height: '100%', display:'flex', alignItems:'center', justifyContent: 'center'}}>
+                <CircularProgress color='secondary' />
+            </div>
+        );
+    }
+
     return (
         <>
             <Container sx={{
@@ -83,7 +108,7 @@ export default function Quiz() {
                                 background: 'black'
                             }}>
                             <div id='vidcont'>
-                                <video id='video' width='280' height='210' autoPlay={true} muted style={{borderRadius: '10px'}}/>
+                                <video id='video' width='280' height='210' autoPlay={true} muted style={{ borderRadius: '10px' }} />
                             </div>
                             <Grid id="time">
                                 <Grid item xs={6} id="timer" name="timer">
@@ -95,8 +120,8 @@ export default function Quiz() {
                             </Grid>
                             <div>
                                 <ButtonGroup id="buttons">
-                                    <Button id="next" color='secondary'  outlined='true' className="button">Next</Button>
-                                    <Button id="prev" color='secondary'  outlined='true' className="button">Prev</Button>
+                                    <Button id="next" color='secondary' outlined='true' className="button">Next</Button>
+                                    <Button id="prev" color='secondary' outlined='true' className="button">Prev</Button>
                                     <Button id="reset" color='secondary' outlined='true' className="button">Reset</Button>
                                 </ButtonGroup>
                                 <ButtonGroup id="buttons">
