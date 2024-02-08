@@ -16,15 +16,16 @@ const checkQuestionType = (question) => {
     fillInTheBlanksTemplate = ['question', 'correct'];
     if (JSON.stringify(fields) === JSON.stringify(mcqTemplate))
         return 'mcq'
-    else
+    else if(JSON.stringify(fields) === JSON.stringify(fillInTheBlanksTemplate))
         return 'fitb'
+    else
+        return 'error'
 }
 
 const SetQuestion = async (req, res) => {
     const request = req.body;
     const response = 'Received';
     const client = await pool.connect();
-
     request.code = (removeSpacesFromName(request.code)).toUpperCase();
     try {
         const query = 'SELECT * FROM "paper-details" WHERE code = $1 AND test_no = $2';
@@ -63,6 +64,7 @@ const SetQuestion = async (req, res) => {
         return;
     }
 
+    console.log('Request:',request)
     for (const i of request['questions']) {
         var q_id = '';
         while (true) {
@@ -81,9 +83,14 @@ const SetQuestion = async (req, res) => {
         const { positive_marks, negative_marks } = i
         delete i.positive_marks;
         delete i.negative_marks;
+        const questionType = checkQuestionType(i);
+        if(questionType === 'error'){
+            res.status(500).json({error: 'error'})
+            return;
+        }
         const question = {
             q_id,
-            q_type: checkQuestionType(i),
+            q_type: questionType,
             q_content: i,
             positive_marks,
             negative_marks,

@@ -27,9 +27,11 @@ export default function Quiz() {
                 setData(null);
             }
         };
-
+        
         fetchData();
     }, [p_id])
+    
+    console.log(questionData);
     
     if (questionData === null && paperData === null) {
         return (

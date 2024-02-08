@@ -81,7 +81,7 @@ export default function Questions() {
         const fileData = await file.arrayBuffer();
         console.log(fileData)
         if (fileData) {
-            const workbook = await XLSX.read(fileData, { type: 'buffer' });
+            const workbook = XLSX.read(fileData, { type: 'buffer' });
             const firstSheetName = workbook.SheetNames[0];
             const worksheet = workbook.Sheets[firstSheetName];
             const raw_data = XLSX.utils.sheet_to_json(worksheet);
