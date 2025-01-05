@@ -2,14 +2,18 @@
 import axios from 'axios';
 import exportFromJSON from 'export-from-json';
 import React, { useState, useEffect } from 'react';
-import { Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Button } from '@mui/material';
+import { Container, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography, Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from '@mui/material';
 import './teacher.css'
 import { useParams } from 'react-router-dom';
 
 export default function Scores() {
     const [content, setContent] = useState(null);
-    const {userId, code, testno} = useParams();
-
+    const { userId, code, testno } = useParams();
+    const [showDialog, setShowDialog] = useState(false);
+    const [deleteResultsResponseContents, setdeleteResultsResponseContents] = useState({
+        title: '',
+        body: '',
+    })
     async function getScores() {
         axios.get(`/results/scores/${userId}/${code}/${testno}`)
             .then((res) => {
@@ -32,10 +36,35 @@ export default function Scores() {
     // this function downloads the scores from a database to an excel file
     async function downloadF() {
         const data = content
-        const fileName = 'Results_'+code+'_'+testno;
+        const fileName = 'Results_' + code + '_' + testno;
         const exportType = exportFromJSON.types.xls
         exportFromJSON({ data, fileName, exportType })
     };
+
+    const onDelete = async () => {
+        const data = { teacherUserId: userId, code, testno }
+        await axios.post('/results/delete/deletePaperResults', data)
+            .then((res) => {
+                setShowDialog(true);
+                setdeleteResultsResponseContents({
+                    title: res.response.data.title,
+                    body: res.response.data.body
+                })
+            })
+            .catch(e => {
+                setShowDialog(true);
+                console.log(e)
+                setdeleteResultsResponseContents({
+                    title: e.response.data.title,
+                    body: e.response.data.body
+                })
+            })
+    }
+
+    const handleCloseDialog = () => {
+        setShowDialog(false);
+        window.location.reload();
+    }
 
     return (
         <>
@@ -85,12 +114,42 @@ export default function Scores() {
                         <Button variant="contained" color="secondary" onClick={downloadF}>
                             Save Scores
                         </Button>
-                        <Button variant="text" color="secondary" className="mx-3" onClick={handleOnClick}>
+                        <Button variant="contained" color="secondary" onClick={onDelete} className="mx-3">
+                            Delete Scores
+                        </Button>
+                        <Button variant="text" color="secondary" onClick={handleOnClick}>
                             Back
                         </Button>
                     </Container>
                 </Container>
             </div>
+            {
+                showDialog && (
+                    <Dialog
+                        sx={{
+                            color: 'secondary'
+                        }}
+                        open={showDialog}
+                        onClose={handleCloseDialog}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+                        <DialogTitle id="alert-dialog-title">
+                            {deleteResultsResponseContents.title}
+                        </DialogTitle>
+                        <DialogContent>
+                            <DialogContentText id="alert-dialog-description">
+                                {deleteResultsResponseContents.body}
+                            </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button color="secondary" onClick={handleCloseDialog} autoFocus>
+                                OK
+                            </Button>
+                        </DialogActions>
+                    </Dialog>
+                )
+            }
         </>
     );
 }
