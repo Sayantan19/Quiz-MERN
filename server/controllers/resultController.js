@@ -100,9 +100,9 @@ const Display = (req, res) => {
 
 // Displays results of all students for a particular exam
 const DisplayAll = (req, res) => {
-    const {teacherUserId, code, testno} = req.params;
+    const { teacherUserId, code, testno } = req.params;
     if (req) {
-        Result.find({'papercode': code, testno, teacherUserId})
+        Result.find({ 'papercode': code, testno, teacherUserId })
             .then(result => {
                 const data = JSON.stringify(result);
                 res.status(200).send(data);
@@ -116,4 +116,44 @@ const DisplayAll = (req, res) => {
     }
 }
 
-module.exports = { ResultSend, Display, DisplayAll };
+const DeleteAllResults = async (req, res) => {
+    try {
+        const { teacherUserId, code, testno } = req.body;
+        console.log(req.body);
+        // Validate input
+        if (!teacherUserId || !code || !testno) {
+            return res.status(400).send({ 
+                title: "Bad Request", 
+                body: "Missing required fields: teacherUserId, code, or testno" 
+            });
+        }
+
+        // Attempt to delete records
+        const result = await Result.deleteMany({ 
+            papercode: code, 
+            teacherUserId,
+            testno
+        });
+        console.log(result.deletedCount)
+        if (result.deletedCount > 0) {
+            return res.status(200).send({
+                title: "Operation successful",
+                body: `${result.deletedCount} record(s) successfully deleted.`
+            });
+        }else {
+            return res.status(404).send({
+                title: "No Records Found",
+                body: "No matching records were found to delete."
+            });
+        }
+    } catch (error) {
+        console.error("Error during deletion: ", error);
+        return res.status(500).send({
+            title: "Operation unsuccessful",
+            body: "An unexpected error occurred."
+        });
+    }
+};
+
+
+module.exports = { ResultSend, Display, DisplayAll, DeleteAllResults };

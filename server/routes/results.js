@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {Display, ResultSend, DisplayAll} = require('../controllers/resultController')
+const {Display, ResultSend, DisplayAll, DeleteAllResults } = require('../controllers/resultController')
 
 // @route POST api/results/result
 // @desc posts results of quiz
@@ -13,9 +13,11 @@ router.post("/result", ResultSend);
 // @access Public
 router.post("/display", Display);
 
-// @route POST api/results/scores
-// @desc displays results of quiz
+// @route GET api/results/scores
+// @desc displays results of a particular paper
 // @access Public
 router.get('/scores/:teacherUserId/:code/:testno', DisplayAll);
+
+router.post('/delete/deletePaperResults', DeleteAllResults);
 
 module.exports = router
