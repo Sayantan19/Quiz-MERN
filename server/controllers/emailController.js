@@ -17,7 +17,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const generateOTP = (length) => {
-    const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    const characters = '0123456789';
     let otp = '';
 
     for (let i = 0; i < length; i++) {

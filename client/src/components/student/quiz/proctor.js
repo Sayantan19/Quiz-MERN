@@ -52,7 +52,8 @@ export default async function proctor(questionData, totalMarks) {
                         'totalmarks': totalMarks,
                         'papername': questionData.Question_settings.papername,
                         'papercode': questionData.Question_settings.papercode,
-                        'testno': questionData.Question_settings.testno
+                        'testno': questionData.Question_settings.testno,
+                        'teacherUserId': questionData.Question_settings.userId,
                     }
                     axios.post('/results/result', data)
                         .then(function (response) {

@@ -15,6 +15,7 @@ const ResultSend = (req, res) => {
                     email: email,
                     papername: req.body.papername,
                     papercode: req.body.papercode,
+                    teacherUserId: req.body.teacherUserId,
                     testno: req.body.testno
                 };
 
@@ -37,6 +38,7 @@ const ResultSend = (req, res) => {
                                 totalmarks: req.body.totalmarks,
                                 papername: req.body.papername,
                                 papercode: req.body.papercode,
+                                teacherUserId: req.body.teacherUserId,
                                 testno: req.body.testno
                             });
 
@@ -96,11 +98,11 @@ const Display = (req, res) => {
     }
 }
 
-// Displays results of all students
+// Displays results of all students for a particular exam
 const DisplayAll = (req, res) => {
-    const {code, testno} = req.params;
+    const {teacherUserId, code, testno} = req.params;
     if (req) {
-        Result.find({'papercode': code, testno})
+        Result.find({'papercode': code, testno, teacherUserId})
             .then(result => {
                 const data = JSON.stringify(result);
                 res.status(200).send(data);

@@ -65,7 +65,7 @@ export default function PaperSettings() {
                                 <TableCell><Typography textAlign={'center'} variant="body1">{item.active ? 'Active' : 'Inactive'}</Typography></TableCell>
                                 <TableCell sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
                                     <Button onClick={() => onMod(item.code, item.testno)} variant='contained' color='secondary' sx={{'width': '125px'}}>{item.active ? 'Deactivate' : 'Activate'}</Button>
-                                    <Button href={`/teacher/scores/${item.code}/${item.testno}`} variant='contained' color='secondary' sx={{'width': '125px'}}>View scores</Button>
+                                    <Button href={`/teacher/scores/${userId}/${item.code}/${item.testno}`} variant='contained' color='secondary' sx={{'width': '125px'}}>View scores</Button>
                                 </TableCell>
                             </TableRow>
                         ))

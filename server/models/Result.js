@@ -23,6 +23,10 @@ const ResultSchema = new Schema({
     type: String,
     required: true
   },
+  teacherUserId: {
+    type: String,
+    required: true
+  },
   score: {
     type: Number,
     required: true

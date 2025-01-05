@@ -8,15 +8,15 @@ import { useParams } from 'react-router-dom';
 
 export default function Scores() {
     const [content, setContent] = useState(null);
-    const {code, testno} = useParams();
+    const {userId, code, testno} = useParams();
 
     async function getScores() {
-        axios.get(`/results/scores/${code}/${testno}`)
+        axios.get(`/results/scores/${userId}/${code}/${testno}`)
             .then((res) => {
                 setContent(res.data);
             })
-            .catch(() => {
-                console.log('Error');
+            .catch((error) => {
+                console.log('Error:', error.message);
             })
     }
     useEffect(() => {

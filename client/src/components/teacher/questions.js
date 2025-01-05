@@ -13,7 +13,8 @@ export default function Questions() {
         quizquestions: 0,
         papername: '',
         papercode: '',
-        testno: ''
+        testno: '',
+        teacherUserId: ''
     });
 
     const user = accessCurrentUser().decoded;

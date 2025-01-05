@@ -57,9 +57,10 @@ export default async function logic(questionData) {
         const data1 = {
             'id': token.id,
             'name': token.name,
-            'score': correctscore,
+            'score': correctscore - cheated,
             'time': timetaken,
             'cheated': cheated,
+            'teacherUserId': data.Question_settings.userId,
             'totalmarks': totalMarks,
             'papername': data.Question_settings.papername,
             'papercode': data.Question_settings.papercode,
@@ -211,7 +212,7 @@ export default async function logic(questionData) {
         if (document.hidden) {
           // The user switched to another tab or minimized the browser.
           cheated += 1;
-          alert('Tab changed/minimized. Event has been recorded')
+          alert('Tab changed/minimized. Event has been recorded');
         } else {
           // The user switched back to this tab.
           console.log("User is on this tab.");
