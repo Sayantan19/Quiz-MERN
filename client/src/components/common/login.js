@@ -11,6 +11,7 @@ import axios from 'axios';
 function Login({ loginUser, loginUserWithOTP, auth, errors }) {
     const [passwordMode, setPasswordMode] = useState(false);
     const [otpSent, setOtpSent] = useState(false);
+    const [errorOTPCheck, setOTPErrorCheck] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showDialog, setShowDialog] = useState(false);
     const [resendTimer, setResendTimer] = useState(0);
@@ -57,7 +58,8 @@ function Login({ loginUser, loginUserWithOTP, auth, errors }) {
 
     const handleCloseDialog = () => {
         setShowDialog(false)
-        setOtpSent(true);
+        if(errorOTPCheck === false)
+            setOtpSent(true);
         handleResetTimer();
     }
 
@@ -93,6 +95,7 @@ function Login({ loginUser, loginUserWithOTP, auth, errors }) {
                     title: 'Successfully sent email',
                     body: 'Please check your email for the OTP'
                 })
+                setOTPErrorCheck(false)
             })
             .catch((e) => {
                 console.log(e.response.data.message)
@@ -101,6 +104,7 @@ function Login({ loginUser, loginUserWithOTP, auth, errors }) {
                     body: `${e.response.data.message}`
                 })
                 setOtpSent(false)
+                setOTPErrorCheck(true)
             })
         setLoading(false);
         setShowDialog(true);
